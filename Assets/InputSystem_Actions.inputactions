@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -16,7 +16,7 @@
                 },
                 {
                     "name": "Look",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "6b444451-8a00-4d00-a97e-f47457f736a8",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -212,7 +212,7 @@
                 {
                     "name": "",
                     "id": "8c8e490b-c610-4785-884f-f04217b23ca4",
-                    "path": "<Pointer>/delta",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse;Touch",
