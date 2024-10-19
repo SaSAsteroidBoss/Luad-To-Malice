@@ -1,22 +1,14 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TwinStickControls : MonoBehaviour
 {
-    CharacterController _controller;
+    private CharacterController _controller;
 
-    Vector2 _moveInput;
+    private Vector2 _moveInput;
     
-    Vector2 _lookInput;
-
     public float speed;
-
-   private void Start()
-   {
-       
-   }
-
+    
    private void Awake()
     {
         _controller = GetComponent<CharacterController>();
