@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 
 public class AimController : MonoBehaviour
@@ -18,7 +17,7 @@ public class AimController : MonoBehaviour
 
     private void Update()
     {
-        Profiler.BeginSample("Aim Controller One");
+        
         Vector3 orbitVector = Camera.main.WorldToScreenPoint(orb.position);
         orbitVector = Input.mousePosition - orbitVector;
 
@@ -26,6 +25,6 @@ public class AimController : MonoBehaviour
 
         //pivot.position = orb.position;
         pivot.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        Profiler.EndSample();
+        
     }
 }
