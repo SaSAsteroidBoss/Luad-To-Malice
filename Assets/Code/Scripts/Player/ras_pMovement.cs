@@ -18,8 +18,9 @@ public class ras_pMovement : MonoBehaviour
 
     void OnMove(InputValue Vec)
     {
+        print("On Move");
         Vector2 mov = Vec.Get<Vector2>();
-        inputVec = new Vector3(mov.x, 0, mov.y);
+        inputVec = new Vector3(mov.x, mov.y, 0);
     }
    
     private void transformMovement()
