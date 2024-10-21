@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 
 public class AimController : MonoBehaviour
 {
     public float raduis = 0.1f;
-    public Transform orb; 
+    public Transform orb;
     public Transform pivot;
 
     private void Start()
@@ -17,7 +16,7 @@ public class AimController : MonoBehaviour
 
     private void Update()
     {
-        
+
         Vector3 orbitVector = Camera.main.WorldToScreenPoint(orb.position);
         orbitVector = Input.mousePosition - orbitVector;
 
@@ -25,6 +24,6 @@ public class AimController : MonoBehaviour
 
         //pivot.position = orb.position;
         pivot.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-        
+
     }
 }

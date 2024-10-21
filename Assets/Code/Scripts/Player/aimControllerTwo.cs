@@ -14,7 +14,7 @@ public class aimControllerTwo : MonoBehaviour
 {
     private AimData AimData;
     private bool canRun = false;
- 
+
     private void Start()
     {
         AimData.radius = 0.5f;
@@ -29,9 +29,9 @@ public class aimControllerTwo : MonoBehaviour
                 canRun = true;
             }
         }
-        if(canRun == false)
+        if (canRun == false)
         {
-                Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
+            Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
         }
     }
     private void Update()
@@ -39,13 +39,13 @@ public class aimControllerTwo : MonoBehaviour
         if (canRun)
         {
             Vector3 orbitVector = Camera.main.WorldToScreenPoint(AimData.pivot.position);
-       
+
             orbitVector = Input.mousePosition - orbitVector;
 
             float angle = Mathf.Atan2(-orbitVector.y, -orbitVector.x) * Mathf.Rad2Deg;
             playerClass.gunAngle = angle;
             AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-            
+
         }
     }
 

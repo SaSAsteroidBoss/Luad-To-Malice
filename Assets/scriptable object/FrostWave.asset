@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: FrostWave
   m_EditorClassIdentifier: 
   abilityType: 0
-  abilityElement: 0
+  abilityElement: 1
   damage: 10
   castDelay: 1
-  attackWidth: 30
-  attackCount: 10
+  waveAttackWidth: 53
+  waveAttackCount: 7
+  waveRadius: 6.28
+  waveDuration: 0.38
+  waveCoolDown: 1.11
+  wavePrefabSize: 0.251
+  waveMinGap: 0.161
+  wavePrefab: {fileID: 7517826317914055856, guid: 9870abdf44b484340b8acebb7cf60c38, type: 3}

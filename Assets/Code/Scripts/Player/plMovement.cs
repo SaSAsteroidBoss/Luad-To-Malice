@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,14 +6,14 @@ public class plMovement : MonoBehaviour
 {
     private Vector2 movVec;
 
-    
+
     [SerializeField]
     private float speed;
 
     [Range(0, 1)]
     [SerializeField]
     private float inertia = 0.1f;
-    private Vector2 vec =Vector2.zero;
+    private Vector2 vec = Vector2.zero;
 
 
     //private Rigidbody2D rb;
@@ -22,7 +21,7 @@ public class plMovement : MonoBehaviour
     {
         //rb = GetComponent<Rigidbody2D>();
         QualitySettings.vSyncCount = 1;
-       
+
     }
     void OnMove(InputValue input)
     {

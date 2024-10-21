@@ -21,10 +21,10 @@ public class ras_pMovement : MonoBehaviour
         Vector2 mov = Vec.Get<Vector2>();
         inputVec = new Vector3(mov.x, mov.y, 0);
     }
-   
+
     private void transformMovement()
     {
-        if(inputVec.magnitude > 0)
+        if (inputVec.magnitude > 0)
         {
             var transVec = transform.rotation * (inputVec * speed * Time.deltaTime);
             playerPos += transVec;
