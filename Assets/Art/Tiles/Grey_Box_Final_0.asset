@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Laud_Black_Sprite_0
+  m_Name: Grey_Box_Final_0
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 3326307209286692721, guid: 74ed5f8f0e6e53d49a36694ef395494b, type: 3}
+  m_Sprite: {fileID: -7865007150570860527, guid: ecafc2fdddc5499439f049d0001da1a6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
