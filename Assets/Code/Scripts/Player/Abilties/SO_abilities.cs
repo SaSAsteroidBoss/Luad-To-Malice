@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public enum abilityType { Wave, SingeShot, AoeSplash }
 public enum abilityElement { Fire, Frost }
@@ -39,5 +40,12 @@ public class SO_abilities : ScriptableObject
     [Range(0, 1)]
     public float waveMinGap = 0;
     public GameObject wavePrefab;
+
+    [Header("Single Shot Type weapon Parameters Only")]
+    public GameObject singleShotPrefab;
+
+    public float singleShotSpeed = 0;
+
+    public float singleShotCoolDown = 0;
 }
 

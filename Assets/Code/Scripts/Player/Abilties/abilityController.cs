@@ -20,6 +20,7 @@ public class abilityController : MonoBehaviour
 
 
     private bool abilityOneCanRun = true;
+    private bool abilityTwoCanRun = true;
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
@@ -46,10 +47,12 @@ public class abilityController : MonoBehaviour
             {
                 case abilityType.Wave:
                     //waveType(abilityDataOne.abilityElement, abilityDataOne.waveAttackWidth, abilityDataOne.waveAttackCount, abilityDataOne.waveRadius);
+
                     StartCoroutine(waveCorutine(abilityDataOne.abilityElement, abilityDataOne.waveAttackWidth, abilityDataOne.waveAttackCount, abilityDataOne.waveRadius, abilityDataOne.wavePrefab, abilityDataOne.waveDuration, abilityDataOne.waveCoolDown, abilityDataOne.wavePrefabSize, abilityDataOne.waveMinGap));
                     break;
 
                 case abilityType.SingeShot:
+                    StartCoroutine(singleShotCorutine(abilityDataOne.singleShotPrefab, abilityDataOne.singleShotSpeed, abilityDataOne.singleShotCoolDown));
                     break;
 
                 case abilityType.AoeSplash:
@@ -176,10 +179,16 @@ public class abilityController : MonoBehaviour
     }
 
 
-
-    private void singleShotType(abilityElement element)
+    
+    IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay)
     {
+        abilityOneCanRun = false;
+         var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
 
+        Vector3 gunPos =  transform.position + Vector3.forward * playerClass.gunOffSet;
+        GameObject obj = Instantiate(prefab, gunPos, rot);
+        yield return new WaitForSeconds(delay);
+        abilityOneCanRun = true;
     }
 
     private void AoeSplashType(abilityElement element)
@@ -191,7 +200,6 @@ public class abilityController : MonoBehaviour
     {
         if (ViewAbilityOne)
         {
-
 
             switch (abilityDataOne.abilityType)
             {

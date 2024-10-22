@@ -16,11 +16,14 @@ MonoBehaviour:
   abilityElement: 1
   damage: 10
   castDelay: 1
-  waveAttackWidth: 53
-  waveAttackCount: 7
-  waveRadius: 6.28
+  waveAttackWidth: 31
+  waveAttackCount: 14
+  waveRadius: 6.07
   waveDuration: 0.38
   waveCoolDown: 1.11
   wavePrefabSize: 0.251
   waveMinGap: 0.161
   wavePrefab: {fileID: 7517826317914055856, guid: 9870abdf44b484340b8acebb7cf60c38, type: 3}
+  singleShotPrefab: {fileID: 0}
+  singleShotSpeed: 0
+  singleShotCoolDown: 0

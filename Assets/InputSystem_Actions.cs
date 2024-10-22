@@ -117,6 +117,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CastTwo"",
+                    ""type"": ""Button"",
+                    ""id"": ""6f0f4819-7baf-4b92-ad85-53a2ebb87233"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -491,6 +500,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""CastOne"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38f5eb09-44db-41bf-a971-e1a4df542ab7"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CastTwo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1088,6 +1108,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_CastOne = m_Player.FindAction("CastOne", throwIfNotFound: true);
+        m_Player_CastTwo = m_Player.FindAction("CastTwo", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1177,6 +1198,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_CastOne;
+    private readonly InputAction m_Player_CastTwo;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1191,6 +1213,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @CastOne => m_Wrapper.m_Player_CastOne;
+        public InputAction @CastTwo => m_Wrapper.m_Player_CastTwo;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1230,6 +1253,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @CastOne.started += instance.OnCastOne;
             @CastOne.performed += instance.OnCastOne;
             @CastOne.canceled += instance.OnCastOne;
+            @CastTwo.started += instance.OnCastTwo;
+            @CastTwo.performed += instance.OnCastTwo;
+            @CastTwo.canceled += instance.OnCastTwo;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1264,6 +1290,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @CastOne.started -= instance.OnCastOne;
             @CastOne.performed -= instance.OnCastOne;
             @CastOne.canceled -= instance.OnCastOne;
+            @CastTwo.started -= instance.OnCastTwo;
+            @CastTwo.performed -= instance.OnCastTwo;
+            @CastTwo.canceled -= instance.OnCastTwo;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1456,6 +1485,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnNext(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnCastOne(InputAction.CallbackContext context);
+        void OnCastTwo(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

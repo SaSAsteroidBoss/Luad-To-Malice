@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CastTwo",
+                    "type": "Button",
+                    "id": "6f0f4819-7baf-4b92-ad85-53a2ebb87233",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -468,6 +477,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "CastOne",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38f5eb09-44db-41bf-a971-e1a4df542ab7",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "CastTwo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

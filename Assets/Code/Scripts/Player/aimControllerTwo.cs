@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// script should be attatched to the player Object.
@@ -27,6 +28,7 @@ public class aimControllerTwo : MonoBehaviour
                 AimData.pivot = child.parent;
                 AimData.orb.position += Vector3.up * AimData.radius;
                 canRun = true;
+                playerClass.gunOffSet = AimData.radius;
             }
         }
         if (canRun == false)
@@ -43,8 +45,11 @@ public class aimControllerTwo : MonoBehaviour
             orbitVector = Input.mousePosition - orbitVector;
 
             float angle = Mathf.Atan2(-orbitVector.y, -orbitVector.x) * Mathf.Rad2Deg;
-            playerClass.gunAngle = angle;
+            
             AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            playerClass.gunAngle = angle;
+            Vector3 pos = AimData.pivot.position;
+            
 
         }
     }
