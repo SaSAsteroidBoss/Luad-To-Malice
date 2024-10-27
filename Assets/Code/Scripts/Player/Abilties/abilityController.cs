@@ -51,15 +51,15 @@ public class abilityController : MonoBehaviour
                 case abilityType.Wave:
                     
 
-                    StartCoroutine(waveCorutine(dataOne.abilityElement, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, dataOne.wavePrefab, dataOne.waveDuration, dataOne.waveCoolDown, dataOne.wavePrefabSize, dataOne.waveMinGap, abilityOneCanRun));
+                    StartCoroutine(waveCorutine(dataOne.abilityElement, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, dataOne.wavePrefab, dataOne.waveDuration, dataOne.waveCoolDown, dataOne.wavePrefabSize, dataOne.waveMinGap,dataOne.waveParticleEffect, 1));
                     break;
 
                 case abilityType.SingeShot:
-                    StartCoroutine(singleShotCorutine(dataOne.singleShotPrefab, dataOne.singleShotSpeed, dataOne.singleShotCoolDown, abilityOneCanRun));
+                    StartCoroutine(singleShotCorutine(dataOne.singleShotPrefab, dataOne.singleShotSpeed, dataOne.singleShotCoolDown, dataOne.singleShotParticalEffect, 1));
                     break;
 
                 case abilityType.AoeSplash:
-                    StartCoroutine(splashCoroutine(dataOne.splashPrefab, dataOne.splashSpeed, dataOne.splashCoolDown, dataOne.splashCurve, abilityOneCanRun));
+                    StartCoroutine(splashCoroutine(dataOne.splashPrefab, dataOne.splashSpeed, dataOne.splashCoolDown, dataOne.splashCurve,dataOne.splashParticalEffect, 1));
                     break;
 
             }
@@ -68,19 +68,22 @@ public class abilityController : MonoBehaviour
 
     void OnCastTwo()
     {
-        switch (dataTwo.abilityType)
+        if (abilityTwoCanRun)
         {
-            case abilityType.Wave:
-                StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveMinGap, abilityTwoCanRun));
-                break;
+            switch (dataTwo.abilityType)
+            {
+                case abilityType.Wave:
+                    StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveMinGap, dataTwo.waveParticleEffect, 0));
+                    break;
 
-            case abilityType.SingeShot:
-                StartCoroutine(singleShotCorutine(dataTwo.singleShotPrefab, dataTwo.singleShotSpeed, dataTwo.singleShotCoolDown, abilityTwoCanRun));
-                break;
+                case abilityType.SingeShot:
+                    StartCoroutine(singleShotCorutine(dataTwo.singleShotPrefab, dataTwo.singleShotSpeed, dataTwo.singleShotCoolDown, dataTwo.singleShotParticalEffect, 0));
+                    break;
 
-            case abilityType.AoeSplash:
-                StartCoroutine(splashCoroutine(dataTwo.splashPrefab, dataTwo.splashSpeed, dataTwo.splashCoolDown, dataTwo.splashCurve, abilityTwoCanRun));
-                break;
+                case abilityType.AoeSplash:
+                    StartCoroutine(splashCoroutine(dataTwo.splashPrefab, dataTwo.splashSpeed, dataTwo.splashCoolDown, dataTwo.splashCurve, dataTwo.splashParticalEffect, 0));
+                    break;
+            }
         }
     }
 
@@ -89,9 +92,17 @@ public class abilityController : MonoBehaviour
  
     //Using the unit circle I calculate the min and max for a section of the circle in the direction of the gun.
     //I use the change in the radius to instance the objects out like a wave. 
-    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float minGap, bool canRun)
+    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float minGap, GameObject ps,int oneOrTwo)
     {
-        canRun = false;
+        if(oneOrTwo == 1) 
+        {
+            abilityOneCanRun = false;
+        }
+        else
+        {
+            abilityTwoCanRun = false;
+        }
+
         List<GameObject> prefabList = new List<GameObject>();
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
@@ -100,6 +111,7 @@ public class abilityController : MonoBehaviour
         float maxRadius = radius;
         minGap /= 5;
         float lastGap = 0f;
+        float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
@@ -114,12 +126,11 @@ public class abilityController : MonoBehaviour
                 // different affect
                 //StartCoroutine(destroyWave(prefabList));
 
-
                 for (int i = 0; i < count; i++)
                 {
                     Vector3 pos = calPos(i, width, count, radius, playerPos, tempGunAngle);
                     float angle = Mathf.DeltaAngle(i + calAngle(i, width, count, tempGunAngle), angleY);
-                    Quaternion direction = Quaternion.Euler(0f, 0f, angle);
+                    Quaternion direction = Quaternion.Euler(0f, 0f, -angle);
                     GameObject iceBlock = Instantiate(prefrab, pos, direction);
                     iceBlock.transform.localScale = Vector3.one * radius * (-scale / 2);
                     prefabList.Add(iceBlock);
@@ -131,14 +142,38 @@ public class abilityController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(cooldown);
+        yield return new WaitForSeconds(1);
 
         foreach (GameObject iceBlock in prefabList)
         {
+            GameObject PS = Instantiate(ps, iceBlock.transform.position, iceBlock.transform.rotation);
+            StartCoroutine(destroyPS(PS, psDuration));
+
+        }
+            yield return new WaitForSeconds(0.1f);
+
+        foreach (GameObject iceBlock in prefabList)
+        {
+
             Destroy(iceBlock);
         }
+        yield return new WaitForSeconds(duration);
         radius = maxRadius;
-        canRun = true;
+
+        if (oneOrTwo == 1)
+        {
+            abilityOneCanRun = true;
+        }
+        else
+        {
+            abilityTwoCanRun = true;
+        }
+    }
+    IEnumerator destroyPS(GameObject ps, float duration)
+    {
+
+        yield return new WaitForSeconds(duration + 1f);
+        Destroy(ps);
     }
     IEnumerator destroyWave(List<GameObject> prefabList)
     {
@@ -177,9 +212,16 @@ public class abilityController : MonoBehaviour
 
     //____Single
     #region
-    IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay, bool canRun)
+    IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay, GameObject ps,int oneOrTwo)
     {
-        canRun = false;
+        if (oneOrTwo == 1)
+        {
+            abilityOneCanRun = false;
+        }
+        else
+        {
+            abilityTwoCanRun = false;
+        }
         var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
 
         Vector3 gunPos =  transform.position + Vector3.forward * playerClass.gunOffSet;
@@ -188,7 +230,15 @@ public class abilityController : MonoBehaviour
         
         StartCoroutine(singleShotMovement(obj, speed));
         yield return new WaitForSeconds(delay);
-        canRun = true;
+
+        if (oneOrTwo == 1)
+        {
+            abilityOneCanRun = true;
+        }
+        else
+        {
+            abilityTwoCanRun = true;
+        }
     }
 
     IEnumerator singleShotMovement(GameObject prefab, float speed)
@@ -209,9 +259,16 @@ public class abilityController : MonoBehaviour
     #endregion
 
     #region
-    IEnumerator splashCoroutine(GameObject prefab, float speed, float duration, float curve, bool canRun)
+    IEnumerator splashCoroutine(GameObject prefab, float speed, float duration, float curve, GameObject ps, int oneOrTwo)
     {
-        canRun = false;
+        if (oneOrTwo == 1)
+        {
+            abilityOneCanRun = false;
+        }
+        else
+        {
+            abilityTwoCanRun = false;
+        }
         (var p0, var p1, var p2, var p3) = calPointPos(curve);
 
         float timeElapsed = 0;
@@ -232,7 +289,15 @@ public class abilityController : MonoBehaviour
         }
         Destroy(obj);
         yield return new WaitForSeconds(duration);
-        canRun = true;
+
+        if (oneOrTwo == 1)
+        {
+            abilityOneCanRun = true;
+        }
+        else
+        {
+            abilityTwoCanRun = true;
+        }
     }
     (Vector3 p0, Vector3 p1,Vector3 p2, Vector3 p3) calPointPos(float curve)
     {

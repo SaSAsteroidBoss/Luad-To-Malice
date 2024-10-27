@@ -40,9 +40,11 @@ public class SO_abilities : ScriptableObject
     [Range(0, 1)]
     public float waveMinGap = 0;
     public GameObject wavePrefab;
+    public GameObject waveParticleEffect;
 
     [Header("Single Shot Type weapon Parameters Only")]
     public GameObject singleShotPrefab;
+    public GameObject singleShotParticalEffect;
 
     public float singleShotSpeed = 0;
 
@@ -50,6 +52,7 @@ public class SO_abilities : ScriptableObject
 
     [Header("AOE splash Type Weapon Paremters Only")]
     public GameObject splashPrefab;
+    public GameObject splashParticalEffect;
 
     public float splashSpeed = 0;
 

@@ -17,13 +17,20 @@ MonoBehaviour:
   damage: 10
   castDelay: 1
   waveAttackWidth: 31
-  waveAttackCount: 14
-  waveRadius: 6.07
+  waveAttackCount: 4
+  waveRadius: 6.09
   waveDuration: 0.38
   waveCoolDown: 1.11
   wavePrefabSize: 0.251
   waveMinGap: 0.161
   wavePrefab: {fileID: 7517826317914055856, guid: 9870abdf44b484340b8acebb7cf60c38, type: 3}
+  waveParticleEffect: {fileID: 8960553069000082855, guid: db321da32b34e664ca9ab8d59a727312, type: 3}
   singleShotPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
+  singleShotParticalEffect: {fileID: 0}
   singleShotSpeed: 0
   singleShotCoolDown: 0
+  splashPrefab: {fileID: 0}
+  splashParticalEffect: {fileID: 0}
+  splashSpeed: 0
+  splashCoolDown: 0
+  splashCurve: 0
