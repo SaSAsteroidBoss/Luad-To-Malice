@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(TwinStickControls))]
+[CustomEditor(typeof(Health))]
 public class PlayerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        TwinStickControls myScript = (TwinStickControls)target;
-        if(GUILayout.Button("AddItemToInventory"))
+        Health myScript = (Health)target;
+        if(GUILayout.Button("TakeDamage"))
         {
-            myScript.AddItemToInventory();
+            myScript.TakeDamage(25);
         }
     }
 }

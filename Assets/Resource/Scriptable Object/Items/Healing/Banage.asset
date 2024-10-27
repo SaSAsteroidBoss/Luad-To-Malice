@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   procItemType: 0
+  itemEffectAmount: 2.5
