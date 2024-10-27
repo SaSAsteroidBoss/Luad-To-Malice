@@ -25,5 +25,5 @@ MonoBehaviour:
   waveMinGap: 0
   wavePrefab: {fileID: 0}
   singleShotPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
-  singleShotSpeed: 4
+  singleShotSpeed: 13.62
   singleShotCoolDown: 1

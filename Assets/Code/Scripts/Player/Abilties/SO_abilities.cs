@@ -47,5 +47,14 @@ public class SO_abilities : ScriptableObject
     public float singleShotSpeed = 0;
 
     public float singleShotCoolDown = 0;
+
+    [Header("AOE splash Type Weapon Paremters Only")]
+    public GameObject splashPrefab;
+
+    public float splashSpeed = 0;
+
+    public float splashCoolDown = 0;
+
+    public float splashCurve = 0;
 }
 

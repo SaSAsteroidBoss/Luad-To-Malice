@@ -10,20 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4971cf1c47e4984448b86a82eacddad2, type: 3}
-  m_Name: FrostWave
+  m_Name: FrostBlast
   m_EditorClassIdentifier: 
-  abilityType: 0
+  abilityType: 2
   abilityElement: 1
-  damage: 10
+  damage: 1
   castDelay: 1
-  waveAttackWidth: 31
-  waveAttackCount: 14
-  waveRadius: 6.07
-  waveDuration: 0.38
-  waveCoolDown: 1.11
-  wavePrefabSize: 0.251
-  waveMinGap: 0.161
-  wavePrefab: {fileID: 7517826317914055856, guid: 9870abdf44b484340b8acebb7cf60c38, type: 3}
-  singleShotPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
+  waveAttackWidth: 0
+  waveAttackCount: 0
+  waveRadius: 0
+  waveDuration: 0
+  waveCoolDown: 0
+  wavePrefabSize: 0
+  waveMinGap: 0
+  wavePrefab: {fileID: 0}
+  singleShotPrefab: {fileID: 0}
   singleShotSpeed: 0
   singleShotCoolDown: 0
+  splashPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
+  splashSpeed: 18.14
+  splashCoolDown: 2
+  splashCurve: 3

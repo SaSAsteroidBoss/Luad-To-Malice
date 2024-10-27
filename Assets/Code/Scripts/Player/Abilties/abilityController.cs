@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
+using UnityEditor.Timeline;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class abilityController : MonoBehaviour
@@ -8,15 +11,15 @@ public class abilityController : MonoBehaviour
 
     [Header("Ability One")]
     [Tooltip("Asign a scriptable Object")]
-    [SerializeField] private SO_abilities abilityDataOne;
+    [SerializeField] private SO_abilities dataOne;
 
     [Header("Ability Two")]
     [Tooltip("Asign a scriptable Object")]
-    [SerializeField] private SO_abilities abilityDataTwo;
+    [SerializeField] private SO_abilities dataTwo;
 
 
     private float offsetY;
-    private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
+    //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
 
 
     private bool abilityOneCanRun = true;
@@ -27,13 +30,13 @@ public class abilityController : MonoBehaviour
 
     private void Start()
     {
-        if (abilityDataOne == null)
+        if (dataOne == null)
         {
             Debug.LogError("AbilityDataOne is Null. View abilityController.cs on player to Debug");
             GetComponent<abilityController>().enabled = false;
         }
 
-        if (abilityDataTwo == null)
+        if (dataTwo == null)
         {
             Debug.LogError("AbilityDataTwo is Null. View abilityController.cs on player to Debug");
             //GetComponent<abilityController>().enabled = false;
@@ -43,19 +46,20 @@ public class abilityController : MonoBehaviour
     {
         if (abilityOneCanRun)
         {
-            switch (abilityDataOne.abilityType)
+            switch (dataOne.abilityType)
             {
                 case abilityType.Wave:
-                    //waveType(abilityDataOne.abilityElement, abilityDataOne.waveAttackWidth, abilityDataOne.waveAttackCount, abilityDataOne.waveRadius);
+                    
 
-                    StartCoroutine(waveCorutine(abilityDataOne.abilityElement, abilityDataOne.waveAttackWidth, abilityDataOne.waveAttackCount, abilityDataOne.waveRadius, abilityDataOne.wavePrefab, abilityDataOne.waveDuration, abilityDataOne.waveCoolDown, abilityDataOne.wavePrefabSize, abilityDataOne.waveMinGap));
+                    StartCoroutine(waveCorutine(dataOne.abilityElement, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, dataOne.wavePrefab, dataOne.waveDuration, dataOne.waveCoolDown, dataOne.wavePrefabSize, dataOne.waveMinGap, abilityOneCanRun));
                     break;
 
                 case abilityType.SingeShot:
-                    StartCoroutine(singleShotCorutine(abilityDataOne.singleShotPrefab, abilityDataOne.singleShotSpeed, abilityDataOne.singleShotCoolDown));
+                    StartCoroutine(singleShotCorutine(dataOne.singleShotPrefab, dataOne.singleShotSpeed, dataOne.singleShotCoolDown, abilityOneCanRun));
                     break;
 
                 case abilityType.AoeSplash:
+                    StartCoroutine(splashCoroutine(dataOne.splashPrefab, dataOne.splashSpeed, dataOne.splashCoolDown, dataOne.splashCurve, abilityOneCanRun));
                     break;
 
             }
@@ -64,39 +68,31 @@ public class abilityController : MonoBehaviour
 
     void OnCastTwo()
     {
-        switch (abilityDataTwo.abilityType)
+        switch (dataTwo.abilityType)
         {
             case abilityType.Wave:
+                StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveMinGap, abilityTwoCanRun));
                 break;
 
             case abilityType.SingeShot:
+                StartCoroutine(singleShotCorutine(dataTwo.singleShotPrefab, dataTwo.singleShotSpeed, dataTwo.singleShotCoolDown, abilityTwoCanRun));
                 break;
 
             case abilityType.AoeSplash:
+                StartCoroutine(splashCoroutine(dataTwo.splashPrefab, dataTwo.splashSpeed, dataTwo.splashCoolDown, dataTwo.splashCurve, abilityTwoCanRun));
                 break;
         }
     }
 
-    /* private void waveType(abilityElement element, int width, int count, float radius)
-     {
-         Transform playerPos = transform;
-         Debug.Log("waveType Playing");
-
-         for (int i = 0; i < count; i++)
-         {
-             Vector3 pos = calPos(i, width, count, radius, playerPos.position);
-             float angle = Mathf.DeltaAngle(i + calAngle(i, width, count), transform.eulerAngles.y);
-             Quaternion direction = Quaternion.Euler(0f, 0f, -angle);
-
-             //Debug.DrawLine(pos, transform.forward* 10, Color.yellow);
-         }
-
-
-     }*/
-    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float minGap)
+    //____Wave Type
+    #region 
+ 
+    //Using the unit circle I calculate the min and max for a section of the circle in the direction of the gun.
+    //I use the change in the radius to instance the objects out like a wave. 
+    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float minGap, bool canRun)
     {
+        canRun = false;
         List<GameObject> prefabList = new List<GameObject>();
-        abilityOneCanRun = false;
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
         float tempGunAngle = playerClass.gunAngle;
@@ -108,29 +104,26 @@ public class abilityController : MonoBehaviour
         {
             float t = elapsedTime / duration;
             radius = Mathf.Lerp(1, maxRadius, t);
-
+            // This is for scaling of the prefabs with the radius 
             float tempScale = Vector3.one.magnitude / scale * radius;
             float gap = tempScale * minGap;
 
+            // this is used to created the gap offset of the instances
             if (radius - lastGap >= gap)
             {
-                // different affect 
+                // different affect
                 //StartCoroutine(destroyWave(prefabList));
-                
+
 
                 for (int i = 0; i < count; i++)
                 {
-
                     Vector3 pos = calPos(i, width, count, radius, playerPos, tempGunAngle);
                     float angle = Mathf.DeltaAngle(i + calAngle(i, width, count, tempGunAngle), angleY);
-                    Quaternion direction = Quaternion.Euler(0f, 0f, -angle);
+                    Quaternion direction = Quaternion.Euler(0f, 0f, angle);
                     GameObject iceBlock = Instantiate(prefrab, pos, direction);
                     iceBlock.transform.localScale = Vector3.one * radius * (-scale / 2);
                     prefabList.Add(iceBlock);
-
                 }
-
-                
                 lastGap = radius;
             }
            
@@ -145,7 +138,7 @@ public class abilityController : MonoBehaviour
             Destroy(iceBlock);
         }
         radius = maxRadius;
-        abilityOneCanRun = true;
+        canRun = true;
     }
     IEnumerator destroyWave(List<GameObject> prefabList)
     {
@@ -157,6 +150,7 @@ public class abilityController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
+    // this is where the calculation is made from the unit circle
     Vector3 calPos(int index, int width, int count, float radius, Vector3 playerPos, float gunAngle)
     {
 
@@ -169,6 +163,7 @@ public class abilityController : MonoBehaviour
         return playerPos + new Vector3(x, y + offsetY, 0);
     }
 
+    // This is where the min and max angle is calculated
     float calAngle(int index, int width, int count, float gunAngle)
     {
         float direction = gunAngle - 180;
@@ -178,35 +173,141 @@ public class abilityController : MonoBehaviour
         return angle1 - (index * calAng);
     }
 
+    #endregion
 
-    
-    IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay)
+    //____Single
+    #region
+    IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay, bool canRun)
     {
-        abilityOneCanRun = false;
-         var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
+        canRun = false;
+        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
 
         Vector3 gunPos =  transform.position + Vector3.forward * playerClass.gunOffSet;
         GameObject obj = Instantiate(prefab, gunPos, rot);
+
+        
+        StartCoroutine(singleShotMovement(obj, speed));
         yield return new WaitForSeconds(delay);
-        abilityOneCanRun = true;
+        canRun = true;
     }
 
-    private void AoeSplashType(abilityElement element)
+    IEnumerator singleShotMovement(GameObject prefab, float speed)
     {
 
+        float elapsedTime = 0;
+        GameObject obj = prefab;
+        while(elapsedTime < 10)
+        {
+            // local space baby 
+            obj.transform.position += obj.transform.up * speed * Time.deltaTime;
+
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
+    }
+    #endregion
+
+    #region
+    IEnumerator splashCoroutine(GameObject prefab, float speed, float duration, float curve, bool canRun)
+    {
+        canRun = false;
+        (var p0, var p1, var p2, var p3) = calPointPos(curve);
+
+        float timeElapsed = 0;
+        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
+        Vector3 gunPos = transform.position + Vector3.forward * playerClass.gunOffSet;
+        GameObject obj = Instantiate(prefab, gunPos, rot);
+        float distTime = calCurveLength(p0, p1, p2, p3) / speed;
+        //print(distTime);
+        
+        while (timeElapsed < distTime)
+        {
+            float t = timeElapsed / distTime;
+
+            float lerp = Mathf.Lerp(0, 1, t);
+            obj.transform.position = calBezPoint(lerp, p0, p1, p2, p3);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        Destroy(obj);
+        yield return new WaitForSeconds(duration);
+        canRun = true;
+    }
+    (Vector3 p0, Vector3 p1,Vector3 p2, Vector3 p3) calPointPos(float curve)
+    {
+        Vector3 p0, p1, p2, p3;
+        float offSet;
+ 
+        p0 = transform.position; 
+        p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+
+        p1 = p0 + (p3 - p0) / 4; // higher devision = close to start point 
+        p2 = p0 + (p3 - p0) / 1.5f; // 2 is midpoint so 1.5 is half way between 1-2
+
+        offSet = p0.y + (p3.y - p0.y) / curve; // sweet spot for the arc| defualt = 3
+
+        p2.y = offSet;
+        p1.y = transform.position.y;
+
+        p0.z = 0;
+        p1.z = 0;
+        p2.z = 0;
+        p3.z = 0;
+
+        return (p0, p1, p2, p3);
+    }
+   
+    Vector3 calBezPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float u = 1 - t;
+        float tt = t * t;
+        float uu = u * u;
+        float uuu = uu * u;
+        float ttt = tt * t;
+
+        Vector3 p = uuu * p0;
+        p += 3 * uu * t * p1;
+        p += 3 * u * tt * p2;
+        p += ttt * p3;
+
+        return p;
     }
 
+    float calCurveLength(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float sampleRes = 20;
+        Vector3 lastPoint = Vector3.zero;
+        float dist = 0;
+        for(int i = 0; i < sampleRes; i++)
+        {
+            float t = i / (sampleRes - 1);
+            Vector3 point = calBezPoint(t, p0, p1, p2, p3);
+            dist += (point - lastPoint).magnitude;
+            lastPoint = point;  
+        }
+        return dist;
+    }
+
+    float distFromMouseToPlayer()
+    {
+        Vector3 locPlayer = transform.position;
+        Vector3 locMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        return (locPlayer - locMouse).magnitude;
+    }
+    #endregion
     private void OnDrawGizmos()
     {
+        
         if (ViewAbilityOne)
         {
-
-            switch (abilityDataOne.abilityType)
+            switch (dataOne.abilityType)
             {
                 case abilityType.Wave:
-                    for (int i = 0; i < abilityDataOne.waveAttackCount; i++)
+                    for (int i = 0; i < dataOne.waveAttackCount; i++)
                     {
-                        Vector3 pos = calPos(i, abilityDataOne.waveAttackWidth, abilityDataOne.waveAttackCount, abilityDataOne.waveRadius, transform.position, playerClass.gunAngle);
+                        Vector3 pos = calPos(i, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, transform.position, playerClass.gunAngle);
 
                         Gizmos.color = Color.black;
                         Gizmos.DrawLine(gameObject.transform.position, pos);
@@ -214,38 +315,119 @@ public class abilityController : MonoBehaviour
                         Matrix4x4 prevMatrix = Gizmos.matrix;
                         Gizmos.matrix = Matrix4x4.TRS(pos, Quaternion.Euler(0, 0, i), Vector3.one);
                         //Gizmos.DrawWireCube(Vector3.zero, new Vector3(35, 3, 0));
-                        Gizmos.DrawSphere(Vector3.zero, 0.05f * abilityDataOne.waveRadius);
+                        Gizmos.DrawSphere(Vector3.zero, 0.05f * dataOne.waveRadius);
                         Gizmos.matrix = prevMatrix;
 
                     }
 
                     break;
-
                 case abilityType.SingeShot:
+
                     break;
 
                 case abilityType.AoeSplash:
+
+                    Vector3[] v = new Vector3[4];
+                    (v[0], v[1], v[2], v[3]) = calPointPos(dataOne.splashCurve);
+
+
+                    for (int i = 0; i < v.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0: Gizmos.color = Color.yellow; break;
+                            case 1: Gizmos.color = Color.green; break;
+                            case 2: Gizmos.color = Color.red; break;
+                            case 3: Gizmos.color = Color.cyan; break;
+                        }
+
+                        Matrix4x4 mat = Gizmos.matrix;
+                        Gizmos.matrix = Matrix4x4.TRS(v[i], Quaternion.identity, Vector3.one);
+                        Gizmos.DrawSphere(Vector3.zero, 0.2f);
+                        Gizmos.matrix = mat;
+                    }
+                    Gizmos.color = Color.white;
+                    
+                    float curveRes = distFromMouseToPlayer() * 2;
+
+                    for ( int i = 0; i < curveRes; i++)
+                    {
+                        Vector3 pos;
+                        float t = i / (curveRes - 1);
+                        pos = calBezPoint(t,v[0], v[1], v[2], v[3]);
+
+                        Matrix4x4 mat = Gizmos.matrix;
+                        Gizmos.matrix = Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one);
+                        Gizmos.DrawSphere(Vector3.zero, 0.1f);
+                        Gizmos.matrix = mat;
+                    }
                     break;
             }
         }
 
         if (ViewAbilityTwo)
         {
-            switch (abilityDataOne.abilityType)
+            switch (dataTwo.abilityType)
             {
                 case abilityType.Wave:
+                    for (int i = 0; i < dataTwo.waveAttackCount; i++)
+                    {
+                        Vector3 pos = calPos(i, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, transform.position, playerClass.gunAngle);
 
+                        Gizmos.color = Color.black;
+                        Gizmos.DrawLine(gameObject.transform.position, pos);
+                        Gizmos.color = Color.yellow;
+                        Matrix4x4 prevMatrix = Gizmos.matrix;
+                        Gizmos.matrix = Matrix4x4.TRS(pos, Quaternion.Euler(0, 0, i), Vector3.one);
+                        //Gizmos.DrawWireCube(Vector3.zero, new Vector3(35, 3, 0));
+                        Gizmos.DrawSphere(Vector3.zero, 0.05f * dataTwo.waveRadius);
+                        Gizmos.matrix = prevMatrix;
+
+                    }
                     break;
 
                 case abilityType.SingeShot:
                     break;
 
                 case abilityType.AoeSplash:
+                    Vector3[] v = new Vector3[4];
+                    (v[0], v[1], v[2], v[3]) = calPointPos(dataTwo.splashCurve);
+
+
+                    for (int i = 0; i < v.Length; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0: Gizmos.color = Color.yellow; break;
+                            case 1: Gizmos.color = Color.green; break;
+                            case 2: Gizmos.color = Color.red; break;
+                            case 3: Gizmos.color = Color.cyan; break;
+                        }
+
+                        Matrix4x4 mat = Gizmos.matrix;
+                        Gizmos.matrix = Matrix4x4.TRS(v[i], Quaternion.identity, Vector3.one);
+                        Gizmos.DrawSphere(Vector3.zero, 0.2f);
+                        Gizmos.matrix = mat;
+                    }
+                    Gizmos.color = Color.white;
+
+                    float curveRes = distFromMouseToPlayer() * 2;
+
+                    for (int i = 0; i < curveRes; i++)
+                    {
+                        Vector3 pos;
+                        float t = i / (curveRes - 1);
+                        pos = calBezPoint(t, v[0], v[1], v[2], v[3]);
+
+                        Matrix4x4 mat = Gizmos.matrix;
+                        Gizmos.matrix = Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one);
+                        Gizmos.DrawSphere(Vector3.zero, 0.1f);
+                        Gizmos.matrix = mat;
+                    }
                     break;
             }
         }
     }
-
 }
 
 

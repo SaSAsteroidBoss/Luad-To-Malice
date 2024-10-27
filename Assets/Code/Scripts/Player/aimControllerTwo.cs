@@ -36,6 +36,7 @@ public class aimControllerTwo : MonoBehaviour
             Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
         }
     }
+
     private void Update()
     {
         if (canRun)
@@ -48,8 +49,6 @@ public class aimControllerTwo : MonoBehaviour
             
             AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             playerClass.gunAngle = angle;
-            Vector3 pos = AimData.pivot.position;
-            
 
         }
     }
