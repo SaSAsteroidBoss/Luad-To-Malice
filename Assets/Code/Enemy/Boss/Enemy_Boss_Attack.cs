@@ -21,7 +21,6 @@ public class Enemy_Boss_Attack : MonoBehaviour
         // Animate
         // Wait till animation is finished
         // Damage player
-        // Start cooldown
     }
 
     public void Lunge(GameObject target)
@@ -30,16 +29,5 @@ public class Enemy_Boss_Attack : MonoBehaviour
         // Animate
         // Wait till animation is finished
         // Damage player
-        // Start Cooldown
-    }
-
-    public void Area()
-    {
-        print("Boss Area");
-        // Animate
-        // Wait till animation is finished
-        // Check collider for targets
-        // Damage all targets
-        // Start Cooldown
     }
 }
