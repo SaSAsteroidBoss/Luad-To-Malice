@@ -15,18 +15,28 @@ public class ras_pMovement : MonoBehaviour
 
     private Vector3 inputVec = Vector3.zero;
     private Vector3 playerPos = Vector3.zero;
+    
+    public DamageData damageData { get; set;}
 
+    void start()
+    {
+        damageData = new DamageData();
+        damageData.fireDamage = 10;
+    }
+    
     void OnMove(InputValue Vec)
     {
         Vector2 mov = Vec.Get<Vector2>();
         inputVec = new Vector3(mov.x, mov.y, 0);
     }
 
-    private void transformMovement()
+    private void TransformMovement()
     {
+        
+        
         if (inputVec.magnitude > 0)
         {
-            var transVec = transform.rotation * (inputVec * speed * Time.deltaTime);
+            var transVec = transform.rotation * inputVec * (speed * Time.deltaTime);
             playerPos += transVec;
         }
         else
@@ -41,6 +51,6 @@ public class ras_pMovement : MonoBehaviour
 
     private void Update()
     {
-        transformMovement();
+        TransformMovement();
     }
 }
