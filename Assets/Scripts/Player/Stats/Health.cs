@@ -8,10 +8,12 @@ public class Health : MonoBehaviour
     private IEnumerator _heal;
     
     public float currentHealth;
- 
-    public float maxHealth = 100f;
 
-    public float healAmount = 5;
+    public float maxHealth;
+
+    public float healAmount;
+
+    public HealthSource [] healthSource;
     
     public void Start()
     {
@@ -27,12 +29,9 @@ public class Health : MonoBehaviour
 
         if (_heal == null)
         {
-            _heal = Heal();
-            StartCoroutine(_heal);
+            //_heal = Heal();
+            //StartCoroutine(_heal);
         }
-
-       
-
     }
 
     public void AddHealAmount(float increaseHealAmount)
@@ -61,4 +60,57 @@ public class Health : MonoBehaviour
         }
     }
 
+    
+    public void AddHealthSource(HealthObject item)
+    {
+        for (var i = 0; i < healthSource.Length; i++)
+        {
+            if (healthSource[i].item == item && healthSource[i]. healthSourceName == item.name)
+            {
+                healthSource[i].amount++;
+                 
+                Debug.Log("Object Already Add");
+
+                break;
+
+            }
+            else if (healthSource[i].item == null && healthSource[i]. healthSourceName == string.Empty)
+            {
+                healthSource[i].item = item;
+                healthSource[i].healthSourceName = item.itemName;
+                healthSource[i].mainHealthIncrease = item.mainHealthIncrease;
+                healthSource[i].amount = 1;
+                 
+                Debug.Log("Object Not Add");
+                 
+                break;
+
+            }
+
+        }
+    }
+}
+
+[Serializable]
+public struct HealthSource
+{
+    public HealthObject item;
+    
+    public string healthSourceName;
+    
+    public float mainHealthIncrease;
+    
+    public int amount;
+}
+
+[Serializable]
+public struct HealingSource
+{
+    public Health item;
+    
+    public string healingSourceName;
+
+    public float mainHealAmount;
+    
+    public int amount;
 }

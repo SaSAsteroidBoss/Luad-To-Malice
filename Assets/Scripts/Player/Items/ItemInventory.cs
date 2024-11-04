@@ -7,8 +7,9 @@ public class ItemInventory : MonoBehaviour
 {
     public ItemSlot[] itemSlots;
 
+    public ItemObject itemObject;
 
-     public void AddItem(Item item)
+     public void AddItem(ItemObject item)
      {
          for (var i = 0; i < itemSlots.Length; i++)
          {
@@ -25,60 +26,31 @@ public class ItemInventory : MonoBehaviour
              {
                  itemSlots[i].item = item;
                  itemSlots[i].name = item.name;
+                 item.AddItemSource(this.gameObject);
                  itemSlots[i].amount = 1;
-
-                 switch (item.type)
-                 {
-                     case ItemType.Damage:
-                        
-                         break;
-                   
-                     case ItemType.StatusEffect: 
-                         
-                         break;
-                     
-                     case ItemType.Healing:
-                        
-                         this.GetComponent<Health>().AddHealAmount(item.itemEffectAmount);
-                         
-                         break;
-                   
-                     case ItemType.Health:
-                       
-                         break;
-                   
-                     case ItemType.Armour:
-                        
-                         break;
-                  
-                     case ItemType.MovementSpeed:
-                         
-                         break;
-                     
-                     case ItemType.AttackSped:
-                         
-                         break;
-                     
-                     default:
-                         throw new ArgumentOutOfRangeException();
-                 }
                  
-                 Debug.Log("Object Not Add");
-
                  break;
 
              }
 
          }
      }
+     
+     public void GetAndAddItem()
+     {
+         AddItem(itemObject);
+     }
 }
+
+
 
 [Serializable]
 
 public struct ItemSlot
 {
     public string name;
-    public Item item;
+    public ItemObject item;
     public int amount;
 }
+
 
