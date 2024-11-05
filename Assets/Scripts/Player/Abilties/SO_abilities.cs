@@ -35,10 +35,11 @@ public class SO_abilities : ScriptableObject
     public float waveDuration = 0;
 
     public float waveCoolDown = 0;
+
     [Range(0, 1)]
     public float wavePrefabSize = 0;
-    [Range(0, 1)]
-    public float waveMinGap = 0;
+    [Range(1, 20)]
+    public int waveCount = 0;
     public GameObject wavePrefab;
     public GameObject waveParticleEffect;
 

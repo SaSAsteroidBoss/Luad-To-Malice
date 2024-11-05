@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
-using UnityEngine;
-using UnityEngine.InputSystem;
 
+using UnityEngine;
+using UnityEngine.InputSystem.iOS;
 
 public class abilityController : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class abilityController : MonoBehaviour
     [Tooltip("Asign a scriptable Object")]
     [SerializeField] private SO_abilities dataTwo;
 
+    [SerializeField] private GameObject waveCol;
 
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
@@ -29,6 +29,7 @@ public class abilityController : MonoBehaviour
 
     private void Start()
     {
+        waveCol.SetActive(false);
         if (dataOne == null)
         {
             Debug.LogError("AbilityDataOne is Null. View abilityController.cs on player to Debug");
@@ -50,7 +51,7 @@ public class abilityController : MonoBehaviour
                 case abilityType.Wave:
                     
 
-                    StartCoroutine(waveCorutine(dataOne.abilityElement, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, dataOne.wavePrefab, dataOne.waveDuration, dataOne.waveCoolDown, dataOne.wavePrefabSize, dataOne.waveMinGap,dataOne.waveParticleEffect, 1));
+                    StartCoroutine(waveCorutine(dataOne.abilityElement, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, dataOne.wavePrefab, dataOne.waveDuration, dataOne.waveCoolDown, dataOne.wavePrefabSize, dataOne.waveCount,dataOne.waveParticleEffect, 1));
                     break;
 
                 case abilityType.SingeShot:
@@ -72,7 +73,7 @@ public class abilityController : MonoBehaviour
             switch (dataTwo.abilityType)
             {
                 case abilityType.Wave:
-                    StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveMinGap, dataTwo.waveParticleEffect, 0));
+                    StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveCount, dataTwo.waveParticleEffect, 0));
                     break;
 
                 case abilityType.SingeShot:
@@ -91,7 +92,7 @@ public class abilityController : MonoBehaviour
  
     //Using the unit circle I calculate the min and max for a section of the circle in the direction of the gun.
     //I use the change in the radius to instance the objects out like a wave. 
-    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float minGap, GameObject ps,int oneOrTwo)
+    private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float waveCount, GameObject ps,int oneOrTwo)
     {
         if(oneOrTwo == 1) 
         {
@@ -101,65 +102,53 @@ public class abilityController : MonoBehaviour
         {
             abilityTwoCanRun = false;
         }
-
+        Transform prevParent = waveCol.transform.parent;
+        waveCol.transform.parent = null;
+        waveCol.SetActive(true);
         List<GameObject> prefabList = new List<GameObject>();
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
         float tempGunAngle = playerClass.gunAngle;
         float elapsedTime = 0;
         float maxRadius = radius;
-        minGap /= 5;
-        float lastGap = 0f;
         float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
-        float[] gapCount = new float[5];
-        int currentGap = 0;
-        float radDuration = 0;
-        float temp = 0;
-        for (int i = 0; i < gapCount.Length; i++)
-        {
-            gapCount[i] = 1 / i++;
-            print(gapCount[i]);
-            
-        }
+        int currentGap = 1;
+    
+        
         while (elapsedTime < duration)
         {
-           
-            
             float t = elapsedTime / duration;
-            float t2 =+ 1 * duration;
+
             radius = Mathf.Lerp(1, maxRadius, t);
-            // This is for scaling of the prefabs with the radius 
-            float tempScale = Vector3.one.magnitude / scale * radius;
-            float gap = tempScale * minGap;
 
-            // this is used to created the gap offset of the instances
-            //if (radius - lastGap >= gap)
+            //float gapTime = (currentGap * (scale * 0.9f)) * duration / waveCount;
+            float gapTime = currentGap  *  duration/ waveCount;
 
-            //{
-            // different affect
-            //StartCoroutine(destroyWave(prefabList));
-            Debug.Log(t);
-            Debug.LogWarning(currentGap);
-            Debug.LogWarning(gapCount[currentGap]);
-
-            if (gapCount[currentGap] >= t)
+            if (elapsedTime >= gapTime)
             {
-                Debug.LogWarning(gapCount[currentGap]);
-                
-               // print("gapCount Loop");
+
                 for (int i = 0; i < count; i++)
                 {
+
                     Vector3 pos = calPos(i, width, count, radius, playerPos, tempGunAngle);
+                    waveCol.transform.position = calPos(1, 1, count, radius, playerPos, tempGunAngle);
+                    //float colAngle = Mathf.DeltaAngle(1 + calAngle(1, 1, count, tempGunAngle), angleY);
+                    //waveCol.transform.rotation = Quaternion.Euler(0, 0, colAngle);
                     float angle = Mathf.DeltaAngle(i + calAngle(i, width, count, tempGunAngle), angleY);
+
                     Quaternion direction = Quaternion.Euler(0f, 0f, -angle);
+
                     GameObject iceBlock = Instantiate(prefrab, pos, direction);
-                    iceBlock.transform.localScale = Vector3.one * radius * (-scale / 2);
+
+                    iceBlock.transform.localScale = Vector3.one * radius * (-scale / 3);
+
                     prefabList.Add(iceBlock);
+
                 }
                 currentGap++;
             }
-                //lastGap = radius;
-            //}
+            
+        
            
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -180,7 +169,20 @@ public class abilityController : MonoBehaviour
 
             Destroy(iceBlock);
         }
+
+        waveCol.SetActive(false);
+        waveCol.GetComponent<BoxCollider2D>().size = new Vector2(waveCol.GetComponent<BoxCollider2D>().size.x, 5);
+        waveCol.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        waveCol.SetActive(false);
+        waveCol.GetComponent<BoxCollider2D>().size = new Vector2(waveCol.GetComponent<BoxCollider2D>().size.x, 1);
+        waveCol.transform.position = gameObject.transform.position;
+        waveCol.transform.SetParent(prevParent);
+        waveCol.transform.localRotation = Quaternion.identity;
         yield return new WaitForSeconds(duration);
+
+       
+       
         radius = maxRadius;
 
         if (oneOrTwo == 1)
