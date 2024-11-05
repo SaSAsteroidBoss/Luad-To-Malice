@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
 
     public float healAmount;
 
-    public HealthSource [] healthSource;
+    public ItemValueSourceData [] healthSource;
     
     public void Start()
     {
@@ -65,7 +65,7 @@ public class Health : MonoBehaviour
     {
         for (var i = 0; i < healthSource.Length; i++)
         {
-            if (healthSource[i].item == item && healthSource[i]. healthSourceName == item.name)
+            if (healthSource[i].item == item && healthSource[i].sourceName == item.name)
             {
                 healthSource[i].amount++;
                  
@@ -74,11 +74,11 @@ public class Health : MonoBehaviour
                 break;
 
             }
-            else if (healthSource[i].item == null && healthSource[i]. healthSourceName == string.Empty)
+            else if (healthSource[i].item == null && healthSource[i].sourceName == string.Empty)
             {
                 healthSource[i].item = item;
-                healthSource[i].healthSourceName = item.itemName;
-                healthSource[i].mainHealthIncrease = item.mainHealthIncrease;
+                healthSource[i].sourceName = item.itemName;
+                healthSource[i].primaryValue = item.mainHealthIncrease;
                 healthSource[i].amount = 1;
                  
                 Debug.Log("Object Not Add");
@@ -89,18 +89,6 @@ public class Health : MonoBehaviour
 
         }
     }
-}
-
-[Serializable]
-public struct HealthSource
-{
-    public HealthObject item;
-    
-    public string healthSourceName;
-    
-    public float mainHealthIncrease;
-    
-    public int amount;
 }
 
 [Serializable]
