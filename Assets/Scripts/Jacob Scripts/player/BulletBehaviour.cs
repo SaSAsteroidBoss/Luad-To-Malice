@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,13 @@ using UnityEngine.UIElements;
 
 public class BulletBehaviour : MonoBehaviour
 {
-
+    private Damage _target;
+    
+    public void GoToDamageScript(Damage newTarget)
+    {
+        _target = newTarget;
+    }
+    
     public float speed;
 
     public float damage;
@@ -21,5 +28,15 @@ public class BulletBehaviour : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = transform.up * speed;
 
         Destroy(gameObject, 2f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _target.CalculateTotalDamageWithoutItems(other.gameObject);
+            Destroy(gameObject);
+        }
+        
     }
 }

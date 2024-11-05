@@ -5,8 +5,6 @@ using UnityEngine.Serialization;
 
 public class Damage : MonoBehaviour
 {
-    public GameObject boss;
-    
     public float baseDamage;
 
     public float totalDamage;
