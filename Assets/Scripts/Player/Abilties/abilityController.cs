@@ -111,20 +111,42 @@ public class abilityController : MonoBehaviour
         minGap /= 5;
         float lastGap = 0f;
         float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
+        float[] gapCount = new float[5];
+        int currentGap = 0;
+        float radDuration = 0;
+        float temp = 0;
+        for (int i = 0; i < gapCount.Length; i++)
+        {
+            gapCount[i] = 1 / i++;
+            print(gapCount[i]);
+            
+        }
         while (elapsedTime < duration)
         {
+           
+            
             float t = elapsedTime / duration;
+            float t2 =+ 1 * duration;
             radius = Mathf.Lerp(1, maxRadius, t);
             // This is for scaling of the prefabs with the radius 
             float tempScale = Vector3.one.magnitude / scale * radius;
             float gap = tempScale * minGap;
 
             // this is used to created the gap offset of the instances
-            if (radius - lastGap >= gap)
-            {
-                // different affect
-                //StartCoroutine(destroyWave(prefabList));
+            //if (radius - lastGap >= gap)
 
+            //{
+            // different affect
+            //StartCoroutine(destroyWave(prefabList));
+            Debug.Log(t);
+            Debug.LogWarning(currentGap);
+            Debug.LogWarning(gapCount[currentGap]);
+
+            if (gapCount[currentGap] >= t)
+            {
+                Debug.LogWarning(gapCount[currentGap]);
+                
+               // print("gapCount Loop");
                 for (int i = 0; i < count; i++)
                 {
                     Vector3 pos = calPos(i, width, count, radius, playerPos, tempGunAngle);
@@ -134,8 +156,10 @@ public class abilityController : MonoBehaviour
                     iceBlock.transform.localScale = Vector3.one * radius * (-scale / 2);
                     prefabList.Add(iceBlock);
                 }
-                lastGap = radius;
+                currentGap++;
             }
+                //lastGap = radius;
+            //}
            
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();

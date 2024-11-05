@@ -19,7 +19,7 @@ MonoBehaviour:
   waveAttackWidth: 31
   waveAttackCount: 4
   waveRadius: 6.09
-  waveDuration: 0.38
+  waveDuration: 12.2
   waveCoolDown: 1.11
   wavePrefabSize: 0.251
   waveMinGap: 0.161
