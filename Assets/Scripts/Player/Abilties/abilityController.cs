@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem.iOS;
 
@@ -16,7 +16,7 @@ public class abilityController : MonoBehaviour
     [SerializeField] private SO_abilities dataTwo;
 
     [SerializeField] private GameObject waveCol;
-
+    [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
 
@@ -105,7 +105,7 @@ public class abilityController : MonoBehaviour
         Transform prevParent = waveCol.transform.parent;
         waveCol.transform.parent = null;
         waveCol.SetActive(true);
-        List<GameObject> prefabList = new List<GameObject>();
+        var prefabList = new List<GameObject>();
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
         float tempGunAngle = playerClass.gunAngle;
@@ -170,8 +170,11 @@ public class abilityController : MonoBehaviour
             Destroy(iceBlock);
         }
 
+        // this was quick I know its really unreadable 
+        // this just switches off and on the collider 
         waveCol.SetActive(false);
         waveCol.GetComponent<BoxCollider2D>().size = new Vector2(waveCol.GetComponent<BoxCollider2D>().size.x, 5);
+        waveCol.transform.position = calPos(1, 1, count, radius/2, playerPos, tempGunAngle);
         waveCol.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         waveCol.SetActive(false);
@@ -274,7 +277,7 @@ public class abilityController : MonoBehaviour
         while(elapsedTime < 10)
         {
             // local space baby 
-            obj.transform.position += obj.transform.up * speed * Time.deltaTime;
+            obj.transform.position += speed * Time.deltaTime * obj.transform.up;
 
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();

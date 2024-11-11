@@ -22,7 +22,7 @@ MonoBehaviour:
   waveDuration: 0
   waveCoolDown: 0
   wavePrefabSize: 0
-  waveMinGap: 0
+  waveCount: 1
   wavePrefab: {fileID: 0}
   waveParticleEffect: {fileID: 0}
   singleShotPrefab: {fileID: 0}

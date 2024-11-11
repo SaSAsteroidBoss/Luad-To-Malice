@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class ras_pMovement : MonoBehaviour
 {
     [Header("Stopping speed")]
@@ -15,11 +16,15 @@ public class ras_pMovement : MonoBehaviour
 
     private Vector3 inputVec = Vector3.zero;
     private Vector3 playerPos = Vector3.zero;
+
+    private Rigidbody2D rb;
     
+
     public DamageData damageData { get; set;}
 
-    void start()
+    void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         damageData = new DamageData();
         damageData.fireDamage = 10;
     }
@@ -32,7 +37,7 @@ public class ras_pMovement : MonoBehaviour
 
     private void TransformMovement()
     {
-        
+        float angle = playerClass.gunAngle;
         
         if (inputVec.magnitude > 0)
         {
@@ -46,7 +51,11 @@ public class ras_pMovement : MonoBehaviour
 
         playerPos = Vector3.ClampMagnitude(playerPos, maxSpeed);
 
-        transform.position += playerPos * Time.deltaTime;
+        //transform.position += playerPos * Time.deltaTime;
+        //transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        //using rb velocity to ahcive the same affect but have correct bohevour to collision 
+        rb.velocity = playerPos;
+        
     }
 
     private void Update()

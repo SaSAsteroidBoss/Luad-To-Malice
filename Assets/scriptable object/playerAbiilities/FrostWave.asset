@@ -21,7 +21,7 @@ MonoBehaviour:
   waveRadius: 6.09
   waveDuration: 0.57
   waveCoolDown: 1.11
-  wavePrefabSize: 0.17
+  wavePrefabSize: 0.255
   waveCount: 8
   wavePrefab: {fileID: 7517826317914055856, guid: 9870abdf44b484340b8acebb7cf60c38, type: 3}
   waveParticleEffect: {fileID: 8960553069000082855, guid: db321da32b34e664ca9ab8d59a727312, type: 3}

@@ -34,22 +34,23 @@ public class Enemy_Ranged_Detect : MonoBehaviour
     {
         //print("Collision lost with: " + collision.gameObject.name);
         // If a player has exited range
-        if (collision.CompareTag("Player"))
-        {
-            print("Player lost by enemy");
-            // If the target left range
-            if (target != null && collision.gameObject == target.gameObject)
+     
+            if (collision.CompareTag("Player"))
             {
-                // Remove the target
-                GetComponentInParent<Enemy_Ranged_Seek>().target = null;
-                target = null;
-            }
-            // If the pre-target left range
-            else if (preTarget != null && collision.gameObject == preTarget.gameObject)
-            {
-                // Remove the pre-target
-                preTarget = null;
-            }
+                print("Player lost by enemy");
+                // If the target left range
+                if (target != null && collision.gameObject == target.gameObject)
+                {
+                    // Remove the target
+                    GetComponentInParent<Enemy_Ranged_Seek>().target = null;
+                    target = null;
+                }
+                // If the pre-target left range
+                else if (preTarget != null && collision.gameObject == preTarget.gameObject)
+                {
+                    // Remove the pre-target
+                    preTarget = null;
+                }
         }
     }
 

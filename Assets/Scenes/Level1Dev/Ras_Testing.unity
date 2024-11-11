@@ -180,7 +180,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -35909,7 +35909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3536021578308486889, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.07287921
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3536021578308486889, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35940,16 +35940,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4344730735839356095, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
+      propertyPath: cooldown
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344730735839356095, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: totalSpawns
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8386052841671416807, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 8386052841671416807, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36059,7 +36059,7 @@ MonoBehaviour:
   dataOne: {fileID: 11400000, guid: 228a87db3d9e0c74496acc54349ef124, type: 2}
   dataTwo: {fileID: 11400000, guid: d9300142cac07464691ed0ad70f3fc34, type: 2}
   waveCol: {fileID: 59362975}
-  ViewAbilityOne: 0
+  ViewAbilityOne: 1
   ViewAbilityTwo: 1
 --- !u!114 &1260097522
 MonoBehaviour:
@@ -36182,7 +36182,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260097516}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 1
