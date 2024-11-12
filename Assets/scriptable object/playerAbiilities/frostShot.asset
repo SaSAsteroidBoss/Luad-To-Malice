@@ -22,8 +22,15 @@ MonoBehaviour:
   waveDuration: 0
   waveCoolDown: 0
   wavePrefabSize: 0
-  waveMinGap: 0
+  waveCount: 1
   wavePrefab: {fileID: 0}
+  waveParticleEffect: {fileID: 0}
   singleShotPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
+  singleShotParticalEffect: {fileID: 0}
   singleShotSpeed: 13.62
   singleShotCoolDown: 1
+  splashPrefab: {fileID: 0}
+  splashParticalEffect: {fileID: 0}
+  splashSpeed: 0
+  splashCoolDown: 0
+  splashCurve: 0
