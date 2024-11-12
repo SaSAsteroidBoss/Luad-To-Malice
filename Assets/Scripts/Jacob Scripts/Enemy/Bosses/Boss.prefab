@@ -13,15 +13,13 @@ GameObject:
   - component: {fileID: 881889575167814941}
   - component: {fileID: 7673930514614323471}
   - component: {fileID: 3181094005759152120}
-  - component: {fileID: 2751912387882272575}
-  - component: {fileID: 4349234866590493416}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &956955973399402984
 Transform:
   m_ObjectHideFlags: 0
@@ -157,36 +155,6 @@ MonoBehaviour:
   lungeHitCollider: {fileID: 0}
   areaDamage: 0
   areaHitCollider: {fileID: 0}
---- !u!114 &2751912387882272575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536647e0fb3612f48b33883cc43d58e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 6000
-  healAmount: 5
---- !u!114 &4349234866590493416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57977a44604dca4e86b0440a2c55e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamage: 100
-  totalDamage: 0
-  damageSources: []
 --- !u!1 &6416274395340521432
 GameObject:
   m_ObjectHideFlags: 0

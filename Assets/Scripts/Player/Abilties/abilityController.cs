@@ -323,12 +323,9 @@ public class abilityController : MonoBehaviour
 
         //Destroy(obj);
         obj.GetComponent<SpriteRenderer>().enabled = false;
-        GameObject exp = obj.transform.GetChild(0).gameObject;
-        exp.SetActive(true);
-        obj.GetComponent<CircleCollider2D>().radius = 4f;
+        obj.GetComponent<CircleCollider2D>().radius = 2f;
         yield return new WaitForSeconds(0.3f);
-        
-     
+        yield return new WaitForSeconds(0.1f);
         Destroy(obj);
         yield return new WaitForSeconds(duration);
 

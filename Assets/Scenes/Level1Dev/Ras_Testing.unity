@@ -295,6 +295,41 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &73485857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1263649970320585121, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+  m_PrefabInstance: {fileID: 1056680459}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &73485863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73485857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536647e0fb3612f48b33883cc43d58e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 6000
+  healAmount: 5
+--- !u!114 &73485869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73485857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c57977a44604dca4e86b0440a2c55e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDamage: 100
+  totalDamage: 0
+  damageSources: []
 --- !u!1 &130535440
 GameObject:
   m_ObjectHideFlags: 0
@@ -36552,14 +36587,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 1263649970320585121, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181094005759152120, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7673930514614323471, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 1260097516}
+    - target: {fileID: 7673930514614323471, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1263649970320585121, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 73485863}
+    - targetCorrespondingSourceObject: {fileID: 1263649970320585121, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 73485869}
   m_SourcePrefab: {fileID: 100100000, guid: d0764c33d4a78114582ddedb0e9dca64, type: 3}
 --- !u!1001 &1137907743
 PrefabInstance:
