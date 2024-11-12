@@ -32,6 +32,11 @@ public class Health : MonoBehaviour
             //_heal = Heal();
             //StartCoroutine(_heal);
         }
+
+        if (currentHealth == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void AddHealAmount(float increaseHealAmount)

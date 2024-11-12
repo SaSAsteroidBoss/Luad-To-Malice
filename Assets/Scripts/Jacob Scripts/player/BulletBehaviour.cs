@@ -37,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
         {
 
            // _target.CalculateTotalDamageWithoutItems(other.gameObject);
-            other.GetComponent<Damage>().CalculateTotalDamageWithoutItems(other.gameObject);
+            _target.CalculateEnemyTotalDamage(other.gameObject);
             Destroy(gameObject);
         }
         

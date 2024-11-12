@@ -12,12 +12,12 @@ public class DamageEditor:  Editor
         Damage damageScript = (Damage)target;
         if(GUILayout.Button("Calculate Total Damage Without Items"))
         {
-           damageScript.CalculateTotalDamageWithoutItems(GameObject.Find("Player"));
+           damageScript.CalculateEnemyTotalDamage(GameObject.Find("Player"));
         }
         
         if(GUILayout.Button("Calculate Total Damage With Items"))
         {
-            damageScript.CalculateTotalDamageWithItems(GameObject.Find("Boss"));
+            damageScript.CalculatePlayerTotalDamage(GameObject.Find("Boss"));
         }
     }
 }
