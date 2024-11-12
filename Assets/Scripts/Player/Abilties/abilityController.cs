@@ -290,6 +290,7 @@ public class abilityController : MonoBehaviour
     }
     #endregion
 
+    //____Splash
     #region
     IEnumerator splashCoroutine(GameObject prefab, float speed, float duration, float curve, GameObject ps, int oneOrTwo)
     {
@@ -319,6 +320,12 @@ public class abilityController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             yield return null;
         }
+
+        //Destroy(obj);
+        obj.GetComponent<SpriteRenderer>().enabled = false;
+        obj.GetComponent<CircleCollider2D>().radius = 2f;
+        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         Destroy(obj);
         yield return new WaitForSeconds(duration);
 
