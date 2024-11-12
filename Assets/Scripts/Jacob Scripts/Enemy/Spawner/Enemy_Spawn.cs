@@ -33,9 +33,12 @@ public class Enemy_Spawn : MonoBehaviour
 
     private void Spawn()
     {
-        int index = Random.Range(0, enemyTypes.Count - 1);
-        //Instantiate(enemyTypes[index]);
         int rand = Random.Range(0, spawnTransforms.Count);
-        Instantiate(enemyTypes[index], spawnTransforms[rand]);
+        
+        GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
+        enemiesPooledObject.transform.position = spawnTransforms[rand].position;
+        enemiesPooledObject.SetActive(true);
+        
+
     }
 }
