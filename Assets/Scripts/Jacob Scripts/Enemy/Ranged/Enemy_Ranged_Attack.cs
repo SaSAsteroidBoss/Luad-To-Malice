@@ -32,7 +32,7 @@ public class Enemy_Ranged_Attack : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
                 
                var bullet =  Instantiate(bulletPrefab, transform.position, transform.rotation, transform);
-               bullet.GetComponent<BulletBehaviour>().GoToDamageScript(GetComponent<Damage>());
+               bullet.GetComponent<BulletBehaviour>().SetDamageScript(GetComponent<Damage>());
                
                 
                 fireRateTimer = fireRate;

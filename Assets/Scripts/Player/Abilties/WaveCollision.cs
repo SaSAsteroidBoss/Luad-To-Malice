@@ -1,18 +1,17 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class WaveCollision : MonoBehaviour
 {
 
-
-    public float damage;
+    public Damage damage;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
 
-            other.GetComponent<EnemyDamage>().CalculateTotalEnemeyDamage(other.gameObject, damage);
+            Debug.LogError(other.gameObject.name);
+            damage.CalculatePlayerTotalDamage(other.gameObject);
         }
 
     }

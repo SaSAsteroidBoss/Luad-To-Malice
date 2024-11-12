@@ -43,8 +43,16 @@ public class Damage : MonoBehaviour
     }
     
     
-    public void CalculateTotalDamageWithItems(GameObject target)
+    public void CalculatePlayerTotalDamage(GameObject target)
     {
+        Debug.LogError(target.name);
+        
+        if (damageSources[0].damageSourceName == "")
+        {
+            totalDamage = baseDamage;
+            target.GetComponent<Health>().TakeDamage(totalDamage);
+        }
+        
         for (var i = 0; i < damageSources.Length; i++)
         {
             if (damageSources[i].damageSourceName == "Electric Boogaloo")
@@ -62,10 +70,9 @@ public class Damage : MonoBehaviour
                 target.GetComponent<Health>().TakeDamage(totalDamage);
             }
         }
-        
     }
 
-    public void CalculateTotalDamageWithoutItems(GameObject target)
+    public void CalculateEnemyTotalDamage(GameObject target)
     {
         totalDamage = baseDamage - target.GetComponent<Armour>().armour;
         target.GetComponent<Health>().TakeDamage(totalDamage);

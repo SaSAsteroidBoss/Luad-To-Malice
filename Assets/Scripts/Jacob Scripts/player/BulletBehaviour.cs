@@ -8,7 +8,7 @@ public class BulletBehaviour : MonoBehaviour
 {
     private Damage _target;
     
-    public void GoToDamageScript(Damage newTarget)
+    public void SetDamageScript(Damage newTarget)
     {
         _target = newTarget;
     }
@@ -37,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
         {
 
            // _target.CalculateTotalDamageWithoutItems(other.gameObject);
-            other.GetComponent<Damage>().CalculateTotalDamageWithoutItems(other.gameObject);
+            _target.CalculateEnemyTotalDamage(other.gameObject);
             Destroy(gameObject);
         }
         
