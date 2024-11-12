@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
 
 public class abilityController : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class abilityController : MonoBehaviour
     [SerializeField] private SO_abilities dataTwo;
 
     [SerializeField] private GameObject waveCol;
+
     [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
