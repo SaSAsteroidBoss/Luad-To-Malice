@@ -8,7 +8,7 @@ public class BulletBehaviour : MonoBehaviour
 {
     private Damage _target;
     
-    public void GoToDamageScript(Damage newTarget)
+    public void SetDamageScript(Damage newTarget)
     {
         _target = newTarget;
     }

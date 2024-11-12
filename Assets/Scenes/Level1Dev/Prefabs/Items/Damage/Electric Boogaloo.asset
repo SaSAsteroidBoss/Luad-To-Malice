@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d823d9b96f8b5488d0cced086cfeb5, type: 3}
   m_Name: Electric Boogaloo
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   procType: 1
   itemName: Electric Boogaloo
   duration: 5
-  stackAmount: 25
   mainDamage: 200
   statusEffectDamage: 10

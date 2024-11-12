@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 100
+  maxHealth: 500
   healAmount: 0
 --- !u!114 &-8838668595646984080
 MonoBehaviour:
