@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy_Health : MonoBehaviour
 {
+    public float currentHealth;
+    public float maxHealth;
+    
     public float health;
 
     private void OnTriggerEnter2D(Collider2D collision)
