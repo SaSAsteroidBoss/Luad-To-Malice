@@ -30,11 +30,14 @@ public class BulletBehaviour : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            _target.CalculateTotalDamageWithoutItems(other.gameObject);
+
+           // _target.CalculateTotalDamageWithoutItems(other.gameObject);
+            other.GetComponent<Damage>().CalculateTotalDamageWithoutItems(other.gameObject);
             Destroy(gameObject);
         }
         

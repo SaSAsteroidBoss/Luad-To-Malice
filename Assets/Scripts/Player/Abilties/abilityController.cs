@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
 
 public class abilityController : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class abilityController : MonoBehaviour
     [SerializeField] private SO_abilities dataTwo;
 
     [SerializeField] private GameObject waveCol;
+
     [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
@@ -26,6 +26,8 @@ public class abilityController : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
+
+
 
     private void Start()
     {
@@ -94,6 +96,7 @@ public class abilityController : MonoBehaviour
     //I use the change in the radius to instance the objects out like a wave. 
     private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float waveCount, GameObject ps,int oneOrTwo)
     {
+
         if(oneOrTwo == 1) 
         {
             abilityOneCanRun = false;
@@ -113,8 +116,8 @@ public class abilityController : MonoBehaviour
         float maxRadius = radius;
         float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
         int currentGap = 1;
-    
-        
+
+
         while (elapsedTime < duration)
         {
             float t = elapsedTime / duration;
@@ -202,6 +205,7 @@ public class abilityController : MonoBehaviour
 
         yield return new WaitForSeconds(duration + 1f);
         Destroy(ps);
+
     }
     IEnumerator destroyWave(List<GameObject> prefabList)
     {
