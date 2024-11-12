@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Reece_Tests/Reece_MainMenu.unity
+    guid: 8daee5a901e4e5e499c68c091861d328
+  - enabled: 1
     path: Assets/Scenes/Level1Dev/Ras_Testing.unity
     guid: 2e78e4ae878a3ba409de2c82324cceb3
   m_configObjects:
