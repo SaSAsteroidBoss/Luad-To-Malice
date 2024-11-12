@@ -308,6 +308,7 @@ public class abilityController : MonoBehaviour
         var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
         Vector3 gunPos = transform.position + Vector3.forward * playerClass.gunOffSet;
         GameObject obj = Instantiate(prefab, gunPos, rot);
+        obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<Damage>());
         float distTime = calCurveLength(p0, p1, p2, p3) / speed;
         //print(distTime);
         
