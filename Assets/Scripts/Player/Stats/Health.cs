@@ -15,9 +15,18 @@ public class Health : MonoBehaviour
 
     public ItemValueSourceData [] healthSource;
     
+    [SerializeField] private List<Transform> spawnTransforms = new List<Transform>();
+
+    private Enemy_Ranged_Detect detection;
     public void Start()
     {
         currentHealth = maxHealth;
+
+        if(gameObject.CompareTag("Enemy"))
+        {
+            detection = GetComponentInChildren<Enemy_Ranged_Detect>();
+        }
+        //enemiesPooledObject = EnemyObjectPool.
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -35,7 +44,9 @@ public class Health : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            Destroy(gameObject);
+            detection.ResetDetection(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 
