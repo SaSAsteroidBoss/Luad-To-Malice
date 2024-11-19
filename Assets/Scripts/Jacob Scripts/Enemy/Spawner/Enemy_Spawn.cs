@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,6 +39,7 @@ public class Enemy_Spawn : MonoBehaviour
         GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
         enemiesPooledObject.transform.position = spawnTransforms[rand].position;
         enemiesPooledObject.SetActive(true);
+        EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(enemiesPooledObject);
         
 
     }

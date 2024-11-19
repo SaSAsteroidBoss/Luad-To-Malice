@@ -9,8 +9,6 @@ public class WaveCollision : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
-
-            Debug.LogError(other.gameObject.name);
             damage.CalculatePlayerTotalDamage(other.gameObject);
         }
 
