@@ -925,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7359467692411733774, guid: b40895d68bfdf0543b7dff87b8965371, type: 3}
       propertyPath: m_Name
-      value: Banage
+      value: Electric Boogaloo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
