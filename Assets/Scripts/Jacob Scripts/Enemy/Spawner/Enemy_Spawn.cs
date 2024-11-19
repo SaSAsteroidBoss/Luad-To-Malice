@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,9 +26,12 @@ public class Enemy_Spawn : MonoBehaviour
         spawnTime += Time.deltaTime;
         if (spawnTime >= cooldown && numSpawns < totalSpawns)
         {
-            Spawn();
-            numSpawns++;
-            spawnTime = 0;
+            if (numSpawns != 1)
+            {
+                Spawn();
+                numSpawns++;
+                spawnTime = 0;
+            }
         }
     }
 

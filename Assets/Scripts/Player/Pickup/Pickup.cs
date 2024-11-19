@@ -14,6 +14,7 @@ public class Pickup : MonoBehaviour
           if (other.CompareTag("Player"))
           {
                other.GetComponent<ItemInventory>().AddItem(_item);
+               Destroy(gameObject);
           }
      }
 }

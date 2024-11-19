@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Item/Health Item")]
+[CreateAssetMenu(menuName = "Item/Healing Item")]
 
-public class HealthObject : ItemObject
+public class HealingObject : ItemObject
 {
-    public float mainHealthIncrease;
+    public float mainHealValue;
    
     public float statusEffectDamage;
     
@@ -15,6 +15,6 @@ public class HealthObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     {
-        player.GetComponent<Health>().AddHealthSource(this);
+        player.GetComponent<Health>().AddHealSource(this);
     }
 }

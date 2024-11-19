@@ -14,6 +14,7 @@ public class ItemInventory : MonoBehaviour
              if (itemSlots[i].item == item && item.name == itemSlots[i].name)
              {
                  itemSlots[i].amount++;
+                 item.AddItemSource(this.gameObject);
                  
                  Debug.Log("Object Already Add");
 

@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6170ac2bc25f4364a961e4ab72585cfd, type: 3}
-  m_Name: Banage
+  m_Script: {fileID: 11500000, guid: d71c1bd80b70c8e4c85eb2571397f7c4, type: 3}
+  m_Name: Soldier Biotics
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   procType: 0
-  itemName: Banage
-  duration: 5
-  mainHealValue: 5
+  itemName: Soldier Biotics
+  duration: 0
+  mainHealthIncrease: 25
   statusEffectDamage: 0
