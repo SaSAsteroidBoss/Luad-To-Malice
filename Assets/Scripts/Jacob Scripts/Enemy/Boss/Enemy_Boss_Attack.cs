@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_Boss_Attack : MonoBehaviour
@@ -25,9 +26,10 @@ public class Enemy_Boss_Attack : MonoBehaviour
 
     public void Lunge(GameObject target)
     {
-        print("Boss Lunge");
+        print("Boss Lunge activated, speed doubled");
         // Animate
-        // Wait till animation is finished
+        GetComponent<Enemy_Boss_Seek>().speed = GetComponent<Enemy_Boss_Seek>().speed * 10;
         // Damage player
+        //target.GetComponent<Health>().TakeDamage(lungeDamage);
     }
 }

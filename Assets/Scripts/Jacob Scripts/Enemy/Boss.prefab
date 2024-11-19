@@ -130,13 +130,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49c7d2a1fda494458ffd40763f09164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
   target: {fileID: 0}
   stopThreshold: 2
+  attackThreshold: 2
   basicCooldown: 2
   lungeThresholdMax: 7
   lungeThresholdMin: 5
   lungeCooldown: 10
-  attackThreshold: 2
+  lungeBoostActive: 0
+  lungeBoostTimer: 0
 --- !u!114 &3181094005759152120
 MonoBehaviour:
   m_ObjectHideFlags: 0

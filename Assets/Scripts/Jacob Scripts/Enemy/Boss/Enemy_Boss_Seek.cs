@@ -2,18 +2,22 @@ using UnityEngine;
 
 public class Enemy_Boss_Seek : MonoBehaviour
 {
+    public float speed;
+
     public GameObject target;
     [SerializeField] private float stopThreshold;
+    [SerializeField] private float attackThreshold;
 
     [SerializeField] private float basicCooldown;
     private float basicCooldownTimer = 0;
 
+    [Header("Lunge Attack")]
     [SerializeField] private float lungeThresholdMax;
     [SerializeField] private float lungeThresholdMin;
-    private float lungeCooldownTimer;
+    private float lungeCooldownTimer = 10;
     [SerializeField] private float lungeCooldown;
-
-    [SerializeField] private float attackThreshold;
+    [SerializeField] private bool lungeBoostActive;
+    [SerializeField] private float lungeBoostTimer;
 
     public void GoToTarget(GameObject newTarget)
     {
@@ -24,17 +28,28 @@ public class Enemy_Boss_Seek : MonoBehaviour
     {
         lungeCooldownTimer += Time.deltaTime;
         basicCooldownTimer += Time.deltaTime;
+        lungeBoostTimer -= Time.deltaTime;
+        if (lungeBoostTimer <= 0 && lungeBoostActive)
+        {
+            print("Lunge over, returning speed to normal");
+            speed /= 10;
+            lungeBoostActive = false;
+        }
         if (target != null)
         {
             if (Vector2.Distance(transform.position, target.transform.position) >= stopThreshold)
             {
-                transform.position = Vector2.MoveTowards(transform.position, target.transform.position, 1f * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
             }
             if (Vector2.Distance(transform.position, target.transform.position) <= lungeThresholdMax && Vector2.Distance(transform.position, target.transform.position) >= lungeThresholdMin && lungeCooldownTimer >= lungeCooldown)
             {
+                print("Rolling possibility to lunge");
                 lungeCooldownTimer = 0;
                 int index = Random.Range(0, 1);
+                // 50 percent chance to initiate a lunge attack
                 if (index == 0) { GetComponent<Enemy_Boss_Attack>().Lunge(target); }
+                lungeBoostTimer = .5f;
+                lungeBoostActive = true;
             }
             if (Vector2.Distance(transform.position, target.transform.position) <= attackThreshold && basicCooldownTimer >= basicCooldown)
             {
