@@ -26,12 +26,9 @@ public class Enemy_Spawn : MonoBehaviour
         spawnTime += Time.deltaTime;
         if (spawnTime >= cooldown && numSpawns < totalSpawns)
         {
-            if (numSpawns != 1)
-            {
-                Spawn();
-                numSpawns++;
-                spawnTime = 0;
-            }
+            Spawn();
+            numSpawns++;
+            spawnTime = 0;
         }
     }
 
@@ -42,6 +39,7 @@ public class Enemy_Spawn : MonoBehaviour
         GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
         enemiesPooledObject.transform.position = spawnTransforms[rand].position;
         enemiesPooledObject.SetActive(true);
+        EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(enemiesPooledObject);
         
 
     }

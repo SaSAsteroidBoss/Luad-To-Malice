@@ -36637,7 +36637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344730735839356095, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4344730735839356095, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: totalSpawns
@@ -36649,7 +36649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8386052841671416807, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8957424702036515427, guid: 95ebe0d536c351a4b90f255b942a334c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37066,7 +37066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangeEnemies: []
-  amountToPoolRangeEnemies: 50
+  amountToPoolRangeEnemies: 20
   rangeEnemiesPrefab: {fileID: 5649690642524267263, guid: 3354fa3dc034f6f47a8d03d799a169c3, type: 3}
 --- !u!1 &1296746117
 GameObject:

@@ -30,7 +30,6 @@ public class Health : MonoBehaviour
         {
             detection = GetComponentInChildren<Enemy_Ranged_Detect>();
         }
-        //enemiesPooledObject = EnemyObjectPool.
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -52,6 +51,7 @@ public class Health : MonoBehaviour
                 detection.ResetDetection(gameObject);   
                 
             gameObject.SetActive(false);
+            EnemyObjectPool.Instance.AddRangeEnemiesPooledObject(this.gameObject);
         }
     }
 
