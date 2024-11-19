@@ -44,7 +44,9 @@ public class Health : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            detection.ResetDetection(gameObject);
+            if(gameObject.CompareTag("Enemy"))
+                detection.ResetDetection(gameObject);
+                
             gameObject.SetActive(false);
             //Destroy(gameObject);
         }
