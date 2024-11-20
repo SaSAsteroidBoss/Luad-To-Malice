@@ -16,8 +16,12 @@ public class Enemy_Boss_Seek : MonoBehaviour
     [SerializeField] private float lungeThresholdMin;
     private float lungeCooldownTimer = 10;
     [SerializeField] private float lungeCooldown;
-    [SerializeField] private bool lungeBoostActive;
-    [SerializeField] private float lungeBoostTimer;
+    private bool lungeBoostActive;
+    private float lungeBoostTimer;
+
+    [Header("AOE Attack")]
+    private float AOECooldownTimer;
+    [SerializeField] private float AOECooldown;
 
     public void GoToTarget(GameObject newTarget)
     {
@@ -28,6 +32,7 @@ public class Enemy_Boss_Seek : MonoBehaviour
     {
         lungeCooldownTimer += Time.deltaTime;
         basicCooldownTimer += Time.deltaTime;
+        AOECooldownTimer += Time.deltaTime;
         lungeBoostTimer -= Time.deltaTime;
         if (lungeBoostTimer <= 0 && lungeBoostActive)
         {
@@ -53,8 +58,18 @@ public class Enemy_Boss_Seek : MonoBehaviour
             }
             if (Vector2.Distance(transform.position, target.transform.position) <= attackThreshold && basicCooldownTimer >= basicCooldown)
             {
-                basicCooldownTimer = 0;
-                GetComponent<Enemy_Boss_Attack>().Basic(target);
+                // Initiate AOE attack if more than one enemy would be hit
+                if (GetComponentInChildren<Enemy_Boss_AOE_Detect>().playersVulnurable.Count > 1 && AOECooldownTimer >= AOECooldown)
+                {
+                    AOECooldownTimer = 0;
+                    GetComponent<Enemy_Boss_Attack>().AOE();
+                }
+                // Otherwise do a basic
+                else
+                {
+                    basicCooldownTimer = 0;
+                    GetComponent<Enemy_Boss_Attack>().Basic(target);
+                }
             }
         }
     }
