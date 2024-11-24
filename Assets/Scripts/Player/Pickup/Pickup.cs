@@ -1,15 +1,20 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class Pickup : MonoBehaviour
 {
      [SerializeField]
-     private Item _item;
+     private ItemObject _item;
+     
 
-     public Item heldItem{get;set;}
-
-     public void Start()
+     private void OnTriggerEnter2D(Collider2D other)
      {
-          heldItem = _item;
+          if (other.CompareTag("Player"))
+          {
+               other.GetComponent<ItemInventory>().AddItem(_item);
+               Destroy(gameObject);
+          }
      }
 }

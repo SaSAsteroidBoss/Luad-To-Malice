@@ -8,30 +8,31 @@ public class Damage : MonoBehaviour
     public float baseDamage;
 
     public float totalDamage;
-
-    public DamageSource [] damageSources;
+   
+    [SerializeField]
+    private ItemValueSourceData [] _damageSources;
 
 
     public void AddDamageSource(DamageObject item)
     {
-        for (var i = 0; i < damageSources.Length; i++)
+        for (var i = 0; i < _damageSources.Length; i++)
         {
-            if (damageSources[i].item == item && damageSources[i].damageSourceName == item.name)
+            if (_damageSources[i].item == item && _damageSources[i].sourceName == item.name)
             {
-                damageSources[i].amount++;
+                _damageSources[i].amount++;
                  
                 Debug.Log("Object Already Add");
 
                 break;
 
             }
-            else if (damageSources[i].item == null && damageSources[i].damageSourceName == string.Empty)
+            else if (_damageSources[i].item == null && _damageSources[i].sourceName == string.Empty)
             {
-                 damageSources[i].item = item;
-                 damageSources[i].damageSourceName = item.itemName;
-                 damageSources[i].mainDamage = item.mainDamage;
-                 damageSources[i].statusEffectDamage = item.statusEffectDamage;
-                 damageSources[i].amount = 1;
+                 _damageSources[i].item = item;
+                 _damageSources[i].sourceName = item.itemName;
+                 _damageSources[i].primaryValue = item.mainDamage;
+                 _damageSources[i].secondaryValue = item.statusEffectDamage;
+                 _damageSources[i].amount = 1;
                  
                  Debug.Log("Object Not Add");
                  
@@ -45,23 +46,21 @@ public class Damage : MonoBehaviour
     
     public void CalculatePlayerTotalDamage(GameObject target)
     {
-        Debug.LogError(target.name);
-        
-        if (damageSources[0].damageSourceName == "")
+        if (_damageSources[0].sourceName == "")
         {
             totalDamage = baseDamage;
             target.GetComponent<Health>().TakeDamage(totalDamage);
         }
         
-        for (var i = 0; i < damageSources.Length; i++)
+        for (var i = 0; i < _damageSources.Length; i++)
         {
-            if (damageSources[i].damageSourceName == "Electric Boogaloo")
+            if (_damageSources[i].sourceName == "Electric Boogaloo")
             {   
-                float mainDamagePercent = 100 / (damageSources[i].mainDamage * damageSources[i].amount);
+                float mainDamagePercent = 100 / (_damageSources[i].primaryValue * _damageSources[i].amount);
                 float damagePercentOfBase = baseDamage / mainDamagePercent;
                 
                 
-                float statusEffectDamagePercent = 100 / (damageSources[i].statusEffectDamage * damageSources[i].amount);
+                float statusEffectDamagePercent = 100 / (_damageSources[i].secondaryValue * _damageSources[i].amount);
                 float targetMaxHealth = target.GetComponent<Health>().maxHealth;
                 float damagePercentOfMaxHeath = targetMaxHealth / statusEffectDamagePercent;
                 
@@ -77,20 +76,4 @@ public class Damage : MonoBehaviour
         totalDamage = baseDamage - target.GetComponent<Armour>().armour;
         target.GetComponent<Health>().TakeDamage(totalDamage);
     }
-}
-
-
-
-[Serializable]
-public struct DamageSource
-{
-    public DamageObject item;
-    
-    public string damageSourceName;
-    
-    public float mainDamage;
-    
-    public float statusEffectDamage;
-    
-    public int amount;
 }
