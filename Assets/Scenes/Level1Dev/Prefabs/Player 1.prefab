@@ -132,7 +132,8 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   healAmount: 5
-  spawnTransforms: []
+  _healthSource: []
+  _healingSource: []
 --- !u!114 &5186726813462581552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,12 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 100
   totalDamage: 0
-  damageSources:
-  - item: {fileID: 0}
-    damageSourceName: 
-    mainDamage: 0
-    statusEffectDamage: 0
-    amount: 0
+  _damageSources: []
 --- !u!114 &3984602078607967858
 MonoBehaviour:
   m_ObjectHideFlags: 0
