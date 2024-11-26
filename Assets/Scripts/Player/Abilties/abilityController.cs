@@ -26,11 +26,13 @@ public class abilityController : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
-
-
+    
+    private aimControllerTwo aimCont;
 
     private void Start()
     {
+        aimCont = GetComponent<aimControllerTwo>();
+        
         waveCol.SetActive(false);
         if (dataOne == null)
         {
@@ -111,7 +113,7 @@ public class abilityController : MonoBehaviour
         var prefabList = new List<GameObject>();
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
-        float tempGunAngle = playerClass.gunAngle;
+        float tempGunAngle = aimCont.angle;
         float elapsedTime = 0;
         float maxRadius = radius;
         float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
@@ -254,9 +256,9 @@ public class abilityController : MonoBehaviour
         {
             abilityTwoCanRun = false;
         }
-        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
+        var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
 
-        Vector3 gunPos =  transform.position + Vector3.forward * playerClass.gunOffSet;
+        Vector3 gunPos =  transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
 
         
@@ -305,8 +307,8 @@ public class abilityController : MonoBehaviour
         (var p0, var p1, var p2, var p3) = calPointPos(curve);
 
         float timeElapsed = 0;
-        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
-        Vector3 gunPos = transform.position + Vector3.forward * playerClass.gunOffSet;
+        var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
+        Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
         obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<Damage>());
         float distTime = calCurveLength(p0, p1, p2, p3) / speed;
@@ -404,7 +406,7 @@ public class abilityController : MonoBehaviour
     #endregion
     private void OnDrawGizmos()
     {
-        
+        //aimCont = GetComponent<aimControllerTwo>();
         if (ViewAbilityOne)
         {
             switch (dataOne.abilityType)
@@ -477,7 +479,12 @@ public class abilityController : MonoBehaviour
                 case abilityType.Wave:
                     for (int i = 0; i < dataTwo.waveAttackCount; i++)
                     {
-                        Vector3 pos = calPos(i, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, transform.position, playerClass.gunAngle);
+                        float aimAngle = 0;
+                        if (aimCont != null)
+                        {
+                            aimAngle = aimCont.angle;
+                        }
+                        Vector3 pos = calPos(i, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, transform.position, aimAngle);
 
                         Gizmos.color = Color.black;
                         Gizmos.DrawLine(gameObject.transform.position, pos);

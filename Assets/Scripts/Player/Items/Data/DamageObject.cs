@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,6 +18,7 @@ public class DamageObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     {
+       
         player.GetComponent<Damage>().AddDamageSource(this);
     }
 }
