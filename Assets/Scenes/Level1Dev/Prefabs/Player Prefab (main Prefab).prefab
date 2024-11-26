@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8f366e71a9b3f4181807cacf033b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angle: 0
+  offset: 0
 --- !u!114 &1569492359427945485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +184,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armour: 5
+  _armourSource:
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
 --- !u!58 &5672273362601201983
 CircleCollider2D:
   m_ObjectHideFlags: 0
