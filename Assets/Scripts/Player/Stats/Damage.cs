@@ -12,9 +12,15 @@ public class Damage : MonoBehaviour
     [SerializeField]
     private ItemValueSourceData [] _damageSources;
 
-
+    void Start()
+    {   // Ras here
+        // I made this because the ItemValueSourceData was initiating as null meaning the checks would not work.
+        // setting it in the inspector does not seem to rid of the null reference but as far as I can tell this fix solves any noticeable problems
+        _damageSources = new ItemValueSourceData[1];
+    }
     public void AddDamageSource(DamageObject item)
     {
+        Debug.LogWarning("damage source added");
         for (var i = 0; i < _damageSources.Length; i++)
         {
             if (_damageSources[i].item == item && _damageSources[i].sourceName == item.name)
@@ -46,8 +52,10 @@ public class Damage : MonoBehaviour
     
     public void CalculatePlayerTotalDamage(GameObject target)
     {
+        print(_damageSources.Length +" Damage source");
         if (_damageSources[0].sourceName == "")
         {
+            print("Damage source is empty");
             totalDamage = baseDamage;
             target.GetComponent<Health>().TakeDamage(totalDamage);
         }
