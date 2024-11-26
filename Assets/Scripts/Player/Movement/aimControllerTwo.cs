@@ -18,6 +18,7 @@ public class aimControllerTwo : MonoBehaviour
     private bool canRun = false;
     [HideInInspector]
     public float angle, offset;
+    private Transform pointer;
 
     private void Start()
     {
@@ -34,6 +35,12 @@ public class aimControllerTwo : MonoBehaviour
                 playerClass.gunOffSet = AimData.radius;
                 offset = AimData.radius;
             }
+            if( child.name == "pointer")
+            {
+                pointer = child;
+                pointer.parent = null;
+                pointer.position = Vector2.zero;
+            }
         }
         if (canRun == false)
         {
@@ -46,15 +53,22 @@ public class aimControllerTwo : MonoBehaviour
         if (canRun)
         {
             Vector3 orbitVector = Camera.main.WorldToScreenPoint(AimData.pivot.position);
+            //Vector3 orbitVector = Camera.main.WorldToScreenPoint(AimData.pivot.position);
 
             orbitVector = Input.mousePosition - orbitVector;
+            var vec = pointer.position - AimData.pivot.position;
+            
+            //AimData.pivot.position = pointer.position - AimData.pivot.position;
 
-            angle = Mathf.Atan2(-orbitVector.y, -orbitVector.x) * Mathf.Rad2Deg;
+            //angle = Mathf.Atan2(-orbitVector.y, -orbitVector.x) * Mathf.Rad2Deg;
+            angle = Mathf.Atan2(-vec.y, -vec.x) * Mathf.Rad2Deg;
             
             AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             playerClass.gunAngle = angle;
 
         }
     }
+
+    
 
 }
