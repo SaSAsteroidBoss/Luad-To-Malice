@@ -27,8 +27,7 @@ public class MeleeAttack : MonoBehaviour
             foreach (GameObject obj in toHit)
             {
                 print("Hitting Enemy");
-                if (obj.GetComponentInChildren<Enemy_Health>().health <= 100) { GetComponentInChildren<MeleeHitbox>().enemies.Remove(obj); }
-                obj.GetComponentInChildren<Enemy_Health>().DealDamage(100);
+                obj.GetComponent<Health>().TakeDamage(30);
             }
         }
     }

@@ -44,6 +44,12 @@ public class abilityController : MonoBehaviour
             //GetComponent<abilityController>().enabled = false;
         }
     }
+
+    void OnAttack()
+    {
+        GetComponent<MeleeAttack>().Swing();
+    }
+
     void OnCastOne()
     {
         if (abilityOneCanRun)
