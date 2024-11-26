@@ -44,7 +44,7 @@ public class SecondPlayerManager : MonoBehaviour
     
     print("player added");
 
-    if (players.Count < 2)
+    if (players.Count < 2)// current foreseeable bug, the spawn locations are directly linked to the player count
     {
       Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
       players.Add(playerInput);
