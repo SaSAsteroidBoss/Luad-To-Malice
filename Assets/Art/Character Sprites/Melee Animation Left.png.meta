@@ -166,9 +166,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 58
-        height: 63
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,10 +187,10 @@ TextureImporter:
       name: Melee Animation Left_1
       rect:
         serializedVersion: 2
-        x: 66
-        y: 1
-        width: 54
-        height: 63
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,9 +209,9 @@ TextureImporter:
       name: Melee Animation Left_2
       rect:
         serializedVersion: 2
-        x: 130
+        x: 128
         y: 0
-        width: 56
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -232,9 +232,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 1
+        y: 0
         width: 64
-        height: 63
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,9 +253,9 @@ TextureImporter:
       name: Melee Animation Left_4
       rect:
         serializedVersion: 2
-        x: 258
+        x: 256
         y: 0
-        width: 56
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -275,10 +275,10 @@ TextureImporter:
       name: Melee Animation Left_5
       rect:
         serializedVersion: 2
-        x: 322
-        y: 1
-        width: 54
-        height: 63
+        x: 320
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,9 +298,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 1
-        width: 58
-        height: 63
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,10 +319,10 @@ TextureImporter:
       name: Melee Animation Left_7
       rect:
         serializedVersion: 2
-        x: 450
-        y: 1
-        width: 54
-        height: 63
+        x: 448
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,9 +341,9 @@ TextureImporter:
       name: Melee Animation Left_8
       rect:
         serializedVersion: 2
-        x: 514
+        x: 512
         y: 0
-        width: 56
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -364,9 +364,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 1
+        y: 0
         width: 64
-        height: 63
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -385,9 +385,9 @@ TextureImporter:
       name: Melee Animation Left_10
       rect:
         serializedVersion: 2
-        x: 642
+        x: 640
         y: 0
-        width: 56
+        width: 64
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -407,10 +407,10 @@ TextureImporter:
       name: Melee Animation Left_11
       rect:
         serializedVersion: 2
-        x: 706
-        y: 1
-        width: 54
-        height: 63
+        x: 704
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -430,9 +430,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 768
-        y: 1
-        width: 58
-        height: 63
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -451,7 +451,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 6354ea3296c1f8b41b85fd3fec741188
     internalID: 0
     vertices: []
     indices: 
