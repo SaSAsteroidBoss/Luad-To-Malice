@@ -135,8 +135,68 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   healAmount: 5
-  _healthSource: []
-  _healingSource: []
+  _healthSource:
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  _healingSource:
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
 --- !u!114 &5186726813462581552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +230,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 100
   totalDamage: 0
-  _damageSources: []
+  _damageSources:
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
+  - item: {fileID: 0}
+    sourceName: 
+    primaryValue: 0
+    secondaryValue: 0
+    thirdValue: 0
+    amount: 0
 --- !u!114 &3984602078607967858
 MonoBehaviour:
   m_ObjectHideFlags: 0

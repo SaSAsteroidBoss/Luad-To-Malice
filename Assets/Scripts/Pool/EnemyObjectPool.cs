@@ -1,20 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 public class EnemyObjectPool : MonoBehaviour
 {
-
     public static EnemyObjectPool Instance;
 
-    [SerializeField] private List<GameObject> rangeEnemies = new List<GameObject>();
+    private List<GameObject> _rangeEnemies = new List<GameObject>();
 
     [SerializeField] private int amountToPoolRangeEnemies = 20;
 
     [SerializeField] private GameObject rangeEnemiesPrefab;
-
-
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -28,22 +23,17 @@ public class EnemyObjectPool : MonoBehaviour
             var localRangeEnemies = Instantiate(rangeEnemiesPrefab);
             localRangeEnemies.name = "Range Enemies" + " " + i;
             localRangeEnemies.gameObject.SetActive(false);
-            rangeEnemies.Add(localRangeEnemies);
+            _rangeEnemies.Add(localRangeEnemies);
         }
-    }
-
-    void Start()
-    {
-
     }
 
     public GameObject GetRangeEnemiesPooledObject()
     {
-        for (int i = 0; i < rangeEnemies.Count; i++)
+        for (int i = 0; i < _rangeEnemies.Count; i++)
         {
-            if (!rangeEnemies[i].activeInHierarchy)
+            if (!_rangeEnemies[i].activeInHierarchy)
             {
-                return rangeEnemies[i];
+                return _rangeEnemies[i];
             }
 
         }
@@ -55,7 +45,7 @@ public class EnemyObjectPool : MonoBehaviour
     {
         if (localRangeEnemies != null)
         {
-            rangeEnemies.Remove(localRangeEnemies);
+            _rangeEnemies.Remove(localRangeEnemies);
         }
     }
 
@@ -65,7 +55,7 @@ public class EnemyObjectPool : MonoBehaviour
         {
             localRangeEnemies.SetActive(false);
             localRangeEnemies.gameObject.SetActive(false);
-            rangeEnemies.Add(localRangeEnemies);
+            _rangeEnemies.Add(localRangeEnemies);
         }
     }
 }

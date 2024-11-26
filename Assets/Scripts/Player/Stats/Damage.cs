@@ -13,10 +13,8 @@ public class Damage : MonoBehaviour
     private ItemValueSourceData [] _damageSources;
 
     void Start()
-    {   // Ras here
-        // I made this because the ItemValueSourceData was initiating as null meaning the checks would not work.
-        // setting it in the inspector does not seem to rid of the null reference but as far as I can tell this fix solves any noticeable problems
-        _damageSources = new ItemValueSourceData[1];
+    {   
+        
     }
     public void AddDamageSource(DamageObject item)
     {
