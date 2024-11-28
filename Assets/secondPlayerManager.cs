@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class SecondPlayerManager : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class SecondPlayerManager : MonoBehaviour
   [SerializeField] private GameObject[] playerPointer;
   
   [SerializeField] private CinemachineVirtualCamera virtualCamera;
+  [SerializeField] private GameObject cam;
 
+  private GameObject[] newPlayer = new GameObject[2];
+  
   private List<Transform> spawnPoints = new List<Transform>();
 
   private void Awake()
@@ -36,18 +40,34 @@ public class SecondPlayerManager : MonoBehaviour
     
     var inputOne = player.GetComponent<PlayerInput>();
 
+    
     foreach (var device in InputSystem.devices)
     {
-      if (device is Gamepad /*|| device is Keyboard*/)
+     
+      
+      if (device is Gamepad || device is Keyboard)
       {
-        AddPlayer(device);
+        AddPlayer(device, newPlayer);
+        
       }
+    
+     
     }
+    print(newPlayer);
     
   }
 
+  private void Start()
+  {
+    cam.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer);
+  }
   private void start()
   {
+    
+    
+    
+    
+    
     /*
     foreach (Transform child in transform)
     {
@@ -73,22 +93,26 @@ public class SecondPlayerManager : MonoBehaviour
   }
 
 
-  private void AddPlayer(InputDevice device)
+  private void AddPlayer(InputDevice device, GameObject[] newPlayer)
   {
     
     print("player added");
 
+    
     if (players.Count < 2)// current foreseeable bug, the spawn locations are directly linked to the player count
     {
       //Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
-      GameObject newPlayer = Instantiate(player, spawnPoints[0].position,  spawnPoints[0].rotation);
-      newPlayer.GetComponent<setCamera>().cam = virtualCamera;
-      PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
+      print(players.Count);
+      newPlayer[players.Count] = Instantiate(player, spawnPoints[players.Count].position,  spawnPoints[players.Count].rotation);
+      //newPlayer.GetComponent<setCamera>().cam = virtualCamera;
+      PlayerInput playerInput = newPlayer[players.Count].GetComponent<PlayerInput>();
 
       playerPointer[players.Count].SetActive(true);
       players.Add(playerInput);
     }
-   
+    
+    //virtualCamera.gameObject.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer[1].transform, newPlayer[2].transform);
+    //cam.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer[0].transform ,newPlayer[1].transform);
 
   }
 }
