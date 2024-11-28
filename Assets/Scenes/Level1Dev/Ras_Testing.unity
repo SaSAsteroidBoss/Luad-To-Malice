@@ -36519,11 +36519,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amountToPoolElectricBoogaloo: 30
   electricBoogalooPrefab: {fileID: 6362365287106053280, guid: 95d5eb0da63abce4c848a0f03e6ff94c, type: 3}
-  soldierBioticsPrefab: {fileID: 0}
+  soldierBioticsPrefab: {fileID: 1771992972912162321, guid: 04cb0e919c564fd419621d97c38ed87e, type: 3}
   amountToPoolSoldierBiotics: 20
-  banagePrefab: {fileID: 0}
+  banagePrefab: {fileID: 7359467692411733774, guid: b40895d68bfdf0543b7dff87b8965371, type: 3}
   amountToPoolBanage: 20
-  gelLayerPrefab: {fileID: 0}
+  gelLayerPrefab: {fileID: 8265433877768024311, guid: 640eaf6a1eb4f114f97d6e8906ef4def, type: 3}
   amountToPoolGelLayer: 20
 --- !u!1001 &1137907743
 PrefabInstance:
