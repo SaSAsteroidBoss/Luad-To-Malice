@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +11,44 @@ public class SecondPlayerManager : MonoBehaviour
 
   
   private List<PlayerInput> players = new List<PlayerInput>();
+  
   [SerializeField] private GameObject player;
 
+  [SerializeField] private GameObject[] playerPointer;
+  
+  [SerializeField] private CinemachineVirtualCamera virtualCamera;
 
   private List<Transform> spawnPoints = new List<Transform>();
 
-  private void Start()
+  private void Awake()
   {
+    foreach (Transform child in transform)
+    {
+      spawnPoints.Add(child);
+    }
+
+    foreach (GameObject pointer in playerPointer)
+    {
+      pointer.SetActive(false);
+    }
+    
+    inputManager = GetComponent<PlayerInputManager>();
+    
+    var inputOne = player.GetComponent<PlayerInput>();
+
+    foreach (var device in InputSystem.devices)
+    {
+      if (device is Gamepad /*|| device is Keyboard*/)
+      {
+        AddPlayer(device);
+      }
+    }
+    
+  }
+
+  private void start()
+  {
+    /*
     foreach (Transform child in transform)
     {
       spawnPoints.Add(child);
@@ -30,23 +63,29 @@ public class SecondPlayerManager : MonoBehaviour
 
     foreach (var device in InputSystem.devices)
     {
-      if (device is Gamepad || device is Keyboard)
+      if (device is Gamepad /*|| device is Keyboard*//*)
       {
-        AddPlayer(inputOne);
+       AddPlayer(inputOne);
       }
+
     }
-    
+    */
   }
 
 
-  private void AddPlayer(PlayerInput playerInput)
+  private void AddPlayer(InputDevice device)
   {
     
     print("player added");
 
     if (players.Count < 2)// current foreseeable bug, the spawn locations are directly linked to the player count
     {
-      Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
+      //Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
+      GameObject newPlayer = Instantiate(player, spawnPoints[0].position,  spawnPoints[0].rotation);
+      newPlayer.GetComponent<setCamera>().cam = virtualCamera;
+      PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
+
+      playerPointer[players.Count].SetActive(true);
       players.Add(playerInput);
     }
    

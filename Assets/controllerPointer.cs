@@ -23,7 +23,7 @@ public class controllerPointer : MonoBehaviour
    {
         //var transVec =  Vector3.one + inputVec * (sensitivity * Time.deltaTime);
         var vec = inputVec * sensitivity * Time.deltaTime;
-        print(inputVec);
+       // print(inputVec);
         pointer.position += vec;
 
 
