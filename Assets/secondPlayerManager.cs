@@ -17,7 +17,6 @@ public class SecondPlayerManager : MonoBehaviour
 
   [SerializeField] private GameObject[] playerPointer;
   
-  [SerializeField] private CinemachineVirtualCamera virtualCamera;
   [SerializeField] private GameObject cam;
 
   private GameObject[] newPlayer = new GameObject[2];
@@ -45,20 +44,18 @@ public class SecondPlayerManager : MonoBehaviour
     {
      
       
-      if (device is Gamepad || device is Keyboard)
+      if (device is Gamepad || device is Keyboard) // Comment out the keyboard part, its only there for bug testing the multiplayer 
       {
-        AddPlayer(device, newPlayer);
+        AddPlayer(device);
         
       }
-    
-     
     }
-    print(newPlayer);
-    
+
   }
 
   private void Start()
   {
+ 
     cam.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer);
   }
   private void start()
@@ -93,7 +90,7 @@ public class SecondPlayerManager : MonoBehaviour
   }
 
 
-  private void AddPlayer(InputDevice device, GameObject[] newPlayer)
+  private void AddPlayer(InputDevice device)
   {
     
     print("player added");
@@ -102,9 +99,15 @@ public class SecondPlayerManager : MonoBehaviour
     if (players.Count < 2)// current foreseeable bug, the spawn locations are directly linked to the player count
     {
       //Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
-      print(players.Count);
+
       newPlayer[players.Count] = Instantiate(player, spawnPoints[players.Count].position,  spawnPoints[players.Count].rotation);
       //newPlayer.GetComponent<setCamera>().cam = virtualCamera;
+      
+      switch (players.Count)
+      {
+        case 0 : newPlayer[players.Count].name = "player 1"; break;
+        case 1: newPlayer[players.Count].name = "player 2"; break;
+      }
       PlayerInput playerInput = newPlayer[players.Count].GetComponent<PlayerInput>();
 
       playerPointer[players.Count].SetActive(true);

@@ -15,7 +15,9 @@ public class abilityController : MonoBehaviour
     [SerializeField] private SO_abilities dataTwo;
 
     [SerializeField] private GameObject waveCol;
-
+    
+    private RectTransform pointerPos;
+    aimControllerTwo aimController;
     [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
@@ -45,6 +47,8 @@ public class abilityController : MonoBehaviour
             Debug.LogError("AbilityDataTwo is Null. View abilityController.cs on player to Debug");
             //GetComponent<abilityController>().enabled = false;
         }
+        
+       
     }
     void OnCastOne()
     {
@@ -347,7 +351,10 @@ public class abilityController : MonoBehaviour
         float offSet;
  
         p0 = transform.position; 
-        p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        aimController = GetComponent<aimControllerTwo>();
+        pointerPos = aimController.pointer;
+        //p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        p3 = Camera.main.ScreenToWorldPoint(pointerPos.position); 
 
         p1 = p0 + (p3 - p0) / 4; // higher devision = close to start point 
         p2 = p0 + (p3 - p0) / 1.5f; // 2 is midpoint so 1.5 is half way between 1-2

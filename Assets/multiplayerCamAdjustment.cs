@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 
@@ -8,10 +9,15 @@ public class multiplayerCamAdjustment : MonoBehaviour
    
    private CinemachineTargetGroup targetGroup;
 
-   void Start()
+   private void Awake()
    {
       cam = GetComponent<CinemachineVirtualCamera>();
       targetGroup = GetComponent<CinemachineTargetGroup>();
+   }
+
+   void Start()
+   {
+     
       
       //targetGroup.AddMember(player1, 1f,0f);
       //targetGroup.AddMember(player2, 1f,0f);
