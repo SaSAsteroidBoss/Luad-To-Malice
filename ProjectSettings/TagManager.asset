@@ -50,8 +50,11 @@ TagManager:
   - name: item
     uniqueID: 4100893711
     locked: 0
-  - name: Player
+  - name: Characters
     uniqueID: 840457289
+    locked: 0
+  - name: Projectile
+    uniqueID: 3273777563
     locked: 0
   m_RenderingLayers:
   - Default
