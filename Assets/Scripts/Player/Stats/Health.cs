@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -13,11 +11,23 @@ public class Health : MonoBehaviour
 
     public float healAmount;
 
-    public ItemValueSourceData [] healthSource;
+    [SerializeField]
+    private ItemValueSourceData [] _healthSource;
+  
+    [SerializeField]
+    private ItemValueSourceData [] _healingSource;
+    
+    private Enemy_Ranged_Detect detection;
+    
     
     public void Start()
     {
         currentHealth = maxHealth;
+
+        if(gameObject.CompareTag("Enemy"))
+        {
+            detection = GetComponentInChildren<Enemy_Ranged_Detect>();
+        }
     }
     
     // ReSharper disable Unity.PerformanceAnalysis
@@ -27,21 +37,83 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-        if (_heal == null)
+        if (_heal == null && gameObject.CompareTag("Player"))
         {
-            //_heal = Heal();
-            //StartCoroutine(_heal);
+            _heal = Heal();
+            StartCoroutine(_heal);
         }
 
         if (currentHealth == 0)
         {
-            Destroy(gameObject);
+            if (gameObject.CompareTag("Enemy"))
+            {
+                var itemDrop = new GameObject();
+                
+                detection.ResetDetection(gameObject);
+                
+                gameObject.SetActive(false);
+                EnemyObjectPool.Instance.AddRangeEnemiesPooledObject(gameObject);
+                
+                var randomItemChance = Random.Range(1, 100);
+
+                if (randomItemChance >= 20)
+                {
+                    var itemChance = Random.Range(1, 4);
+
+                    switch (itemChance)
+                    {
+                        case 1:
+
+                            itemDrop = ItemObjectPool.Instance.GetBanagePooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveBanagePooledObject(itemDrop);
+                            
+                            break; 
+                        
+                        case 2:
+                           
+                            itemDrop = ItemObjectPool.Instance.GetElectricBoogalooPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveElectricBoogalooPooledObject(itemDrop);
+                         
+                            break;
+                      
+                        case 3:
+
+                            itemDrop = ItemObjectPool.Instance.GetGelLayerPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveGelLayerPooledObject(itemDrop);
+                            
+                            break;
+                        
+                        case 4:
+
+                            itemDrop = ItemObjectPool.Instance.GetSoldierBioticsPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveSoldierBioticsPooledObject(itemDrop);
+                            
+                            break;
+                        
+                    }
+                }
+
+            }
+            
         }
     }
 
     public void AddHealAmount(float increaseHealAmount)
     {
         healAmount += increaseHealAmount;
+    }
+    
+    public void AddHealthAmount(float increaseHealthAmount)
+    {
+        maxHealth += increaseHealthAmount;
     }
 
     private IEnumerator Heal()
@@ -57,34 +129,71 @@ public class Health : MonoBehaviour
                 currentHealth += healHealth;
             }
 
-            if (!(currentHealth >= maxHealth)) continue;
-            Debug.Log("Heal has reached max health");
-            currentHealth = maxHealth;
-            StopCoroutine(_heal);
-            _heal = null;
+            if (currentHealth >= maxHealth)
+            {
+                Debug.Log("Heal has reached max health");
+                currentHealth = maxHealth;
+                StopCoroutine(_heal);
+                _heal = null;
+            }
+          
         }
     }
 
     
     public void AddHealthSource(HealthObject item)
     {
-        for (var i = 0; i < healthSource.Length; i++)
+        for (var i = 0; i < _healthSource.Length; i++)
         {
-            if (healthSource[i].item == item && healthSource[i].sourceName == item.name)
+            if (_healthSource[i].item == item && _healthSource[i].sourceName == item.name)
             {
-                healthSource[i].amount++;
-                 
+                _healthSource[i].amount++;
+                CalculatePlayerTotalHealth();
+                
                 Debug.Log("Object Already Add");
 
                 break;
 
             }
-            else if (healthSource[i].item == null && healthSource[i].sourceName == string.Empty)
+            else if (_healthSource[i].item == null && _healthSource[i].sourceName == string.Empty)
             {
-                healthSource[i].item = item;
-                healthSource[i].sourceName = item.itemName;
-                healthSource[i].primaryValue = item.mainHealthIncrease;
-                healthSource[i].amount = 1;
+                _healthSource[i].item = item;
+                _healthSource[i].sourceName = item.itemName;
+                _healthSource[i].primaryValue = item.mainHealthIncrease;
+                _healthSource[i].amount = 1;
+
+                CalculatePlayerTotalHealth();
+                
+                Debug.Log("Object Not Add");
+                 
+                break;
+
+            }
+
+        }
+    }
+
+    public void AddHealSource(HealingObject item)
+    {
+        for (var i = 0; i < _healingSource.Length; i++)
+        {
+            if (_healingSource[i].item == item && _healingSource[i].sourceName == item.name)
+            {
+                _healingSource[i].amount++;
+                CalculatePlayerTotalHealing();
+                
+                Debug.Log("Object Already Add");
+
+                break;
+
+            }
+            else if (_healingSource[i].item == null && _healingSource[i].sourceName == string.Empty)
+            {
+                _healingSource[i].item = item;
+                _healingSource[i].sourceName = item.itemName;
+                _healingSource[i].primaryValue = item.mainHealValue;
+                _healingSource[i].amount = 1;
+                CalculatePlayerTotalHealing();
                  
                 Debug.Log("Object Not Add");
                  
@@ -94,16 +203,28 @@ public class Health : MonoBehaviour
 
         }
     }
-}
-
-[Serializable]
-public struct HealingSource
-{
-    public Health item;
     
-    public string healingSourceName;
-
-    public float mainHealAmount;
+    public void CalculatePlayerTotalHealing()
+    {
+     
+        for (var i = 0; i <_healingSource.Length; i++)
+        {
+            if (_healingSource[i].sourceName == "Banage")
+            {   
+                float healValue = _healingSource[i].primaryValue * _healingSource[i].amount;
+                AddHealAmount(healValue);
+            }
+        }
+    }
     
-    public int amount;
+    void CalculatePlayerTotalHealth()
+    {
+        for (var i = 0; i <_healthSource.Length; i++)
+        {
+            if (_healthSource[i].sourceName == "Soldier Biotics")
+            {   
+                AddHealthAmount(_healthSource[i].primaryValue);
+            }
+        }
+    }
 }

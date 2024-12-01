@@ -15,7 +15,9 @@ public class abilityController : MonoBehaviour
     [SerializeField] private SO_abilities dataTwo;
 
     [SerializeField] private GameObject waveCol;
-
+    
+    private RectTransform pointerPos;
+    aimControllerTwo aimController;
     [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
@@ -26,11 +28,13 @@ public class abilityController : MonoBehaviour
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
-
-
+    
+    private aimControllerTwo aimCont;
 
     private void Start()
     {
+        aimCont = GetComponent<aimControllerTwo>();
+        
         waveCol.SetActive(false);
         if (dataOne == null)
         {
@@ -43,6 +47,8 @@ public class abilityController : MonoBehaviour
             Debug.LogError("AbilityDataTwo is Null. View abilityController.cs on player to Debug");
             //GetComponent<abilityController>().enabled = false;
         }
+        
+       
     }
     void OnCastOne()
     {
@@ -111,7 +117,7 @@ public class abilityController : MonoBehaviour
         var prefabList = new List<GameObject>();
         Vector3 playerPos = transform.position;
         float angleY = transform.eulerAngles.y;
-        float tempGunAngle = playerClass.gunAngle;
+        float tempGunAngle = aimCont.angle;
         float elapsedTime = 0;
         float maxRadius = radius;
         float psDuration = ps.GetComponent<ParticleSystem>().main.duration;
@@ -254,9 +260,9 @@ public class abilityController : MonoBehaviour
         {
             abilityTwoCanRun = false;
         }
-        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
+        var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
 
-        Vector3 gunPos =  transform.position + Vector3.forward * playerClass.gunOffSet;
+        Vector3 gunPos =  transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
 
         
@@ -305,8 +311,8 @@ public class abilityController : MonoBehaviour
         (var p0, var p1, var p2, var p3) = calPointPos(curve);
 
         float timeElapsed = 0;
-        var rot = Quaternion.AngleAxis(playerClass.gunAngle + 90, Vector3.forward);
-        Vector3 gunPos = transform.position + Vector3.forward * playerClass.gunOffSet;
+        var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
+        Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
         obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<Damage>());
         float distTime = calCurveLength(p0, p1, p2, p3) / speed;
@@ -345,7 +351,10 @@ public class abilityController : MonoBehaviour
         float offSet;
  
         p0 = transform.position; 
-        p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        aimController = GetComponent<aimControllerTwo>();
+        pointerPos = aimController.pointer;
+        //p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
+        p3 = Camera.main.ScreenToWorldPoint(pointerPos.position); 
 
         p1 = p0 + (p3 - p0) / 4; // higher devision = close to start point 
         p2 = p0 + (p3 - p0) / 1.5f; // 2 is midpoint so 1.5 is half way between 1-2
@@ -404,7 +413,7 @@ public class abilityController : MonoBehaviour
     #endregion
     private void OnDrawGizmos()
     {
-        
+        //aimCont = GetComponent<aimControllerTwo>();
         if (ViewAbilityOne)
         {
             switch (dataOne.abilityType)
@@ -477,7 +486,12 @@ public class abilityController : MonoBehaviour
                 case abilityType.Wave:
                     for (int i = 0; i < dataTwo.waveAttackCount; i++)
                     {
-                        Vector3 pos = calPos(i, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, transform.position, playerClass.gunAngle);
+                        float aimAngle = 0;
+                        if (aimCont != null)
+                        {
+                            aimAngle = aimCont.angle;
+                        }
+                        Vector3 pos = calPos(i, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, transform.position, aimAngle);
 
                         Gizmos.color = Color.black;
                         Gizmos.DrawLine(gameObject.transform.position, pos);

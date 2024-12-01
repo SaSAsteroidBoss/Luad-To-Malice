@@ -326,8 +326,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 250
+  maxHealth: 50
   healAmount: 0
+  _healthSource: []
+  _healingSource: []
 --- !u!114 &-8838668595646984080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,6 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   armour: 5
+  _armourSource: []
 --- !u!114 &7648072327877716924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,4 +358,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 20
   totalDamage: 0
-  damageSources: []
+  _damageSources: []

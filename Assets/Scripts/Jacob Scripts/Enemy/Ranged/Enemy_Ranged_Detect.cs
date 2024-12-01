@@ -9,6 +9,7 @@ public class Enemy_Ranged_Detect : MonoBehaviour
 
     public GameObject target;
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // If a player has entered range
@@ -30,11 +31,13 @@ public class Enemy_Ranged_Detect : MonoBehaviour
         }
     }
 
+/*
     private void OnTriggerExit2D(Collider2D collision)
     {
         //print("Collision lost with: " + collision.gameObject.name);
         // If a player has exited range
-     
+        if(collision.gameObject.activeInHierarchy)
+
             if (collision.CompareTag("Player"))
             {
                 print("Player lost by enemy");
@@ -53,7 +56,7 @@ public class Enemy_Ranged_Detect : MonoBehaviour
                 }
         }
     }
-
+*/
     // Update is called once per frame
     void Update()
     {
@@ -87,4 +90,29 @@ public class Enemy_Ranged_Detect : MonoBehaviour
             }
         }
     }
+
+
+    public void ResetDetection(GameObject obj)
+    {
+        if(obj.CompareTag("Player"))
+        {
+
+        
+            if(obj == target.gameObject)
+            {
+             GetComponentInParent<Enemy_Ranged_Seek>().target = null;
+            target = null;
+            }
+       
+            if(obj == preTarget.gameObject)          
+            {
+            preTarget = null;      
+            }  
+              
+
+        }
+              
+    }
 }
+
+

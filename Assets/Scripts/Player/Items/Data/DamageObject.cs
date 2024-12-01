@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Item/Damage Item")]
 
@@ -17,6 +15,7 @@ public class DamageObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     {
+       
         player.GetComponent<Damage>().AddDamageSource(this);
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Item/Health Item")]
+
 public class HealthObject : ItemObject
 {
     public float mainHealthIncrease;
@@ -8,7 +10,7 @@ public class HealthObject : ItemObject
     
     public void Awake()
     {
-        type = ItemType.Damage;
+        type = ItemType.Health;
     }
 
     public override void AddItemSource(GameObject player)

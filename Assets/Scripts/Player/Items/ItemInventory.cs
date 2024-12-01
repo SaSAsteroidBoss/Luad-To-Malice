@@ -7,8 +7,6 @@ public class ItemInventory : MonoBehaviour
 {
     public ItemSlot[] itemSlots;
 
-    public ItemObject itemObject;
-
      public void AddItem(ItemObject item)
      {
          for (var i = 0; i < itemSlots.Length; i++)
@@ -16,6 +14,7 @@ public class ItemInventory : MonoBehaviour
              if (itemSlots[i].item == item && item.name == itemSlots[i].name)
              {
                  itemSlots[i].amount++;
+                 item.AddItemSource(this.gameObject);
                  
                  Debug.Log("Object Already Add");
 
@@ -34,11 +33,6 @@ public class ItemInventory : MonoBehaviour
              }
 
          }
-     }
-     
-     public void GetAndAddItem()
-     {
-         AddItem(itemObject);
      }
 }
 
