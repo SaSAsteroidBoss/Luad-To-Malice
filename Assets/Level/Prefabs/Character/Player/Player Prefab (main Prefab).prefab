@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 100
-  healAmount: 5
+  healAmount: 1
   _healthSource:
   - item: {fileID: 0}
     sourceName: 
@@ -211,6 +211,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSlots:
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
+  - name: 
+    item: {fileID: 0}
+    amount: 0
   - name: 
     item: {fileID: 0}
     amount: 0

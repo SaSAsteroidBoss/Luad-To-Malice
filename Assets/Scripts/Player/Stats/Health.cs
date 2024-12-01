@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
 
+        
         if(gameObject.CompareTag("Enemy"))
         {
             detection = GetComponentInChildren<Enemy_Ranged_Detect>();
@@ -45,7 +46,7 @@ public class Health : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            if (gameObject.CompareTag("Enemy"))
+            if (gameObject.CompareTag("Enemy") && gameObject.name != "Boss")
             {
                 var itemDrop = new GameObject();
                 
@@ -102,7 +103,59 @@ public class Health : MonoBehaviour
                 }
 
             }
-            
+              if (gameObject.CompareTag("Enemy") && gameObject.name == "Boss")
+            {
+                var itemDrop = new GameObject();
+                
+                var randomItemChance = Random.Range(1, 100);
+
+                if (randomItemChance >= 20)
+                {
+                    var itemChance = Random.Range(1, 4);
+
+                    switch (itemChance)
+                    {
+                        case 1:
+
+                            itemDrop = ItemObjectPool.Instance.GetBanagePooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveBanagePooledObject(itemDrop);
+                            
+                            break; 
+                        
+                        case 2:
+                           
+                            itemDrop = ItemObjectPool.Instance.GetElectricBoogalooPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveElectricBoogalooPooledObject(itemDrop);
+                         
+                            break;
+                      
+                        case 3:
+
+                            itemDrop = ItemObjectPool.Instance.GetGelLayerPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveGelLayerPooledObject(itemDrop);
+                            
+                            break;
+                        
+                        case 4:
+
+                            itemDrop = ItemObjectPool.Instance.GetSoldierBioticsPooledObject();
+                            itemDrop.transform.position = transform.position;
+                            itemDrop.SetActive(true);
+                            ItemObjectPool.Instance.RemoveSoldierBioticsPooledObject(itemDrop);
+                            
+                            break;
+                        
+                    }
+                }
+
+                Destroy(gameObject);
+            }
         }
     }
 
