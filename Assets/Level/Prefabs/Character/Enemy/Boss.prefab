@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49c7d2a1fda494458ffd40763f09164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 10
   target: {fileID: 0}
   stopThreshold: 2
   attackThreshold: 2
@@ -139,7 +139,7 @@ MonoBehaviour:
   lungeThresholdMax: 7
   lungeThresholdMin: 5
   lungeCooldown: 10
-  AOECooldown: 0
+  AOECooldown: 3
 --- !u!114 &3181094005759152120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d1f0bf4a978364093dd4817f330229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicDamage: 0
-  areaDamage: 0
+  basicDamage: 50
+  areaDamage: 50
 --- !u!114 &8104362842228270133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 536647e0fb3612f48b33883cc43d58e7, type: 3}
   m_Name: 
@@ -200,7 +200,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 956955973399402984}
