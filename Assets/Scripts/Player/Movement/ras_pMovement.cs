@@ -37,7 +37,7 @@ public class ras_pMovement : MonoBehaviour
 
     private void TransformMovement()
     {
-        float angle = playerClass.gunAngle;
+        float angle = PlayerClass.gunAngle;
         
         if (inputVec.magnitude > 0)
         {

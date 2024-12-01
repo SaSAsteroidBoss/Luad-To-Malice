@@ -46,7 +46,7 @@ public class aimControllerTwo : MonoBehaviour
                 AimData.pivot = child.parent;
                 AimData.orb.position += Vector3.up * AimData.radius;
                 canRun = true;
-                playerClass.gunOffSet = AimData.radius;
+                PlayerClass.gunOffSet = AimData.radius;
                 offset = AimData.radius;
             } 
             
@@ -147,7 +147,7 @@ public class aimControllerTwo : MonoBehaviour
                 AimData.pivot = child.parent;
                 AimData.orb.position += Vector3.up * AimData.radius;
                 canRun = true;
-                playerClass.gunOffSet = AimData.radius;
+                PlayerClass.gunOffSet = AimData.radius;
                 offset = AimData.radius;
             } 
             
@@ -234,7 +234,7 @@ public class aimControllerTwo : MonoBehaviour
             
         AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         //pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-        playerClass.gunAngle = angle;
+        PlayerClass.gunAngle = angle;
     }
     
     private void MovePointer()

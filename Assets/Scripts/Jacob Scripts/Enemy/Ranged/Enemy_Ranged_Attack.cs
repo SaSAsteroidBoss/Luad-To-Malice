@@ -5,14 +5,23 @@ public class Enemy_Ranged_Attack : MonoBehaviour
 {
     public GameObject bulletPrefab;
 
+    private RangeEnemyDamage _rangeEnemyDamage;
+    
     public float fireRate;
     private float fireRateTimer = 0;
 
     public float attackRange;
 
+    [Header("Basic Attack")]
+    [SerializeField] private float basicDamage;
+
+    [Header("AOE Attack")]
+    [SerializeField] private float areaDamage;
+    
     private void Start()
     {
         fireRateTimer = fireRate;
+        _rangeEnemyDamage = new RangeEnemyDamage(basicDamage, areaDamage);
     }
 
     private void Update()
@@ -32,7 +41,7 @@ public class Enemy_Ranged_Attack : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
                 
                var bullet =  Instantiate(bulletPrefab, transform.position, transform.rotation, transform);
-               bullet.GetComponent<BulletBehaviour>().SetDamageScript(GetComponent<Damage>());
+               bullet.GetComponent<BulletBehaviour>().SetDamageScript(_rangeEnemyDamage);
                
                 
                 fireRateTimer = fireRate;

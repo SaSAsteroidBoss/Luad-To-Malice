@@ -1,8 +1,7 @@
-using System;
-using UnityEngine;
 
-[Serializable]
-public struct ItemValueSourceData
+
+[System.Serializable]
+public class ItemValueSourceData
 {
     public ItemObject item;
     

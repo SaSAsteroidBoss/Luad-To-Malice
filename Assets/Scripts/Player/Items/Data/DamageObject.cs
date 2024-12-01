@@ -15,7 +15,6 @@ public class DamageObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     {
-       
-        player.GetComponent<Damage>().AddDamageSource(this);
+        player.GetComponent<ItemInventory>().PlayerDamage.AddDamageSource(this);
     }
 }

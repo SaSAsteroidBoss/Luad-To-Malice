@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_Boss_Attack : MonoBehaviour
@@ -5,15 +7,16 @@ public class Enemy_Boss_Attack : MonoBehaviour
 
     [Header("Basic Attack")]
     [SerializeField] private float basicDamage;
-    [SerializeField] private GameObject basicHitCollider;
-
-    [Header("Lunge Attack")]
-    [SerializeField] private float lungeDamage;
-    [SerializeField] private GameObject lungeHitCollider;
 
     [Header("AOE Attack")]
     [SerializeField] private float areaDamage;
-    [SerializeField] private GameObject areaHitCollider;
+
+    private BossDamage _bossDamage;
+
+    private void Start()
+    {
+       _bossDamage = new BossDamage(basicDamage, areaDamage);
+    }
 
     public void Basic(GameObject target)
     {
@@ -21,13 +24,25 @@ public class Enemy_Boss_Attack : MonoBehaviour
         // Animate
         // Wait till animation is finished
         // Damage player
+        
+        _bossDamage.CalculateDamage(target);
     }
 
     public void Lunge(GameObject target)
     {
-        print("Boss Lunge");
+        print("Boss Lunge activated, speed doubled");
         // Animate
-        // Wait till animation is finished
-        // Damage player
+        GetComponent<Enemy_Boss_Seek>().speed = GetComponent<Enemy_Boss_Seek>().speed * 10;
+    }
+
+    public void AOE()
+    {
+        print("Boss AOE activated");
+        //Animate
+        //Damage Players
+        foreach (GameObject g in GetComponentInChildren<Enemy_Boss_AOE_Detect>().playersVulnurable) 
+        {
+            _bossDamage.CalculateAeoDamage(g);
+        }
     }
 }

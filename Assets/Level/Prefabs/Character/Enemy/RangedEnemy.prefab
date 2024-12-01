@@ -185,7 +185,6 @@ GameObject:
   - component: {fileID: 637385597501825761}
   - component: {fileID: 3216293517374228696}
   - component: {fileID: -8838668595646984080}
-  - component: {fileID: 7648072327877716924}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -267,6 +266,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 9012870697472417482, guid: 0e7e1c635a544f848905467cebdbb31b, type: 3}
   fireRate: 1
   attackRange: 15
+  basicDamage: 25
+  areaDamage: 25
 --- !u!61 &637385597501825761
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -344,18 +345,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   armour: 5
   _armourSource: []
---- !u!114 &7648072327877716924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5649690642524267263}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57977a44604dca4e86b0440a2c55e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamage: 20
-  totalDamage: 0
-  _damageSources: []

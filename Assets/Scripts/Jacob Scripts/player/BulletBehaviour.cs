@@ -6,9 +6,9 @@ using UnityEngine.UIElements;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    private Damage _target;
+    private RangeEnemyDamage _target;
     
-    public void SetDamageScript(Damage newTarget)
+    public void SetDamageScript(RangeEnemyDamage newTarget)
     {
         _target = newTarget;
     }
@@ -26,7 +26,6 @@ public class BulletBehaviour : MonoBehaviour
     void Update()
     {
         GetComponent<Rigidbody2D>().velocity = transform.up * speed;
-
         Destroy(gameObject, 2f);
     }
 
@@ -35,9 +34,7 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
-           // _target.CalculateTotalDamageWithoutItems(other.gameObject);
-            _target.CalculateEnemyTotalDamage(other.gameObject);
+           _target.CalculateDamage(other.gameObject);
             Destroy(gameObject);
         }
         

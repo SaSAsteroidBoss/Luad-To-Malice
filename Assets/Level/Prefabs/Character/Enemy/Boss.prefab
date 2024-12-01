@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 7673930514614323471}
   - component: {fileID: 3181094005759152120}
   - component: {fileID: 8104362842228270133}
-  - component: {fileID: 3534983502158116205}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -79,11 +78,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 840457289
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2611877314348357216, guid: f1bf2205d93a9464aa3b2527e6d9a2b5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: a3da916cb4dba7d4383d5a882b568d44, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,13 +131,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49c7d2a1fda494458ffd40763f09164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
   target: {fileID: 0}
   stopThreshold: 2
+  attackThreshold: 2
   basicCooldown: 2
   lungeThresholdMax: 7
   lungeThresholdMin: 5
   lungeCooldown: 10
-  attackThreshold: 2
+  AOECooldown: 0
 --- !u!114 &3181094005759152120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,11 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicDamage: 0
-  basicHitCollider: {fileID: 0}
-  lungeDamage: 0
-  lungeHitCollider: {fileID: 0}
   areaDamage: 0
-  areaHitCollider: {fileID: 0}
 --- !u!114 &8104362842228270133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,21 +169,8 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 6000
   healAmount: 5
---- !u!114 &3534983502158116205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57977a44604dca4e86b0440a2c55e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamage: 100
-  totalDamage: 0
-  damageSources: []
+  _healthSource: []
+  _healingSource: []
 --- !u!1 &6416274395340521432
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,6 +182,7 @@ GameObject:
   - component: {fileID: 8013190001302023649}
   - component: {fileID: 4154125344629741678}
   - component: {fileID: 6893743344800834208}
+  - component: {fileID: 708668521875232844}
   m_Layer: 0
   m_Name: Detection Radius
   m_TagString: Untagged
@@ -270,3 +255,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   preTarget: {fileID: 0}
   target: {fileID: 0}
+--- !u!114 &708668521875232844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416274395340521432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb5db9b1fec17840ac63013cf52e583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersVulnurable: []

@@ -14,7 +14,6 @@ public class Pickup : MonoBehaviour
           if (other.CompareTag("Player"))
           {
                other.GetComponent<ItemInventory>().AddItem(_item);
-
                switch (_item.name)
                {
                        

@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 7628509253492707664}
   - component: {fileID: 1569492359427945485}
   - component: {fileID: 5186726813462581552}
-  - component: {fileID: 4982151296539883648}
   - component: {fileID: 3984602078607967858}
   - component: {fileID: 5672273362601201983}
   - component: {fileID: 2911796422325555586}
@@ -218,51 +217,6 @@ MonoBehaviour:
   - name: 
     item: {fileID: 0}
     amount: 0
---- !u!114 &4982151296539883648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107401490138057198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57977a44604dca4e86b0440a2c55e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseDamage: 100
-  totalDamage: 0
-  _damageSources:
-  - item: {fileID: 0}
-    sourceName: 
-    primaryValue: 0
-    secondaryValue: 0
-    thirdValue: 0
-    amount: 0
-  - item: {fileID: 0}
-    sourceName: 
-    primaryValue: 0
-    secondaryValue: 0
-    thirdValue: 0
-    amount: 0
-  - item: {fileID: 0}
-    sourceName: 
-    primaryValue: 0
-    secondaryValue: 0
-    thirdValue: 0
-    amount: 0
-  - item: {fileID: 0}
-    sourceName: 
-    primaryValue: 0
-    secondaryValue: 0
-    thirdValue: 0
-    amount: 0
-  - item: {fileID: 0}
-    sourceName: 
-    primaryValue: 0
-    secondaryValue: 0
-    thirdValue: 0
-    amount: 0
 --- !u!114 &3984602078607967858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cbc4e3db3bad4439cc220f0a40a796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: {fileID: 4982151296539883648}
+  inventory: {fileID: 5186726813462581552}
 --- !u!1 &4261659654831883569
 GameObject:
   m_ObjectHideFlags: 0

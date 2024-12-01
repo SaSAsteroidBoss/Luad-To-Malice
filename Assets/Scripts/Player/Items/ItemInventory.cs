@@ -7,7 +7,21 @@ public class ItemInventory : MonoBehaviour
 {
     public ItemSlot[] itemSlots;
 
-     public void AddItem(ItemObject item)
+    public PlayerDamage PlayerDamage // property
+    {
+        get;
+        // get method
+        set;
+        // set method
+    }
+
+    void Start()
+    {
+        PlayerDamage = new PlayerDamage(PlayerClass.BaseDamage, PlayerClass.AeoDamage);
+    }
+    
+    
+    public void AddItem(ItemObject item)
      {
          for (var i = 0; i < itemSlots.Length; i++)
          {
@@ -35,7 +49,6 @@ public class ItemInventory : MonoBehaviour
          }
      }
 }
-
 
 
 [Serializable]

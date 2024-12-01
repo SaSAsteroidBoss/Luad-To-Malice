@@ -313,8 +313,8 @@ public class abilityController : MonoBehaviour
         float timeElapsed = 0;
         var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
         Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
-        GameObject obj = Instantiate(prefab, gunPos, rot);
-        obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<Damage>());
+        GameObject obj = Instantiate(prefab, gunPos, rot); 
+        //obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<>());
         float distTime = calCurveLength(p0, p1, p2, p3) / speed;
         //print(distTime);
         
@@ -421,7 +421,7 @@ public class abilityController : MonoBehaviour
                 case abilityType.Wave:
                     for (int i = 0; i < dataOne.waveAttackCount; i++)
                     {
-                        Vector3 pos = calPos(i, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, transform.position, playerClass.gunAngle);
+                        Vector3 pos = calPos(i, dataOne.waveAttackWidth, dataOne.waveAttackCount, dataOne.waveRadius, transform.position, PlayerClass.gunAngle);
 
                         Gizmos.color = Color.black;
                         Gizmos.DrawLine(gameObject.transform.position, pos);
