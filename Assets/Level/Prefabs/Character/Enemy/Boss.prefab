@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6dc64717f9e74409cee19ddbb158e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armour: 250
+  armour: 500
   _armourSource: []
 --- !u!61 &8530953242679906740
 BoxCollider2D:

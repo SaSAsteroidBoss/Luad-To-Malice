@@ -264,10 +264,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 9012870697472417482, guid: 0e7e1c635a544f848905467cebdbb31b, type: 3}
-  fireRate: 1
+  fireRate: 5
   attackRange: 15
-  basicDamage: 25
-  areaDamage: 25
+  basicDamage: 5
+  areaDamage: 10
 --- !u!61 &637385597501825761
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ public class Health : MonoBehaviour
                 }
 
             }
-              if (gameObject.CompareTag("Enemy") && gameObject.name == "Boss")
+            if (gameObject.CompareTag("Enemy") && gameObject.name == "Boss")
             {
                 var itemDrop = new GameObject();
                 
@@ -154,6 +154,10 @@ public class Health : MonoBehaviour
                     }
                 }
 
+                Destroy(gameObject);
+            }
+            if (gameObject.CompareTag("Player"))
+            {
                 Destroy(gameObject);
             }
         }
