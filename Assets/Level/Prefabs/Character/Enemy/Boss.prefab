@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49c7d2a1fda494458ffd40763f09164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
   target: {fileID: 0}
   stopThreshold: 2
   attackThreshold: 2
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d1f0bf4a978364093dd4817f330229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicDamage: 50
-  areaDamage: 50
+  basicDamage: 25
+  areaDamage: 25
 --- !u!114 &8104362842228270133
 MonoBehaviour:
   m_ObjectHideFlags: 0

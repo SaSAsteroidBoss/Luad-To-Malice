@@ -327,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 50
+  maxHealth: 200
   healAmount: 0
   _healthSource: []
   _healingSource: []
@@ -343,5 +343,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6dc64717f9e74409cee19ddbb158e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armour: 5
+  armour: 10
   _armourSource: []

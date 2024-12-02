@@ -16,5 +16,5 @@ MonoBehaviour:
   procType: 1
   itemName: Electric Boogaloo
   duration: 5
-  mainDamage: 200
-  statusEffectDamage: 10
+  mainDamage: 50
+  statusEffectDamage: 5
