@@ -36,8 +36,7 @@ public class Health : MonoBehaviour
     {
         print(gameObject.name + " takes damage");
         var healthBefore = currentHealth;
-        print(currentHealth+ " current Health" + gameObject.name + " is " + healthBefore );
-        print(damage + " damage");
+        print(currentHealth+ " current Health" + gameObject.name + " had " + healthBefore );
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
