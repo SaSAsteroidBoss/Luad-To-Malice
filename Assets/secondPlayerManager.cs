@@ -15,7 +15,7 @@ public class SecondPlayerManager : MonoBehaviour
   
   [SerializeField] private GameObject player;
 
-  [SerializeField] private GameObject[] playerPointer;
+  //[SerializeField] private GameObject[] playerPointer;
   
   [SerializeField] private GameObject cam;
 
@@ -30,10 +30,10 @@ public class SecondPlayerManager : MonoBehaviour
       spawnPoints.Add(child);
     }
 
-    foreach (GameObject pointer in playerPointer)
+   /* foreach (GameObject pointer in playerPointer)
     {
       pointer.SetActive(false);
-    }
+    }*/
     
     inputManager = GetComponent<PlayerInputManager>();
     
@@ -42,7 +42,7 @@ public class SecondPlayerManager : MonoBehaviour
     
     foreach (var device in InputSystem.devices)
     {
-      if (device is Gamepad) // Comment out the keyboard part, its only there for bug testing the multiplayer 
+      if (device is Gamepad || device is Keyboard) // Comment out the keyboard part, its only there for bug testing the multiplayer 
       {
         AddPlayer(device);
         
@@ -53,16 +53,11 @@ public class SecondPlayerManager : MonoBehaviour
 
   private void Start()
   {
- 
     cam.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer);
   }
   private void start()
   {
-    
-    
-    
-    
-    
+
     /*
     foreach (Transform child in transform)
     {
@@ -102,13 +97,13 @@ public class SecondPlayerManager : MonoBehaviour
       //newPlayer.GetComponent<setCamera>().cam = virtualCamera;
       
       switch (players.Count)
-      {
+      { 
         case 0 : newPlayer[players.Count].name = "player 1"; break;
         case 1: newPlayer[players.Count].name = "player 2"; break;
       }
       PlayerInput playerInput = newPlayer[players.Count].GetComponent<PlayerInput>();
 
-      playerPointer[players.Count].SetActive(true);
+     // playerPointer[players.Count].SetActive(true);
       players.Add(playerInput);
     }
     

@@ -55,7 +55,8 @@ public class ras_pMovement : MonoBehaviour
         //transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         //using rb velocity to ahcive the same affect but have correct bohevour to collision 
         rb.velocity = playerPos;
-        
+        //rb.MovePosition(playerPos);
+
     }
 
     private void Update()

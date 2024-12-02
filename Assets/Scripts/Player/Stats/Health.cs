@@ -34,7 +34,10 @@ public class Health : MonoBehaviour
     // ReSharper disable Unity.PerformanceAnalysis
     public void TakeDamage(float damage)
     {
+        print(gameObject.name + " takes damage");
         var healthBefore = currentHealth;
+        print(currentHealth+ " current Health" + gameObject.name + " is " + healthBefore );
+        print(damage + " damage");
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 

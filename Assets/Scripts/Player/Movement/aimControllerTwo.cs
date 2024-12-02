@@ -27,13 +27,18 @@ public class aimControllerTwo : MonoBehaviour
     //private Transform pointer;
     private Vector3 inputVec;
 
-    [SerializeField]
-    public RectTransform pointer;
+  //  [SerializeField]
+   // public RectTransform pointer;
     [SerializeField]
     private float sensitivity;
     
- 
+   // Vector2 lastPos = Vector2.zero;
+   // Vector2 currentPos = Vector2.zero;
     
+    
+    public GameObject pointerObj;
+    
+    /*
     private void awake()
     {
         AimData.radius = 0.5f;
@@ -46,6 +51,7 @@ public class aimControllerTwo : MonoBehaviour
                 AimData.pivot = child.parent;
                 AimData.orb.position += Vector3.up * AimData.radius;
                 canRun = true;
+                
                 PlayerClass.gunOffSet = AimData.radius;
                 offset = AimData.radius;
             } 
@@ -70,17 +76,17 @@ public class aimControllerTwo : MonoBehaviour
             Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
         }
     }
-
+*/
     private void Awake()
     {
         AimData.radius = 0.5f;
-       // radius = 0.5f;
-        
     }
 
     void Start()
     {
         initAimData();
+       // lastPos = transform.position;
+
     }
     void initAimData()
     {
@@ -105,6 +111,7 @@ public class aimControllerTwo : MonoBehaviour
                 //offset = radius;
             } 
             
+            /*
             var can = FindFirstObjectByType<Canvas>();
             RectTransform[] recTran = can.GetComponentsInChildren<RectTransform>();
             foreach (RectTransform p in recTran)
@@ -122,6 +129,7 @@ public class aimControllerTwo : MonoBehaviour
                 }
                 
             }
+            */
         }
         if (canRun == false)
         {
@@ -135,6 +143,7 @@ public class aimControllerTwo : MonoBehaviour
 
     }
     
+    /*
     private void start()
     {
         AimData.radius = 0.5f;
@@ -198,21 +207,24 @@ public class aimControllerTwo : MonoBehaviour
         if (canRun == false)
         {
             Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
-        }*/
+        }
     }
-
+*/
+    
     private void Update()
     {
         if (canRun)
         {
             CalAngle();
             
-           MovePointer();   
+           //MovePointer();   
+           MovePointerTwo();
         }
     }
 
     private void CalAngle()
     {
+        /*
        // Vector3 orbitVector = Camera.main.WorldToScreenPoint(AimData.pivot.position);
         //Vector3 orbitVector = Camera.main.WorldToScreenPoint(AimData.pivot.position);
 
@@ -225,31 +237,50 @@ public class aimControllerTwo : MonoBehaviour
        //AimData.pivot.position = pointer.position - AimData.pivot.position;
 
        //angle = Mathf.Atan2(-orbitVector.y, -orbitVector.x) * Mathf.Rad2Deg;
-       
-        Vector3 pointerWorldPos = Camera.main.ScreenToWorldPoint(pointer.position);
-        var vec = pointerWorldPos - AimData.pivot.position;
+       */
+        
+       //Vector3 pointerWorldPos = Camera.main.ScreenToWorldPoint(pointer.position);
+        //var vec = pointerWorldPos - AimData.pivot.position;
+        
         //var vec = pointerWorldPos - pivot.position;
-       
+        
+        var vec = pointerObj.transform.position - AimData.pivot.position;
         angle = Mathf.Atan2(-vec.y, -vec.x) * Mathf.Rad2Deg;
             
         AimData.pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        
         //pivot.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-        PlayerClass.gunAngle = angle;
+        //PlayerClass.gunAngle = angle;
     }
     
+    
+    /*
     private void MovePointer()
     {
        // var vec = inputVec * (sensitivity * Time.deltaTime);
-        var vec = pointer.anchoredPosition + (Vector2)inputVec * (sensitivity * Time.deltaTime);
-        
-        var canvas = pointer.GetComponentInParent<Canvas>();
-        var recCanvas = canvas.GetComponent<RectTransform>();
-        vec.x = Mathf.Clamp(vec.x,-recCanvas.sizeDelta.x /2 ,recCanvas.sizeDelta.x /2);
-        vec.y = Mathf.Clamp(vec.y,-recCanvas.sizeDelta.y /2 ,recCanvas.sizeDelta.y /2);
-        pointer.anchoredPosition = vec;
+       //vec -= (Vector2)gameObject.transform.position;
+       var canvas = pointer.GetComponentInParent<Canvas>();
+       var recCanvas = canvas.GetComponent<RectTransform>();
+       
+       lastPos = currentPos;
+       currentPos = transform.position;
+       Vector2 deltaPos = currentPos - lastPos;
+       var canvasOffset = new Vector2(deltaPos.x, deltaPos.y);
+       
+       var vec = pointer.anchoredPosition + canvasOffset +(Vector2)inputVec * (sensitivity * Time.deltaTime);
+       
+       vec.x = Mathf.Clamp(vec.x,-recCanvas.sizeDelta.x /2 ,recCanvas.sizeDelta.x /2);
+       vec.y = Mathf.Clamp(vec.y,-recCanvas.sizeDelta.y /2 ,recCanvas.sizeDelta.y /2);
+       
+       pointer.anchoredPosition = vec;
     }
-
-    
+*/
+    private void MovePointerTwo()
+    {
+        var vec = pointerObj.transform.position + inputVec * (sensitivity * Time.deltaTime);
+        pointerObj.transform.position = vec;
+        
+    }
 
 }
 
