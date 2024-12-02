@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,8 +8,36 @@ public class Armour : MonoBehaviour
    
    [FormerlySerializedAs("_healthSource")] [SerializeField]
    private ItemValueSourceData [] _armourSource;
-   
-   
+
+   private float timeIntival = 0;
+   private float gap = 20; // in seconds
+
+   void Start()
+   {
+      if (gameObject.name == "RangedEnemy")
+      {
+         float timeElapsed = Time.time / gap;
+         for (int i = 0; i < timeElapsed; i++)
+         {
+            AddArmourAmount(1f);
+         }
+      }
+      timeIntival = Time.time + gap;
+   }
+   private void Update()
+   {
+      
+      if (gameObject.name == "RangedEnemy")
+      {
+         if (Time.time >= timeIntival)
+         {
+            print("add Armour");
+            AddArmourAmount(1f);
+            timeIntival = Time.time + gap;
+         }
+      }
+   }
+
    public void AddArmourAmount(float increaseArmourAmount)
    {
       armour += (int)increaseArmourAmount;
@@ -41,7 +70,6 @@ public class Armour : MonoBehaviour
             break;
 
          }
-
       }
    }
    

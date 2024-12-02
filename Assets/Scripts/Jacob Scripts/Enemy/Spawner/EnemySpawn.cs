@@ -15,7 +15,8 @@ public class EnemySpawn : MonoBehaviour
 
     [SerializeField] private List<Transform> spawnTransforms = new List<Transform>();
 
-
+    public float spawnPlayerDetectionRange;
+    public LayerMask layerMask;
 
     private void Update()
     {
@@ -30,12 +31,24 @@ public class EnemySpawn : MonoBehaviour
 
     private void Spawn()
     {
-        int rand = Random.Range(0, spawnTransforms.Count);
         
-        GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
-        enemiesPooledObject.transform.position = spawnTransforms[rand].position;
-        enemiesPooledObject.SetActive(true);
-        EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(enemiesPooledObject);
+        int rand = Random.Range(0, spawnTransforms.Count);
+        Collider2D col = Physics2D.OverlapCircle(spawnTransforms[rand].position, spawnPlayerDetectionRange, layerMask);
+        if (col)
+        {
+            print("player in range for spawn");
+            GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
+            enemiesPooledObject.transform.position = spawnTransforms[rand].position;
+            enemiesPooledObject.SetActive(true);
+            EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(enemiesPooledObject);
+            
+        }
+        
+          
+       
+        
+            
+       
         
 
     }

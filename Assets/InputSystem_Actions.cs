@@ -135,6 +135,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CastThree"",
+                    ""type"": ""Button"",
+                    ""id"": ""b746c406-8422-4cbd-a293-816a7bf9fc94"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -575,6 +584,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""StickDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b293f5e-6ef8-4d66-9750-4688803fc6c8"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CastThree"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a582f54b-0688-4824-b610-39d8d8d6f05a"",
+                    ""path"": ""<XInputController>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CastThree"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1174,6 +1205,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_CastOne = m_Player.FindAction("CastOne", throwIfNotFound: true);
         m_Player_CastTwo = m_Player.FindAction("CastTwo", throwIfNotFound: true);
         m_Player_StickDelta = m_Player.FindAction("StickDelta", throwIfNotFound: true);
+        m_Player_CastThree = m_Player.FindAction("CastThree", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1265,6 +1297,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CastOne;
     private readonly InputAction m_Player_CastTwo;
     private readonly InputAction m_Player_StickDelta;
+    private readonly InputAction m_Player_CastThree;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1281,6 +1314,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @CastOne => m_Wrapper.m_Player_CastOne;
         public InputAction @CastTwo => m_Wrapper.m_Player_CastTwo;
         public InputAction @StickDelta => m_Wrapper.m_Player_StickDelta;
+        public InputAction @CastThree => m_Wrapper.m_Player_CastThree;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1326,6 +1360,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @StickDelta.started += instance.OnStickDelta;
             @StickDelta.performed += instance.OnStickDelta;
             @StickDelta.canceled += instance.OnStickDelta;
+            @CastThree.started += instance.OnCastThree;
+            @CastThree.performed += instance.OnCastThree;
+            @CastThree.canceled += instance.OnCastThree;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1366,6 +1403,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @StickDelta.started -= instance.OnStickDelta;
             @StickDelta.performed -= instance.OnStickDelta;
             @StickDelta.canceled -= instance.OnStickDelta;
+            @CastThree.started -= instance.OnCastThree;
+            @CastThree.performed -= instance.OnCastThree;
+            @CastThree.canceled -= instance.OnCastThree;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1560,6 +1600,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnCastOne(InputAction.CallbackContext context);
         void OnCastTwo(InputAction.CallbackContext context);
         void OnStickDelta(InputAction.CallbackContext context);
+        void OnCastThree(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

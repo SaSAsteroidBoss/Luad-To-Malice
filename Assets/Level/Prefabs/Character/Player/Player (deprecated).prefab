@@ -102,8 +102,8 @@ MonoBehaviour:
   dataOne: {fileID: 11400000, guid: 228a87db3d9e0c74496acc54349ef124, type: 2}
   dataTwo: {fileID: 11400000, guid: d9300142cac07464691ed0ad70f3fc34, type: 2}
   waveCol: {fileID: 2124317423061502532}
-  ViewAbilityOne: 1
-  ViewAbilityTwo: 1
+  ViewAbilityOne: 0
+  ViewAbilityTwo: 0
 --- !u!114 &7628509253492707664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,8 +118,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 0
   offset: 0
-  pointer: {fileID: 0}
   sensitivity: 0
+  pointerObj: {fileID: 0}
 --- !u!114 &1569492359427945485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e6dc64717f9e74409cee19ddbb158e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armour: 5
+  armour: 3
   _armourSource: []
 --- !u!58 &5672273362601201983
 CircleCollider2D:
@@ -321,6 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cbc4e3db3bad4439cc220f0a40a796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
 --- !u!1 &4261659654831883569
 GameObject:
   m_ObjectHideFlags: 0

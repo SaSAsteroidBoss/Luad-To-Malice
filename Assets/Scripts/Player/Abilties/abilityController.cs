@@ -15,6 +15,10 @@ public class abilityController : MonoBehaviour
     [Tooltip("Asign a scriptable Object")]
     [SerializeField] private SO_abilities dataTwo;
 
+    [Header("Ability Three")]
+    [Tooltip("Asign a scriptable Object")]
+    [SerializeField] private SO_abilities dataThree;
+    
     [SerializeField] private GameObject waveCol;
     
     //private RectTransform pointerPos;
@@ -26,7 +30,7 @@ public class abilityController : MonoBehaviour
 
     private bool abilityOneCanRun = true;
     private bool abilityTwoCanRun = true;
-    
+    private bool abilityThreeCanRun = true;
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
@@ -34,8 +38,11 @@ public class abilityController : MonoBehaviour
     private aimControllerTwo aimCont;
 
     private Transform pointerTransform;
+    
+        
     private void Start()
     {
+    
         aimCont = GetComponent<aimControllerTwo>();
         pointerTransform = aimCont.pointerObj.transform;
         
@@ -86,20 +93,46 @@ public class abilityController : MonoBehaviour
             switch (dataTwo.abilityType)
             {
                 case abilityType.Wave:
-                    StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveCount, dataTwo.waveParticleEffect, 0));
+                    StartCoroutine(waveCorutine(dataTwo.abilityElement, dataTwo.waveAttackWidth, dataTwo.waveAttackCount, dataTwo.waveRadius, dataTwo.wavePrefab, dataTwo.waveDuration, dataTwo.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveCount, dataTwo.waveParticleEffect, 2));
                     break;
 
                 case abilityType.SingeShot:
-                    StartCoroutine(singleShotCorutine(dataTwo.singleShotPrefab, dataTwo.singleShotSpeed, dataTwo.singleShotCoolDown, dataTwo.singleShotParticalEffect, 0));
+                    StartCoroutine(singleShotCorutine(dataTwo.singleShotPrefab, dataTwo.singleShotSpeed, dataTwo.singleShotCoolDown, dataTwo.singleShotParticalEffect, 2));
                     break;
 
                 case abilityType.AoeSplash:
-                    StartCoroutine(splashCoroutine(dataTwo.splashPrefab, dataTwo.splashSpeed, dataTwo.splashCoolDown, dataTwo.splashCurve, dataTwo.splashParticalEffect, 0));
+                    StartCoroutine(splashCoroutine(dataTwo.splashPrefab, dataTwo.splashSpeed, dataTwo.splashCoolDown, dataTwo.splashCurve, dataTwo.splashParticalEffect, 2));
                     break;
             }
         }
     }
 
+
+    /*
+    void OnCastThree()
+    {
+        if (abilityThreeCanRun)
+        {
+           
+            switch (dataThree.abilityType)
+            {
+                case abilityType.Wave:
+                    StartCoroutine(waveCorutine(dataThree.abilityElement, dataThree.waveAttackWidth, dataThree.waveAttackCount, dataThree.waveRadius, dataThree.wavePrefab, dataThree.waveDuration, dataThree.waveCoolDown, dataTwo.wavePrefabSize, dataTwo.waveCount, dataTwo.waveParticleEffect, 3));
+                    break;
+
+                case abilityType.SingeShot:
+                    StartCoroutine(singleShotCorutine(dataThree.singleShotPrefab, dataThree.singleShotSpeed, dataThree.singleShotCoolDown, dataThree.singleShotParticalEffect, 3));
+                    break;
+
+                case abilityType.AoeSplash:
+                    StartCoroutine(splashCoroutine(dataThree.splashPrefab, dataThree.splashSpeed, dataThree.splashCoolDown, dataThree.splashCurve, dataThree.splashParticalEffect, 3));
+                    break;
+            }
+            
+        }
+    }
+   */
+    
     //____Wave Type
     #region 
  
@@ -108,14 +141,8 @@ public class abilityController : MonoBehaviour
     private IEnumerator waveCorutine(abilityElement element, int width, int count, float radius, GameObject prefrab, float duration, float cooldown, float scale, float waveCount, GameObject ps,int oneOrTwo)
     {
 
-        if(oneOrTwo == 1) 
-        {
-            abilityOneCanRun = false;
-        }
-        else
-        {
-            abilityTwoCanRun = false;
-        }
+       switchAbilityBoolOff(oneOrTwo);
+       
         Transform prevParent = waveCol.transform.parent;
         waveCol.transform.parent = null;
         waveCol.SetActive(true);
@@ -202,14 +229,7 @@ public class abilityController : MonoBehaviour
        
         radius = maxRadius;
 
-        if (oneOrTwo == 1)
-        {
-            abilityOneCanRun = true;
-        }
-        else
-        {
-            abilityTwoCanRun = true;
-        }
+       switchAbilityBoolOn(oneOrTwo);
     }
     IEnumerator destroyPS(GameObject ps, float duration)
     {
@@ -257,31 +277,18 @@ public class abilityController : MonoBehaviour
     #region
     IEnumerator singleShotCorutine(GameObject prefab, float speed, float delay, GameObject ps,int oneOrTwo)
     {
-        if (oneOrTwo == 1)
-        {
-            abilityOneCanRun = false;
-        }
-        else
-        {
-            abilityTwoCanRun = false;
-        }
+        switchAbilityBoolOff(oneOrTwo);
+        
         var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
 
         Vector3 gunPos =  transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
-
+        obj.GetComponent<singleShotCollision>().SetDamageScript(GetComponent<ItemInventory>().PlayerDamage);
         
         StartCoroutine(singleShotMovement(obj, speed));
         yield return new WaitForSeconds(delay);
 
-        if (oneOrTwo == 1)
-        {
-            abilityOneCanRun = true;
-        }
-        else
-        {
-            abilityTwoCanRun = true;
-        }
+      switchAbilityBoolOn(oneOrTwo);
     }
 
     IEnumerator singleShotMovement(GameObject prefab, float speed)
@@ -305,14 +312,7 @@ public class abilityController : MonoBehaviour
     #region
     IEnumerator splashCoroutine(GameObject prefab, float speed, float duration, float curve, GameObject ps, int oneOrTwo)
     {
-        if (oneOrTwo == 1)
-        {
-            abilityOneCanRun = false;
-        }
-        else
-        {
-            abilityTwoCanRun = false;
-        }
+       switchAbilityBoolOff(oneOrTwo);
         (var p0, var p1, var p2, var p3) = calPointPos(curve);
 
         float timeElapsed = 0;
@@ -320,7 +320,8 @@ public class abilityController : MonoBehaviour
         Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
         obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<ItemInventory>().PlayerDamage);
-        float distTime = calCurveLength(p0, p1, p2, p3) / speed;
+        
+        float distTime = calCurveLength(p0, p1, p2, p3) / (speed * (Time.deltaTime * 1000));
         //print(distTime);
         
         while (timeElapsed < distTime)
@@ -339,16 +340,9 @@ public class abilityController : MonoBehaviour
         obj.transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         Destroy(obj);
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(duration - 0.3f);
 
-        if (oneOrTwo == 1)
-        {
-            abilityOneCanRun = true;
-        }
-        else
-        {
-            abilityTwoCanRun = true;
-        }
+       switchAbilityBoolOn(oneOrTwo);  
     }
     (Vector3 p0, Vector3 p1,Vector3 p2, Vector3 p3) calPointPos(float curve)
     {
@@ -416,6 +410,29 @@ public class abilityController : MonoBehaviour
         return (locPlayer - locMouse).magnitude;
     }
     #endregion
+
+
+    void switchAbilityBoolOff(int oneOrTwo)
+    {
+        switch (oneOrTwo)
+        {
+            case 1: abilityOneCanRun = false; break;
+            case 2: abilityTwoCanRun = false; break;
+            case 3: abilityThreeCanRun = false; break;
+        }
+    }
+    
+    void switchAbilityBoolOn(int oneOrTwo)
+    {
+        switch (oneOrTwo)
+        {
+            case 1: abilityOneCanRun = true; break;
+            case 2: abilityTwoCanRun = true; break;
+            case 3: abilityThreeCanRun = true; break;
+        }
+    }
+    
+
     private void OnDrawGizmos()
     {
         //aimCont = GetComponent<aimControllerTwo>();

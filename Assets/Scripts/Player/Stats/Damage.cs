@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -55,7 +56,13 @@ public class RangeEnemyDamage: Damage
 
     public override void CalculateDamage(GameObject dmgTarget)
     {
-        _totalDamage = _baseDamage - dmgTarget.GetComponent<Armour>().armour;
+        //_totalDamage = _baseDamage - dmgTarget.GetComponent<Armour>().armour;
+        // I've just changed it to a percentage because I felt it was better. before if the armour was greater than the damage the player took zero damage which just leaves the player invincible after a certain amount of pickups.
+        float damageOverTime = Time.time * 0.05f + 1;
+        var percentTakeOff = (dmgTarget.GetComponent<Armour>().armour / 10f) * 0.8f; // caps at 80% 
+        _totalDamage = _baseDamage * (1 - percentTakeOff);
+        _totalDamage *= damageOverTime;
+        
         dmgTarget.GetComponent<Health>().TakeDamage(_totalDamage);
     }
 
@@ -90,7 +97,8 @@ public class PlayerDamage : Damage
     {
         if (_damageSources[0].sourceName == null)
         {
-            _totalDamage = _baseDamage - dmgTarget.GetComponent<Armour>().armour;
+            float damageOverTime = Time.time * 0.05f + 1;
+            _totalDamage = (_baseDamage - dmgTarget.GetComponent<Armour>().armour) * damageOverTime;
             dmgTarget.GetComponent<Health>().TakeDamage(_totalDamage);
         }
         
@@ -106,7 +114,12 @@ public class PlayerDamage : Damage
                 float targetMaxHealth = dmgTarget.GetComponent<Health>().maxHealth;
                 float damagePercentOfMaxHeath = targetMaxHealth / statusEffectDamagePercent;
 
-                _totalDamage = _baseDamage + damagePercentOfBase + damagePercentOfMaxHeath  - dmgTarget.GetComponent<Armour>().armour;
+                //damage over time 
+                //float damageOverTime = Time.time * 0.05f + 1;
+                //_totalDamage = (_baseDamage + damagePercentOfBase + damagePercentOfMaxHeath) * damageOverTime - dmgTarget.GetComponent<Armour>().armour;
+                
+                _totalDamage = _baseDamage + damagePercentOfBase + damagePercentOfMaxHeath - dmgTarget.GetComponent<Armour>().armour;
+                
                 dmgTarget.GetComponent<Health>().TakeDamage(_totalDamage);
             }
         }

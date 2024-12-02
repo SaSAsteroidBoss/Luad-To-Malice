@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,66 +18,21 @@ public class aimControllerTwo : MonoBehaviour
 {
     private AimData AimData;
     
-    //private float radius;
-    //private Transform orb;
-    //private Transform pivot;
-    
     private bool canRun = false;
+    
     [HideInInspector]
     public float angle, offset;
-    //private Transform pointer;
+   
     private Vector3 inputVec;
-
-  //  [SerializeField]
-   // public RectTransform pointer;
+    
     [SerializeField]
     private float sensitivity;
     
-   // Vector2 lastPos = Vector2.zero;
-   // Vector2 currentPos = Vector2.zero;
-    
-    
     public GameObject pointerObj;
-    
-    /*
-    private void awake()
-    {
-        AimData.radius = 0.5f;
-        Transform[] children = transform.GetComponentsInChildren<Transform>();
-        foreach (Transform child in children)
-        {
-            if (child.name == "Gun")
-            {
-                AimData.orb = child;
-                AimData.pivot = child.parent;
-                AimData.orb.position += Vector3.up * AimData.radius;
-                canRun = true;
-                
-                PlayerClass.gunOffSet = AimData.radius;
-                offset = AimData.radius;
-            } 
-            
 
-            var can = FindFirstObjectByType<Canvas>();
-            RectTransform[] recTran = can.GetComponentsInChildren<RectTransform>();
-            foreach (RectTransform p in recTran)
-            {
-                if (p.name == "P1 Pointer")
-                {
-                    pointer = p;    
-                }
-                else if (p.name == "P2 Pointer")
-                {
-                    pointer = p;
-                }
-            }
-        }
-        if (canRun == false)
-        {
-            Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
-        }
-    }
-*/
+    private Canvas canvas;
+    
+
     private void Awake()
     {
         AimData.radius = 0.5f;
@@ -96,45 +52,21 @@ public class aimControllerTwo : MonoBehaviour
         {
             if (child.name == "Gun")
             {
-                
                 AimData.orb = child;
                 AimData.pivot = child.parent;
                 AimData.orb.position += Vector3.up * AimData.radius;
-              
-                //orb = child;
-                //pivot = child.parent;
-                //orb.position += Vector3.up * radius;
                 
                 canRun = true;
-                //playerClass.gunOffSet = AimData.radius;
+              
                 offset = AimData.radius;
-                //offset = radius;
-            } 
             
-            /*
-            var can = FindFirstObjectByType<Canvas>();
-            RectTransform[] recTran = can.GetComponentsInChildren<RectTransform>();
-            foreach (RectTransform p in recTran)
-            {
-                //print(gameObject.name + " : " + p.name);
-                if (p.name == "P1 Pointer" && gameObject.name == "player 1")
-                {
-                    //print("P1 Pointer");
-                    pointer = p;    
-                }
-                else if (p.name == "P2 Pointer" && gameObject.name == "player 2")
-                {
-                   // print("P2 Pointer");
-                    pointer = p;
-                }
-                
-            }
-            */
+            } 
         }
         if (canRun == false)
         {
             Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
         }
+        
     }
     void OnStickDelta(InputValue value)
     {
@@ -142,74 +74,6 @@ public class aimControllerTwo : MonoBehaviour
         inputVec = new Vector3(mov.x, mov.y,0);
 
     }
-    
-    /*
-    private void start()
-    {
-        AimData.radius = 0.5f;
-        Transform[] children = transform.GetComponentsInChildren<Transform>();
-        foreach (Transform child in children)
-        {
-            if (child.name == "Gun")
-            {
-                AimData.orb = child;
-                AimData.pivot = child.parent;
-                AimData.orb.position += Vector3.up * AimData.radius;
-                canRun = true;
-                PlayerClass.gunOffSet = AimData.radius;
-                offset = AimData.radius;
-            } 
-            
-            var can = FindFirstObjectByType<Canvas>();
-            RectTransform[] recTran = can.GetComponentsInChildren<RectTransform>();
-            foreach (RectTransform p in recTran)
-            {
-                if (p.name == "P1 Pointer")
-                {
-                    pointer = p;    
-                }
-                else if (p.name == "P2 Pointer")
-                {
-                    pointer = p;
-                }
-            }
-        }
-        if (canRun == false)
-        {
-            Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
-        }
-        
-        
-        /*
-        AimData.radius = 0.5f;
-        Transform[] children = transform.GetComponentsInChildren<Transform>();
-        foreach (Transform child in children)
-        {
-            if (child.name == "Gun")
-            {
-                AimData.orb = child;
-                AimData.pivot = child.parent;
-                AimData.orb.position += Vector3.up * AimData.radius;
-                canRun = true;
-                playerClass.gunOffSet = AimData.radius;
-                offset = AimData.radius;
-            }
-            if( child.name == "pointer")
-            {
-               
-                //pointer = child;
-
-                //var can = FindFirstObjectByType<Canvas>();
-                //pointer.parent = can.transform;
-                //pointer.position = Vector2.zero;
-            }
-        }
-        if (canRun == false)
-        {
-            Debug.LogWarning("Could not find child object named Gun for AimControllerTwo.cs please Check Script Descripton for correct setup ");
-        }
-    }
-*/
     
     private void Update()
     {
@@ -277,7 +141,13 @@ public class aimControllerTwo : MonoBehaviour
 */
     private void MovePointerTwo()
     {
+        var cam = Camera.main;
+        var camBottom = cam.ViewportToWorldPoint(new Vector3(0, 0,cam.nearClipPlane));
+        var camTop = cam.ViewportToWorldPoint(new Vector3(1, 1,cam.nearClipPlane));
+        
         var vec = pointerObj.transform.position + inputVec * (sensitivity * Time.deltaTime);
+        vec.x = Mathf.Clamp(vec.x, camBottom.x, camTop.x);
+        vec.y = Mathf.Clamp(vec.y, camBottom.y, camTop.y);
         pointerObj.transform.position = vec;
         
     }

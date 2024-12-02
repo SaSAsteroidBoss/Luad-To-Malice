@@ -14,8 +14,6 @@ public class SecondPlayerManager : MonoBehaviour
   private List<PlayerInput> players = new List<PlayerInput>();
   
   [SerializeField] private GameObject player;
-
-  //[SerializeField] private GameObject[] playerPointer;
   
   [SerializeField] private GameObject cam;
 
@@ -30,22 +28,15 @@ public class SecondPlayerManager : MonoBehaviour
       spawnPoints.Add(child);
     }
 
-   /* foreach (GameObject pointer in playerPointer)
-    {
-      pointer.SetActive(false);
-    }*/
-    
     inputManager = GetComponent<PlayerInputManager>();
     
     var inputOne = player.GetComponent<PlayerInput>();
-
     
     foreach (var device in InputSystem.devices)
     {
       if (device is Gamepad || device is Keyboard) // Comment out the keyboard part, its only there for bug testing the multiplayer 
       {
         AddPlayer(device);
-        
       }
     }
 
@@ -55,33 +46,6 @@ public class SecondPlayerManager : MonoBehaviour
   {
     cam.GetComponent<multiplayerCamAdjustment>().setTargetGroup(newPlayer);
   }
-  private void start()
-  {
-
-    /*
-    foreach (Transform child in transform)
-    {
-      spawnPoints.Add(child);
-    }
-    
-    inputManager = GetComponent<PlayerInputManager>();
-    
-    var inputOne = player.GetComponent<PlayerInput>();
-    
-    //Instantiate(inputOne,spawnPoints[0].position, spawnPoints[0].rotation);
-    //Instantiate(inputTwo, spawnPoints[1].position, spawnPoints[1].rotation);
-
-    foreach (var device in InputSystem.devices)
-    {
-      if (device is Gamepad /*|| device is Keyboard*//*)
-      {
-       AddPlayer(inputOne);
-      }
-
-    }
-    */
-  }
-
 
   private void AddPlayer(InputDevice device)
   {
@@ -91,19 +55,48 @@ public class SecondPlayerManager : MonoBehaviour
     
     if (players.Count < 2)// current foreseeable bug, the spawn locations are directly linked to the player count
     {
-      //Instantiate(playerInput, spawnPoints[players.Count].position, spawnPoints[players.Count].rotation);
-
       newPlayer[players.Count] = Instantiate(player, spawnPoints[players.Count].position,  spawnPoints[players.Count].rotation);
       //newPlayer.GetComponent<setCamera>().cam = virtualCamera;
       
+      
       switch (players.Count)
       { 
-        case 0 : newPlayer[players.Count].name = "player 1"; break;
-        case 1: newPlayer[players.Count].name = "player 2"; break;
+        case 0 : newPlayer[players.Count].name = "player 1"; 
+          
+          var spriteRends = newPlayer[players.Count].GetComponentsInChildren<SpriteRenderer>();
+          foreach (var sprite in spriteRends)
+          {
+            if (sprite.gameObject.name == "Circle")
+            {
+              sprite.color = Color.cyan;
+            }
+            else if (sprite.gameObject.name == "pointer")
+            {
+              sprite.color = Color.cyan;
+            }
+            
+          }
+          break;
+        
+        case 1: newPlayer[players.Count].name = "player 2"; 
+          var spriteRends2 = newPlayer[players.Count].GetComponentsInChildren<SpriteRenderer>();
+          foreach (var sprite in spriteRends2)
+          {
+            if (sprite.gameObject.name == "Circle")
+            {
+              sprite.color = Color.magenta;
+            }
+            else if (sprite.gameObject.name == "pointer")
+            {
+              sprite.color = Color.magenta;
+            }
+            
+          }
+          break;
       }
       PlayerInput playerInput = newPlayer[players.Count].GetComponent<PlayerInput>();
 
-     // playerPointer[players.Count].SetActive(true);
+ 
       players.Add(playerInput);
     }
     

@@ -25,10 +25,10 @@ MonoBehaviour:
   waveCount: 1
   wavePrefab: {fileID: 0}
   waveParticleEffect: {fileID: 0}
-  singleShotPrefab: {fileID: 5991403643925962589, guid: b29ce75cff65cdf43ac830788e0e315d, type: 3}
+  singleShotPrefab: {fileID: 5991403643925962589, guid: 3e8375dd5e2263f4f94c72374f178c90, type: 3}
   singleShotParticalEffect: {fileID: 0}
   singleShotSpeed: 13.62
-  singleShotCoolDown: 1
+  singleShotCoolDown: 0.36
   splashPrefab: {fileID: 0}
   splashParticalEffect: {fileID: 0}
   splashSpeed: 0

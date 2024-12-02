@@ -34,7 +34,7 @@ public class Enemy_Ranged_Attack : MonoBehaviour
         {
             if (fireRateTimer <= 0 && Vector2.Distance(transform.position, GetComponent<Enemy_Ranged_Seek>().target.transform.position) <= attackRange)
             {
-                print("Firing Player Projectile");
+                //print("Firing Player Projectile");
                 Vector3 diff = GetComponent<Enemy_Ranged_Seek>().target.transform.position - transform.position;
                 diff.Normalize();
                 float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
