@@ -16,8 +16,8 @@ public class abilityController : MonoBehaviour
 
     [SerializeField] private GameObject waveCol;
     
-    private RectTransform pointerPos;
-    aimControllerTwo aimController;
+    //private RectTransform pointerPos;
+    //aimControllerTwo aimController;
     [ReadOnly(true)]
     private float offsetY;
     //private Dictionary<int, GameObject> wave = new Dictionary<int, GameObject>();
@@ -25,17 +25,21 @@ public class abilityController : MonoBehaviour
 
     private bool abilityOneCanRun = true;
     private bool abilityTwoCanRun = true;
+    
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;
     
     private aimControllerTwo aimCont;
 
+    private Transform pointerTransform;
     private void Start()
     {
         aimCont = GetComponent<aimControllerTwo>();
+        pointerTransform = aimCont.pointerObj.transform;
         
         waveCol.SetActive(false);
+        
         if (dataOne == null)
         {
             Debug.LogError("AbilityDataOne is Null. View abilityController.cs on player to Debug");
@@ -351,10 +355,10 @@ public class abilityController : MonoBehaviour
         float offSet;
  
         p0 = transform.position; 
-        aimController = GetComponent<aimControllerTwo>();
-        pointerPos = aimController.pointer;
+        
         //p3 = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
-        p3 = Camera.main.ScreenToWorldPoint(pointerPos.position); 
+        p3 = pointerTransform.position;
+        //p3 = Camera.main.ScreenToWorldPoint(pointerPos.position);   
 
         p1 = p0 + (p3 - p0) / 4; // higher devision = close to start point 
         p2 = p0 + (p3 - p0) / 1.5f; // 2 is midpoint so 1.5 is half way between 1-2
