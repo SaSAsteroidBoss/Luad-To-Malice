@@ -4,9 +4,9 @@ public class blastCollision : MonoBehaviour
 {
     //public float damage;
 
-    private Damage _target;
+    private PlayerDamage _target;
 
-    public void SetDamageScript(Damage newTarget)
+    public void SetDamageScript(PlayerDamage newTarget)
     {
         _target = newTarget;
     }
@@ -17,9 +17,7 @@ public class blastCollision : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy"))
         {
-          //  other.GetComponent<EnemyDamage>().CalculateTotalEnemeyDamage(other.gameObject, damage);
-          //_target.CalculateEnemyTotalDamage(other.gameObject);
-            
+            _target.CalculateDamage(other.gameObject);
         }
     }
 }

@@ -23,12 +23,16 @@ public class Health : MonoBehaviour
     public void Start()
     {
         currentHealth = maxHealth;
-
         
         if(gameObject.CompareTag("Enemy"))
         {
             detection = GetComponentInChildren<Enemy_Ranged_Detect>();
         }
+    }
+
+    public void SetHealth()
+    {
+        currentHealth = maxHealth;
     }
     
     // ReSharper disable Unity.PerformanceAnalysis

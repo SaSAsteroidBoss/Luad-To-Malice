@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class abilityController : MonoBehaviour
 {
@@ -317,8 +318,8 @@ public class abilityController : MonoBehaviour
         float timeElapsed = 0;
         var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
         Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
-        GameObject obj = Instantiate(prefab, gunPos, rot); 
-        //obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<>());
+        GameObject obj = Instantiate(prefab, gunPos, rot);
+        obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<ItemInventory>().PlayerDamage);
         float distTime = calCurveLength(p0, p1, p2, p3) / speed;
         //print(distTime);
         

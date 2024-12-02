@@ -45,6 +45,7 @@ public class EnemyObjectPool : MonoBehaviour
     {
         if (localRangeEnemies != null)
         {
+            localRangeEnemies.GetComponent<Health>().SetHealth();
             _rangeEnemies.Remove(localRangeEnemies);
         }
     }
