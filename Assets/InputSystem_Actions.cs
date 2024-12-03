@@ -144,6 +144,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4fe10ed-999f-4d14-8cf0-c9ff126a8dce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -606,6 +615,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CastThree"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e421c228-eb13-4921-a15d-b58fabd5bbd2"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95614f44-fb85-470a-bca7-5f2891063203"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1206,6 +1237,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_CastTwo = m_Player.FindAction("CastTwo", throwIfNotFound: true);
         m_Player_StickDelta = m_Player.FindAction("StickDelta", throwIfNotFound: true);
         m_Player_CastThree = m_Player.FindAction("CastThree", throwIfNotFound: true);
+        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1298,6 +1330,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_CastTwo;
     private readonly InputAction m_Player_StickDelta;
     private readonly InputAction m_Player_CastThree;
+    private readonly InputAction m_Player_Pause;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1315,6 +1348,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @CastTwo => m_Wrapper.m_Player_CastTwo;
         public InputAction @StickDelta => m_Wrapper.m_Player_StickDelta;
         public InputAction @CastThree => m_Wrapper.m_Player_CastThree;
+        public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1363,6 +1397,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @CastThree.started += instance.OnCastThree;
             @CastThree.performed += instance.OnCastThree;
             @CastThree.canceled += instance.OnCastThree;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1406,6 +1443,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @CastThree.started -= instance.OnCastThree;
             @CastThree.performed -= instance.OnCastThree;
             @CastThree.canceled -= instance.OnCastThree;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1601,6 +1641,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnCastTwo(InputAction.CallbackContext context);
         void OnStickDelta(InputAction.CallbackContext context);
         void OnCastThree(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

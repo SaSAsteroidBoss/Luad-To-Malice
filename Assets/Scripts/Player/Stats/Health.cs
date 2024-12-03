@@ -18,6 +18,8 @@ public class Health : MonoBehaviour
     private ItemValueSourceData [] _healingSource;
     
     private Enemy_Ranged_Detect detection;
+
+    private Transform _playerSpawnPos;
     
     
     public void Start()
@@ -27,6 +29,10 @@ public class Health : MonoBehaviour
         if(gameObject.CompareTag("Enemy"))
         {
             detection = GetComponentInChildren<Enemy_Ranged_Detect>();
+        }
+        else if (gameObject.CompareTag("Player"))
+        {
+            _playerSpawnPos = gameObject.transform;
         }
     }
 
@@ -167,9 +173,19 @@ public class Health : MonoBehaviour
             }
             if (gameObject.CompareTag("Player"))
             {
+                //gameObject.SetActive(false);
                 Destroy(gameObject);
+               //Invoke("RevivePlayer", 2f);
             }
         }
+    }
+
+    private void RevivePlayer()
+    {
+        currentHealth = maxHealth;
+        gameObject.transform.position = _playerSpawnPos.position;
+        gameObject.SetActive(true);
+        
     }
 
     public void AddHealAmount(float increaseHealAmount)

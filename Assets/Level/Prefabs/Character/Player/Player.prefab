@@ -163,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -8484696744584367244, guid: 14321641d912e5a41a1cf19546dec7a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 1260571541111068004}
   - component: {fileID: 9044388325928574234}
   - component: {fileID: 264618810228094723}
+  - component: {fileID: 4335098131642396288}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -272,6 +273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataOne: {fileID: 11400000, guid: 228a87db3d9e0c74496acc54349ef124, type: 2}
   dataTwo: {fileID: 11400000, guid: d9300142cac07464691ed0ad70f3fc34, type: 2}
+  dataThree: {fileID: 0}
+  waveCol: {fileID: 0}
   ViewAbilityOne: 0
   ViewAbilityTwo: 1
 --- !u!114 &1260571541111068004
@@ -286,6 +289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f8f366e71a9b3f4181807cacf033b79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angle: 0
+  offset: 0
+  sensitivity: 0
+  pointerObj: {fileID: 0}
 --- !u!114 &9044388325928574234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +321,35 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 100
   healAmount: 5
+  _healthSource: []
+  _healingSource: []
+--- !u!50 &4335098131642396288
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5728096568994155621}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &9064193517977764789
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,4 +15,14 @@ public class ReeceMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void Menu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

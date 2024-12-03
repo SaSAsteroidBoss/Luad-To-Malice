@@ -21,7 +21,7 @@ public class EnemySpawn : MonoBehaviour
     private void Update()
     {
         spawnTime += Time.deltaTime;
-        if (spawnTime >= cooldown && numSpawns < totalSpawns)
+        if (spawnTime >= cooldown && numSpawns < totalSpawns)   
         {
             Spawn();
             numSpawns++;
