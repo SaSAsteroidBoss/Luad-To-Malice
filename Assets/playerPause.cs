@@ -5,7 +5,7 @@ public class playerPause : MonoBehaviour
    private pauseMenu menu;
    void Start()
    {
-      var menuVar = FindObjectOfType<pauseMenu>();
+      var menuVar = FindFirstObjectByType<pauseMenu>(); // replaced findObjectsOfType
      menu = menuVar;
    }
    void OnPause()
