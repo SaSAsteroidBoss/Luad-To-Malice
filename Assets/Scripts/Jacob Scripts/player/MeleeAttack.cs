@@ -27,7 +27,7 @@ public class MeleeAttack : MonoBehaviour
             foreach (GameObject obj in toHit)
             {
                 print("Hitting Enemy");
-                obj.GetComponent<Health>().TakeDamage(30);
+                obj.GetComponent<Health>().TakeDamage(50);
             }
         }
     }
