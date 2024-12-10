@@ -30,7 +30,7 @@ public class abilityController : MonoBehaviour
 
     private bool abilityOneCanRun = true;
     private bool abilityTwoCanRun = true;
-    private bool abilityThreeCanRun = true;
+    private bool abilityThreeCanRun = true; // May use 
     [Header("Debugging")]
     [SerializeField] private bool ViewAbilityOne = false;
     [SerializeField] private bool ViewAbilityTwo = false;

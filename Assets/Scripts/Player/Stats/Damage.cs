@@ -37,9 +37,28 @@ public class BossDamage : Damage
     }
 }
 
-public class MeleeEnemyDamage
+public class MeleeEnemyDamage : Damage
 {
+    private readonly float _baseDamage;
+    private readonly float _aeoDamage;
+    private float _totalDamage;
+
+    public MeleeEnemyDamage(float baseDamage )
+    {
+        _baseDamage = baseDamage;
+    }
+
+    public override void CalculateDamage(GameObject dmgTarget)
+    {
+      _totalDamage = _baseDamage - dmgTarget.GetComponent<Armour>().armour;
+
+      dmgTarget.GetComponent<Health>().TakeDamage(_totalDamage);
+    }
+
+    public override void CalculateAeoDamage(GameObject dmgTarget)
+    {
     
+    }
 }
 
 public class RangeEnemyDamage: Damage 
