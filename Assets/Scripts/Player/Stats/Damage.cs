@@ -75,7 +75,7 @@ public class RangeEnemyDamage: Damage
 
 public class PlayerDamage : Damage
 {
-    private readonly List<ItemValueSourceData> _damageSources;
+    private readonly List<ItemSlotData> _damageSources;
     
     private readonly float _baseDamage;
     private readonly float _aeoDamage;
@@ -86,10 +86,10 @@ public class PlayerDamage : Damage
         _baseDamage = baseDamage;
         _aeoDamage = aoeDamage;
         
-        var sourceDataOne = new ItemValueSourceData();
-        var sourceDataOTwo = new ItemValueSourceData();
+        var sourceDataOne = new ItemSlotData();
+        var sourceDataOTwo = new ItemSlotData();
         
-        _damageSources = new List<ItemValueSourceData> { sourceDataOne, sourceDataOTwo };
+        _damageSources = new List<ItemSlotData> { sourceDataOne, sourceDataOTwo };
     }
 
     

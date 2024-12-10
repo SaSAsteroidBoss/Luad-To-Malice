@@ -16,7 +16,7 @@ public class singleShotCollision : MonoBehaviour
   {
     if(other.gameObject.CompareTag("Enemy"))
     {
-      _target.CalculateDamage(other.gameObject);
+      //_target.CalculateDamage(other.gameObject);
       Destroy(gameObject);
     }
   }

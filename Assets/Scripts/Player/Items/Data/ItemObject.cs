@@ -6,6 +6,10 @@ public abstract class ItemObject : ScriptableObject
     
     public ProcType procType;
 
+    public float primaryValue;
+    
+    public float secondaryValue;
+    
     public string itemName;
     
     public float duration;

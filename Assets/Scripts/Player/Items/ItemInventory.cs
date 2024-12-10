@@ -1,24 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemInventory : MonoBehaviour
 {
     public ItemSlot[] itemSlots;
-
-    public PlayerDamage PlayerDamage // property
-    {
-        get;
-        // get method
-        set;
-        // set method
-    }
-
-    void Start()
-    {
-        PlayerDamage = new PlayerDamage(PlayerClass.BaseDamage, PlayerClass.AeoDamage);
-    }
     
     
     public void AddItem(ItemObject item)
@@ -28,18 +13,21 @@ public class ItemInventory : MonoBehaviour
              if (itemSlots[i].item == item && item.name == itemSlots[i].name)
              {
                  itemSlots[i].amount++;
-                 item.AddItemSource(this.gameObject);
                  
-                 Debug.Log("Object Already Add");
-
                  break;
 
              }
              else if (itemSlots[i].name == string.Empty && item.name != itemSlots[i].name)
              {
+                 var itemData = new ItemSlotData
+                 {
+                     primaryValue = item.primaryValue,
+                     secondaryValue = item.secondaryValue
+                 };
+
                  itemSlots[i].item = item;
                  itemSlots[i].name = item.name;
-                 item.AddItemSource(this.gameObject);
+                 itemSlots[i].itemData = itemData;
                  itemSlots[i].amount = 1;
                  
                  break;
@@ -57,6 +45,7 @@ public struct ItemSlot
 {
     public string name;
     public ItemObject item;
+    public ItemSlotData itemData;
     public int amount;
 }
 

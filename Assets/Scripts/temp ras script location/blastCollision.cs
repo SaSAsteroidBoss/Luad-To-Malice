@@ -17,7 +17,7 @@ public class blastCollision : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy")&& other.gameObject != null )
         {
-            _target.CalculateDamage(other.gameObject);
+            //_target.CalculateDamage(other.gameObject);
         }
     }
 }

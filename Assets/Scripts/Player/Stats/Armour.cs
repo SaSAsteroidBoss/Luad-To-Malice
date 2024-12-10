@@ -6,8 +6,7 @@ public class Armour : MonoBehaviour
 {
    public int armour;
    
-   [FormerlySerializedAs("_healthSource")] [SerializeField]
-   private ItemValueSourceData [] _armourSource;
+   private ItemSlotData [] _armourSource;
 
    private float timeIntival = 0;
    private float gap = 20; // in seconds
@@ -19,7 +18,7 @@ public class Armour : MonoBehaviour
          float timeElapsed = Time.time / gap;
          for (int i = 0; i < timeElapsed; i++)
          {
-            AddArmourAmount(1f);
+            AddArmourAmount(1);
          }
       }
       timeIntival = Time.time + gap;

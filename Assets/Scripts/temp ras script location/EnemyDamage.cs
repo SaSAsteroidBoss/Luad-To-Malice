@@ -1,28 +1,16 @@
 using UnityEngine;
 
-public class EnemyDamage : MonoBehaviour
+public class EnemyDamage : MonoBehaviour, IDamage
 {
-    private Health health;
+    private Stats _stats;
 
     private void Start()
     {
-        health = GetComponent<Health>();
+        _stats = GetComponent<Stats>();
     }
 
-    public void CalculateTotalEnemeyDamage(GameObject target, float damage)
+    public void Damage(int damage)
     {
-        if (health.currentHealth - damage <= 0)
-        {
-           
-              //  gameObject.SetActive(false);
-            Destroy(gameObject);   
-           
-        }
-        else
-        {
-            health.TakeDamage(damage);
-        }
         
     }
-
 }

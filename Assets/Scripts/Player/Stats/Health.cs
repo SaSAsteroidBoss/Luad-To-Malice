@@ -12,10 +12,10 @@ public class Health : MonoBehaviour
     public float healAmount;
 
     [SerializeField]
-    private ItemValueSourceData [] _healthSource;
+    private ItemSlotData [] _healthSource;
   
     [SerializeField]
-    private ItemValueSourceData [] _healingSource;
+    private ItemSlotData [] _healingSource;
     
     private Enemy_Ranged_Detect detection;
 
