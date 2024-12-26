@@ -10,8 +10,9 @@ public class IPlayerDamage : MonoBehaviour, IDamage
         _stats = GetComponent<Stats>();
     }
 
-    public void Damage(int damage)
+    public void Damage(float damage)
     {
-      
+        var dmgHp = damage - _stats.armour;
+        _stats.UpdateHp?.Invoke(dmgHp);
     }
 }

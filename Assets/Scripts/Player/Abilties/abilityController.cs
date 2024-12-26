@@ -283,8 +283,10 @@ public class abilityController : MonoBehaviour
 
         Vector3 gunPos =  transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
-        //obj.GetComponent<singleShotCollision>().SetDamageScript(GetComponent<ItemInventory>().PlayerDamage);
         
+        obj.GetComponent<singleShotCollision>().SetInventory(GetComponent<ItemInventory>());
+        obj.GetComponent<singleShotCollision>().SetStat(GetComponent<Stats>());
+            
         StartCoroutine(singleShotMovement(obj, speed));
         yield return new WaitForSeconds(delay);
 
@@ -319,7 +321,8 @@ public class abilityController : MonoBehaviour
         var rot = Quaternion.AngleAxis(aimCont.angle + 90, Vector3.forward);
         Vector3 gunPos = transform.position + Vector3.forward * aimCont.offset;
         GameObject obj = Instantiate(prefab, gunPos, rot);
-        //obj.GetComponent<blastCollision>().SetDamageScript(GetComponent<ItemInventory>().PlayerDamage);
+        obj.GetComponent<blastCollision>().SetInventory(GetComponent<ItemInventory>());
+        obj.GetComponent<blastCollision>().SetStat(GetComponent<Stats>());
         
         float distTime = calCurveLength(p0, p1, p2, p3) / (speed * (Time.deltaTime * 1000));
         //print(distTime);

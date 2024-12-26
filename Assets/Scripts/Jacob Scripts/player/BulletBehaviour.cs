@@ -6,12 +6,6 @@ using UnityEngine.UIElements;
 
 public class BulletBehaviour : MonoBehaviour
 {
-    private RangeEnemyDamage _target;
-    
-    public void SetDamageScript(RangeEnemyDamage newTarget)
-    {
-        _target = newTarget;
-    }
     
     public float speed;
 
@@ -34,7 +28,8 @@ public class BulletBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-           _target.CalculateDamage(other.gameObject);
+           
+            other.gameObject.GetComponent<IPlayerDamage>().Damage(damage);
             Destroy(gameObject);
         }
         

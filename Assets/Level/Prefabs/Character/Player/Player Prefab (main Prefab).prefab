@@ -396,62 +396,52 @@ MonoBehaviour:
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   _healingSource:
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
   - item: {fileID: 0}
     sourceName: 
     primaryValue: 0
     secondaryValue: 0
-    thirdValue: 0
     amount: 0
 --- !u!114 &5186726813462581552
 MonoBehaviour:
@@ -468,33 +458,93 @@ MonoBehaviour:
   itemSlots:
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
   - name: 
     item: {fileID: 0}
+    itemData:
+      item: {fileID: 0}
+      sourceName: 
+      primaryValue: 0
+      secondaryValue: 0
+      amount: 0
     amount: 0
 --- !u!114 &3984602078607967858
 MonoBehaviour:
@@ -634,6 +684,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5875cb725eb4d498ab7d73291b14b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 100
+  _maxHp: 100
+  _hpRegen: 0
+  _armour: 5
+  _damage: 20
 --- !u!1 &2124317423061502532
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +780,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cbc4e3db3bad4439cc220f0a40a796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 5186726813462581552}
+  itemInventory: {fileID: 5186726813462581552}
+  stats: {fileID: 3618267184221912827}
 --- !u!1 &2621065093580030780
 GameObject:
   m_ObjectHideFlags: 0

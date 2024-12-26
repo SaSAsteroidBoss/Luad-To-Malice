@@ -3,21 +3,26 @@ using UnityEngine;
 
 public class singleShotCollision : MonoBehaviour
 {
-  private PlayerDamage _target;
-
-
-  public void SetDamageScript(PlayerDamage newTarget)
+  public void SetInventory(ItemInventory localInventory)
   {
-    _target = newTarget;
+    _itemInventory = localInventory;
+  }
+    
+  public void SetStat(Stats localStats)
+  {
+    _stats = localStats;
   }
 
-
+  private ItemInventory _itemInventory;
+  private Stats _stats;
+    
   private void OnTriggerEnter2D(Collider2D other)
   {
-    if(other.gameObject.CompareTag("Enemy"))
+    if (other.gameObject.CompareTag("Enemy"))
     {
-      //_target.CalculateDamage(other.gameObject);
-      Destroy(gameObject);
+      var dmgScript = other.GetComponent<EnemyDamage>();
+      dmgScript.UpdateInventory?.Invoke(_itemInventory);
+      dmgScript.Damage(_stats.damage);
     }
   }
 }

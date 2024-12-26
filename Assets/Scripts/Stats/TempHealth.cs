@@ -6,7 +6,7 @@ public class TempHealth : MonoBehaviour
 {
     private Stats _stats;
     
-    public UnityAction<int> UpdateHp;
+    public UnityAction<float> UpdateHp;
     
     private void Start()
     {
@@ -15,6 +15,6 @@ public class TempHealth : MonoBehaviour
     
     public void TakeDamage(float damage)
     {
-        UpdateHp?.Invoke((int)damage);
+        
     }
 }

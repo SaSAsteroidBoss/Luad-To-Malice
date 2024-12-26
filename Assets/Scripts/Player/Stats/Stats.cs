@@ -4,34 +4,54 @@ using UnityEngine.Events;
 
 public class Stats : MonoBehaviour
 {
-    private TempHealth _health;
+    private ItemInventory _inventory;
     
-    private int _hp;
-    private int _maxHp;
-    private int _hpRegen;
+    [SerializeField]
+    private float  _hp;
+    
+    [SerializeField]
+    private float _maxHp;
+  
+    [SerializeField]
+    private float  _hpRegen;
+   
+    [SerializeField]
+    private float  _armour;
 
-    private int _armour;
+    [SerializeField]
+    private float _damage;
 
-    public int Hp { get => _hp; set => Hp = value; }
+    public float hp { get => _hp; set  => hp = value; }
 
-    public int MaxHp { get => _maxHp;  set => MaxHp = value;   }
+    public float maxHp { get => _maxHp;  set => maxHp = value;   }
 
-    public int HpRegen {  get => _hpRegen; set => HpRegen = value;  }
+    public float hpRegen {  get => _hpRegen; set => hpRegen = value;  }
 
-    public int Armour {  get => _armour; set =>Armour = value;  }
+    public float armour {  get => _armour; set =>armour = value;  }
+    
+    public float damage{  get => _damage; set =>damage = value;  }
+    
+    public ItemInventory inventory { get => _inventory; set => _inventory = value; }
+    
+    public UnityAction<float> UpdateHp;
+    
+    private void Awake()
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            _inventory = GetComponent<ItemInventory>();
+        }
+    }
 
     private void Start()
     {
-         _health = GetComponent<TempHealth>();
-         _health.UpdateHp += UpdateHp;
+         UpdateHp += TakeHpDamage;
     }
 
-    private void UpdateHp(int newHp)
+    private void TakeHpDamage(float newHp)
     {
-        _hp = newHp;
-        _hp = (int)Mathf.Clamp(_hp, 0f,  _maxHp);
+        _hp -= newHp;
+        _hp = Mathf.Clamp(_hp, 0f,  _maxHp);
     }
-
-    
 
 }
