@@ -15,7 +15,7 @@ public class HealthObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     {
-        player.GetComponent<Health>().AddHealthSource(this);
+        player.GetComponent<PlayerHealth>().OnHealth?.Invoke();
     }
     
 }

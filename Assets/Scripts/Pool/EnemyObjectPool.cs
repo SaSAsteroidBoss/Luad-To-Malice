@@ -2,9 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class EnemyObjectPool : MonoBehaviour
 {
+    private GameDirector _director;
+    
     public static EnemyObjectPool Instance;
 
-    private List<GameObject> _rangeEnemies = new List<GameObject>();
+    private readonly List<GameObject> _rangeEnemies = new List<GameObject>();
 
     [SerializeField] private int amountToPoolRangeEnemies = 20;
 
@@ -12,19 +14,22 @@ public class EnemyObjectPool : MonoBehaviour
     
     private void Awake()
     {
+        _director = FindAnyObjectByType<GameDirector>();
+        
         if (Instance == null)
         {
             Instance = this;
         }
-
-
+        
         for (int i = 0; i < amountToPoolRangeEnemies; i++)
         {
             var localRangeEnemies = Instantiate(rangeEnemiesPrefab);
-            localRangeEnemies.name = "Range Enemies" + " " + i;
+            localRangeEnemies.name = "Range Enemies";
             localRangeEnemies.gameObject.SetActive(false);
             _rangeEnemies.Add(localRangeEnemies);
+            _director.OnEnemies?.Invoke(localRangeEnemies);
         }
+        
     }
 
     public GameObject GetRangeEnemiesPooledObject()
@@ -45,7 +50,7 @@ public class EnemyObjectPool : MonoBehaviour
     {
         if (localRangeEnemies != null)
         {
-            localRangeEnemies.GetComponent<Health>().SetHealth();
+            localRangeEnemies.GetComponent<Stats>().OnHealth?.Invoke();
             _rangeEnemies.Remove(localRangeEnemies);
         }
     }

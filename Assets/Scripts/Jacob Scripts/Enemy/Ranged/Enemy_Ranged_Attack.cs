@@ -4,8 +4,6 @@ using static UnityEngine.GraphicsBuffer;
 public class Enemy_Ranged_Attack : MonoBehaviour
 {
     public GameObject bulletPrefab;
-
-    private RangeEnemyDamage _rangeEnemyDamage;
     
     public float fireRate;
     private float fireRateTimer = 0;
@@ -21,7 +19,6 @@ public class Enemy_Ranged_Attack : MonoBehaviour
     private void Start()
     {
         fireRateTimer = fireRate;
-        _rangeEnemyDamage = new RangeEnemyDamage(basicDamage, areaDamage);
     }
 
     private void Update()

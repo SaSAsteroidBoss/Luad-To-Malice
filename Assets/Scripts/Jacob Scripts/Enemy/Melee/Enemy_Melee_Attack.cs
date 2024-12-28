@@ -8,14 +8,13 @@ public class Enemy_Melee_Attack : MonoBehaviour
     public List<GameObject> toHit {get{return hitbox.players;} set{ toHit = value;}}
 
     EnemyMeleeHitbox hitbox;
-    private MeleeEnemyDamage _target;
-    [SerializeField] private float basicDamage;
+    [SerializeField]
+    private float damage;
     public float fireRate;
     private float fireRateTimer = 0;
 
     private void Start()
     {
-        _target = new MeleeEnemyDamage(basicDamage);
         //toHit = GetComponentInChildren<EnemyMeleeHitbox>().players;
         hitbox = GetComponentInChildren<EnemyMeleeHitbox>();
     }
@@ -39,7 +38,7 @@ public class Enemy_Melee_Attack : MonoBehaviour
             {
                 print("hitting " + obj.name);
                 
-                _target.CalculateDamage(obj);
+                obj.gameObject.GetComponent<PlayerDamage>().Damage(damage);
                 break;
             }
            

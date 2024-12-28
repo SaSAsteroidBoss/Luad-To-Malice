@@ -4,7 +4,11 @@ using UnityEngine;
 public class ItemInventory : MonoBehaviour
 {
     public ItemSlot[] itemSlots;
-    
+
+    private void Start()
+    {
+
+    }
     
     public void AddItem(ItemObject item)
      {
@@ -13,6 +17,21 @@ public class ItemInventory : MonoBehaviour
              if (itemSlots[i].item == item && item.name == itemSlots[i].name)
              {
                  itemSlots[i].amount++;
+
+                 switch (item.type)
+                 {
+                     case ItemType.Armour:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                     
+                     case ItemType.Health:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                     
+                     case ItemType.Healing:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                 }
                  
                  break;
 
@@ -30,9 +49,25 @@ public class ItemInventory : MonoBehaviour
                  itemSlots[i].itemData = itemData;
                  itemSlots[i].amount = 1;
                  
+                 switch (item.type)
+                 {
+                     case ItemType.Armour:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                     
+                     case ItemType.Health:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                     
+                     case ItemType.Healing:
+                         item.AddItemSource(this.gameObject);
+                         break;
+                 }
+                 
                  break;
 
              }
+             
 
          }
      }

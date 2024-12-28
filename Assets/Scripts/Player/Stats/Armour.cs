@@ -1,84 +1,37 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 
 public class Armour : MonoBehaviour
 {
-   public int armour;
+   private Stats _stats;
+
+   private ItemInventory inventory;
+
+   public UnityAction OnArmour;
    
-   private ItemSlotData [] _armourSource;
-
-   private float timeIntival = 0;
-   private float gap = 20; // in seconds
-
    void Start()
    {
-      if (gameObject.name == "RangedEnemy")
+      _stats = GetComponent<Stats>();
+      
+      if (gameObject.CompareTag("Player"))
       {
-         float timeElapsed = Time.time / gap;
-         for (int i = 0; i < timeElapsed; i++)
-         {
-            AddArmourAmount(1);
-         }
+         inventory = GetComponent<ItemInventory>();
       }
-      timeIntival = Time.time + gap;
+      
+      OnArmour += HandleArmour;
    }
    private void Update()
    {
       
-      if (gameObject.name == "RangedEnemy")
-      {
-         if (Time.time >= timeIntival)
-         {
-            print("add Armour");
-            AddArmourAmount(1f);
-            timeIntival = Time.time + gap;
-         }
-      }
    }
 
-   public void AddArmourAmount(float increaseArmourAmount)
+   private void HandleArmour()
    {
-      armour += (int)increaseArmourAmount;
-   }
-   public void AddArmourSource(ArmourObject item)
-   {
-      for (var i = 0; i < _armourSource.Length; i++)
+      for (var i = 0; i < inventory.itemSlots.Length; i++)
       {
-         if (_armourSource[i].item == item && _armourSource[i].sourceName == item.name)
+         if (inventory.itemSlots[i].name == "Gel Layer")
          {
-            _armourSource[i].amount++;
-            CalculatePlayerTotalArmour();
-                
-            Debug.Log("Object Already Add");
-
-            break;
-
-         }
-         else if (_armourSource[i].item == null && _armourSource[i].sourceName == string.Empty)
-         {
-            _armourSource[i].item = item;
-            _armourSource[i].sourceName = item.itemName;
-            _armourSource[i].primaryValue = item.mainArmour;
-            _armourSource[i].amount = 1;
-
-            CalculatePlayerTotalArmour();
-                
-            Debug.Log("Object Not Add");
-                 
-            break;
-
-         }
-      }
-   }
-   
-   void CalculatePlayerTotalArmour()
-   {
-      for (var i = 0; i <_armourSource.Length; i++)
-      {
-         if (_armourSource[i].sourceName == "Gel Layer")
-         {   
-            AddArmourAmount(_armourSource[i].primaryValue);
+            _stats.OnIncreaseArmour?.Invoke(inventory.itemSlots[i].itemData.primaryValue);
          }
       }
    }

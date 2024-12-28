@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6170ac2bc25f4364a961e4ab72585cfd, type: 3}
   m_Name: Banage
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   procType: 0
+  primaryValue: 5
+  secondaryValue: 0
   itemName: Banage
   duration: 5
   mainHealValue: 5

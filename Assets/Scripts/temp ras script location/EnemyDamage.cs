@@ -22,7 +22,7 @@ public class EnemyDamage : MonoBehaviour, IDamage
         {
             if (inventory.itemSlots[i].name != "Electric Boogaloo")
             {
-                _stats.UpdateHp?.Invoke(damage - _stats.armour);
+                _stats.OnDecreaseHp?.Invoke(damage - _stats.armour);
             }
             
             if (inventory.itemSlots[i].name == "Electric Boogaloo")
@@ -34,14 +34,12 @@ public class EnemyDamage : MonoBehaviour, IDamage
                 float targetMaxHealth = _stats.maxHp;
                 float damagePercentOfMaxHeath = targetMaxHealth / secondaryDamagePercent;
 
-                _stats.UpdateHp?.Invoke(damage + damagePercentOfDamage + damagePercentOfMaxHeath - _stats.armour);
+                _stats.OnDecreaseHp?.Invoke(damage + damagePercentOfDamage + damagePercentOfMaxHeath - _stats.armour);
             }
         }
         
         
-        _stats.UpdateHp?.Invoke(damage - _stats.armour);
-        
-        
+        _stats.OnDecreaseHp?.Invoke(damage - _stats.armour);
     }
 
     private void SetInventory(ItemInventory localInventory)

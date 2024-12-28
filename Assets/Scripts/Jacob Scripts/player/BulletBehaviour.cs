@@ -29,7 +29,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
            
-            other.gameObject.GetComponent<IPlayerDamage>().Damage(damage);
+            other.gameObject.GetComponent<PlayerDamage>().Damage(damage);
             Destroy(gameObject);
         }
         

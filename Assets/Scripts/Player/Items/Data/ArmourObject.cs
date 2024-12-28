@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ArmourObject : ItemObject
 {
-    public float mainArmour;
-    
     public void Awake()
     {
         type = ItemType.Armour;
@@ -13,7 +11,7 @@ public class ArmourObject : ItemObject
 
     public override void AddItemSource(GameObject player)
     { 
-        player.GetComponent<Armour>().AddArmourSource(this);
+        player.GetComponent<PlayerArmour>().OnArmour?.Invoke();
     }
 }
     

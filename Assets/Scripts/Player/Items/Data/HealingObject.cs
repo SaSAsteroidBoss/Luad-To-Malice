@@ -10,11 +10,11 @@ public class HealingObject : ItemObject
     
     public void Awake()
     {
-        type = ItemType.Health;
+        type = ItemType.Healing;
     }
 
     public override void AddItemSource(GameObject player)
     {
-        player.GetComponent<Health>().AddHealSource(this);
+        player.GetComponent<PlayerHealth>().OnHeal();
     }
 }
