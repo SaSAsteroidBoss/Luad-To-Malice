@@ -509,7 +509,7 @@ MonoBehaviour:
   _maxHp: 100
   _hpRegen: 5
   _armour: 5
-  _damage: 10
+  _damage: 50
 --- !u!114 &2594890095316170269
 MonoBehaviour:
   m_ObjectHideFlags: 0

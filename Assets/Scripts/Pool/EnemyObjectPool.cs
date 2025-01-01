@@ -12,6 +12,12 @@ public class EnemyObjectPool : MonoBehaviour
 
     [SerializeField] private GameObject rangeEnemiesPrefab;
     
+    private readonly List<GameObject> _meleeEnemies = new List<GameObject>();
+
+    [SerializeField] private int amountToPoolMeleeEnemies = 20;
+
+    [SerializeField] private GameObject meleeEnemiesPrefab;
+    
     private void Awake()
     {
         _director = FindAnyObjectByType<GameDirector>();
@@ -29,7 +35,15 @@ public class EnemyObjectPool : MonoBehaviour
             _rangeEnemies.Add(localRangeEnemies);
             _director.OnEnemies?.Invoke(localRangeEnemies);
         }
-        
+     
+        for (int i = 0; i < amountToPoolMeleeEnemies; i++)
+        {
+            var localMeleeEnemies = Instantiate(meleeEnemiesPrefab);
+            localMeleeEnemies.name = "Melee Enemies";
+            localMeleeEnemies.gameObject.SetActive(false);
+            _meleeEnemies.Add(localMeleeEnemies);
+            _director.OnEnemies?.Invoke(localMeleeEnemies);
+        }
     }
 
     public GameObject GetRangeEnemiesPooledObject()
@@ -64,4 +78,39 @@ public class EnemyObjectPool : MonoBehaviour
             _rangeEnemies.Add(localRangeEnemies);
         }
     }
+    
+    public GameObject GetMeleeEnemiesPooledObject()
+    {
+        for (int i = 0; i < _meleeEnemies.Count; i++)
+        {
+            if (!_meleeEnemies[i].activeInHierarchy)
+            {
+                return _meleeEnemies[i];
+            }
+
+        }
+
+        return null;
+    }
+
+    public void RemoveMeleeEnemiesPooledObject(GameObject localMeleeEnemies)
+    {
+        if (localMeleeEnemies != null)
+        {
+            localMeleeEnemies.GetComponent<Stats>().OnHealth?.Invoke();
+            _rangeEnemies.Remove(localMeleeEnemies);
+        }
+    }
+    
+    public void AddMeleeEnemiesPooledObject(GameObject localMeleeEnemies)
+    {
+        if (localMeleeEnemies != null)
+        {
+            localMeleeEnemies.SetActive(false);
+            localMeleeEnemies.gameObject.SetActive(false);
+            _rangeEnemies.Add(localMeleeEnemies);
+        }
+    }
+
+    
 }

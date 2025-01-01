@@ -17,29 +17,33 @@ public class EnemyDamage : MonoBehaviour, IDamage
     }
 
     public void Damage(float damage)
-    {
+    { 
+        
         for (var i = 0; i < inventory.itemSlots.Length; i++)
         {
             if (inventory.itemSlots[i].name != "Electric Boogaloo")
             {
                 _stats.OnDecreaseHp?.Invoke(damage - _stats.armour);
+                
+                break;
             }
             
             if (inventory.itemSlots[i].name == "Electric Boogaloo")
             {
-                float primaryDamagePercent = 100 / (inventory.itemSlots[i].itemData.primaryValue * inventory.itemSlots[i].amount);
-                float damagePercentOfDamage = damage / primaryDamagePercent;
+               float primaryDamagePercent = 100 / (inventory.itemSlots[i].itemData.primaryValue * inventory.itemSlots[i].amount);
+               float damagePercentOfDamage = damage / primaryDamagePercent;
 
                 float secondaryDamagePercent = 100 / (inventory.itemSlots[i].itemData.secondaryValue * inventory.itemSlots[i].amount);
                 float targetMaxHealth = _stats.maxHp;
                 float damagePercentOfMaxHeath = targetMaxHealth / secondaryDamagePercent;
-
+                
                 _stats.OnDecreaseHp?.Invoke(damage + damagePercentOfDamage + damagePercentOfMaxHeath - _stats.armour);
+                
+                break;
             }
         }
         
-        
-        _stats.OnDecreaseHp?.Invoke(damage - _stats.armour);
+       
     }
 
     private void SetInventory(ItemInventory localInventory)

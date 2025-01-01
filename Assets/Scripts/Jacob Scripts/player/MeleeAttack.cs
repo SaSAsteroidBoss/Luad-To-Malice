@@ -10,6 +10,16 @@ public class MeleeAttack : MonoBehaviour
 
     private List<GameObject> toHit = new List<GameObject>();
 
+    private MeleeHitbox mhb;
+    
+    private Stats _stats;
+
+    private void Start()
+    {
+        _stats = GetComponent<Stats>();
+        mhb = GetComponentInChildren<MeleeHitbox>();
+    }
+    
     private void Update()
     {
         if (fireRateTimer > 0)
@@ -23,12 +33,18 @@ public class MeleeAttack : MonoBehaviour
         if (fireRateTimer <= 0)
         {
             print("Player Swinging");
-            toHit = GetComponentInChildren<MeleeHitbox>().enemies;
+            toHit = mhb.enemies;
             foreach (GameObject obj in toHit)
             {
+                Stats enStats = obj.GetComponent<Stats>();
+                EnemyDamage enDamage = obj.GetComponent<EnemyDamage>();
+                
                 print("Hitting Enemy");
-                if (obj.GetComponentInChildren<Enemy_Health>().health <= 100) { GetComponentInChildren<MeleeHitbox>().enemies.Remove(obj); }
-                obj.GetComponentInChildren<Enemy_Health>().DealDamage(100);
+                if (enStats.hp <= 100)
+                {
+                    enDamage.Damage(_stats.damage);
+                }
+                
             }
         }
     }

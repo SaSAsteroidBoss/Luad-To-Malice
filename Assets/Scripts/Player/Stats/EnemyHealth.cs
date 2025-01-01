@@ -31,25 +31,26 @@ public class EnemyHealth : MonoBehaviour, IHealth
     
     private double lastHitInterval;
 
-    private const float HitInterval = 0.5F;
+    private float HitInterval = 0.5F;
 
     public UnityAction OnHealth;
     public UnityAction OnDamage;
     public UnityAction OnCheckHealth;
     
     private UnityAction _onDie;
-    private UnityAction _onDropItem;
+
+    private bool dropitem;
+    private bool once;
     
     public void Start()
     {
         _stats = GetComponent<Stats>();
         OnHealth += HandleHealth;
         _onDie += HandleDeath;
-        _onDropItem += HandleDropItem;
         OnCheckHealth += HandleCheckHealth;
         OnDamage += HandleDamage;
         
-        if(gameObject.CompareTag("Enemy"))
+        if(gameObject.name == "Range Enemies")
         {
             detection = GetComponentInChildren<Enemy_Ranged_Detect>();
         }
@@ -79,6 +80,8 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         if (Hp <= 0)
         {
+            once = true;
+            dropitem = true;
             _onDie?.Invoke();
         }
     }
@@ -94,8 +97,30 @@ public class EnemyHealth : MonoBehaviour, IHealth
         {   
             detection.ResetDetection(gameObject);
             gameObject.SetActive(false);
-            _onDropItem?.Invoke();
+
+            if (dropitem == true)
+            {
+                HandleDropItem();
+                dropitem = false;
+                
+            }
+            
+           
             EnemyObjectPool.Instance.AddRangeEnemiesPooledObject(gameObject);
+            
+        }
+        
+        if (gameObject.name == "Melee Enemies")
+        {   
+            gameObject.SetActive(false);
+         
+            if (dropitem == true)
+            {
+                HandleDropItem();
+                dropitem = false;
+            }
+            
+            EnemyObjectPool.Instance.AddMeleeEnemiesPooledObject(gameObject);
             
         }
     }
@@ -109,51 +134,78 @@ public class EnemyHealth : MonoBehaviour, IHealth
             var itemChance = Random.Range(1, 4);
 
             GameObject itemDrop;
-          
+
             switch (itemChance)
             {
                 case 1:
 
-                    itemDrop = ItemObjectPool.Instance.GetBanagePooledObject();
-                    itemDrop.transform.position = transform.position;
-                    itemDrop.SetActive(true);
-                    ItemObjectPool.Instance.RemoveBanagePooledObject(itemDrop);
+                    if (once)
+                    {
+                        itemDrop = ItemObjectPool.Instance.GetBanagePooledObject();
+                        itemDrop.transform.position = transform.position;
+                        itemDrop.SetActive(true);
+                        ItemObjectPool.Instance.RemoveBanagePooledObject(itemDrop);
                     
-                    itemChance = -1;
+                        itemChance = -1;
+                        randomItemChance = -1;
+                    
+                        once = false;
+                    }
 
+        
                     break;
 
                 case 2:
 
-                    itemDrop = ItemObjectPool.Instance.GetElectricBoogalooPooledObject();
-                    itemDrop.transform.position = transform.position;
-                    itemDrop.SetActive(true);
-                    ItemObjectPool.Instance.RemoveElectricBoogalooPooledObject(itemDrop);
+                    if (once == true)
+                    {
+                        itemDrop = ItemObjectPool.Instance.GetBanagePooledObject();
+                        itemDrop.transform.position = transform.position;
+                        itemDrop.SetActive(true);
+                        ItemObjectPool.Instance.RemoveBanagePooledObject(itemDrop);
                     
-                    itemChance = -1;
-
+                        itemChance = -1;
+                        randomItemChance = -1;
+                    
+                        once = false;
+                    }
+                    
                     break;
 
                 case 3:
 
-                    itemDrop = ItemObjectPool.Instance.GetGelLayerPooledObject();
-                    itemDrop.transform.position = transform.position;
-                    itemDrop.SetActive(true);
-                    ItemObjectPool.Instance.RemoveGelLayerPooledObject(itemDrop);
+                    if (once == true)
+                    {
+                        itemDrop = ItemObjectPool.Instance.GetGelLayerPooledObject();
+                        itemDrop.transform.position = transform.position;
+                        itemDrop.SetActive(true);
+                        ItemObjectPool.Instance.RemoveGelLayerPooledObject(itemDrop);
                     
-                    itemChance = -1;
-
+                        itemChance = -1;
+                        randomItemChance = -1;
+                    
+                        once = false;
+                    }
+                    
+                    
+                    
                     break;
 
                 case 4:
 
-                    itemDrop = ItemObjectPool.Instance.GetSoldierBioticsPooledObject();
-                    itemDrop.transform.position = transform.position;
-                    itemDrop.SetActive(true);
-                    ItemObjectPool.Instance.RemoveSoldierBioticsPooledObject(itemDrop);
+                    if (once == true)
+                    {
+                        itemDrop = ItemObjectPool.Instance.GetSoldierBioticsPooledObject();
+                        itemDrop.transform.position = transform.position;
+                        itemDrop.SetActive(true);
+                        ItemObjectPool.Instance.RemoveSoldierBioticsPooledObject(itemDrop);
 
-                    itemChance = -1;
-
+                        itemChance = -1;
+                        randomItemChance = -1;
+                    
+                        once = false;
+                    }
+                    
                     break;
 
             }

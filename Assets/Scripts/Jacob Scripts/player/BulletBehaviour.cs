@@ -1,25 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class BulletBehaviour : MonoBehaviour
 {
+    private Rigidbody2D rb;
     
     public float speed;
+    
+    private Stats _stats;
 
-    public float damage;
+    public void Setup(Stats localStats)
+    {
+        _stats = localStats;
+    }
+    
 
     private void Start()
     {
         transform.parent = null;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Rigidbody2D>().velocity = transform.up * speed;
+        rb.velocity = transform.up * speed;
         Destroy(gameObject, 2f);
     }
 
@@ -29,7 +34,7 @@ public class BulletBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
            
-            other.gameObject.GetComponent<PlayerDamage>().Damage(damage);
+            other.gameObject.GetComponent<PlayerDamage>().Damage(_stats.damage);
             Destroy(gameObject);
         }
         

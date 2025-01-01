@@ -11,11 +11,10 @@ public class EnemySpawn : MonoBehaviour
 
     private int numSpawns;
 
-    public List<GameObject> enemyTypes = new List<GameObject>();
-
     [SerializeField] private List<Transform> spawnTransforms = new List<Transform>();
 
     public float spawnPlayerDetectionRange;
+  
     public LayerMask layerMask;
 
     private void Update()
@@ -32,24 +31,31 @@ public class EnemySpawn : MonoBehaviour
     private void Spawn()
     {
         
-        int rand = Random.Range(0, spawnTransforms.Count);
-        Collider2D col = Physics2D.OverlapCircle(spawnTransforms[rand].position, spawnPlayerDetectionRange, layerMask);
+        int randEnemy  = Random.Range(1, 100);
+      
+        int randSpawn = Random.Range(0, spawnTransforms.Count);
+      
+        Collider2D col = Physics2D.OverlapCircle(spawnTransforms[randSpawn].position, spawnPlayerDetectionRange, layerMask);
+
         if (col)
         {
-            print("player in range for spawn");
-            GameObject enemiesPooledObject = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
-            enemiesPooledObject.transform.position = spawnTransforms[rand].position;
-            enemiesPooledObject.SetActive(true);
-            EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(enemiesPooledObject);
+            if (randEnemy >= 1 && randEnemy <= 50)
+            {
+                GameObject rangeEnemies = EnemyObjectPool.Instance.GetRangeEnemiesPooledObject();
+                rangeEnemies.transform.position = spawnTransforms[randSpawn].position;
+                rangeEnemies.SetActive(true);
+                EnemyObjectPool.Instance.RemoveRangeEnemiesPooledObject(rangeEnemies);
+            }
+            
+            if (randEnemy >= 51 && randEnemy <= 100)
+            {
+                GameObject meleeEnemies = EnemyObjectPool.Instance.GetMeleeEnemiesPooledObject();
+                meleeEnemies.transform.position = spawnTransforms[randSpawn].position;
+                meleeEnemies.SetActive(true);
+                EnemyObjectPool.Instance.RemoveMeleeEnemiesPooledObject(meleeEnemies);
+            }
             
         }
         
-          
-       
-        
-            
-       
-        
-
     }
 }

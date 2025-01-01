@@ -9,6 +9,13 @@ public class Enemy_Ranged_Detect : MonoBehaviour
 
     public GameObject target;
 
+    private Enemy_Ranged_Seek ers;
+
+    private void Start()
+    {
+        ers = GetComponentInParent<Enemy_Ranged_Seek>();
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -19,7 +26,8 @@ public class Enemy_Ranged_Detect : MonoBehaviour
             // If there is no pre-target
             if (preTarget != null)
             {
-                if (Vector2.Distance(transform.position, collision.transform.position) < Vector2.Distance(transform.position, preTarget.transform.position))
+                if (Vector2.Distance(transform.position, collision.transform.position) <
+                    Vector2.Distance(transform.position, preTarget.transform.position))
                 {
                     preTarget = collision.gameObject;
                 }
@@ -31,32 +39,6 @@ public class Enemy_Ranged_Detect : MonoBehaviour
         }
     }
 
-/*
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //print("Collision lost with: " + collision.gameObject.name);
-        // If a player has exited range
-        if(collision.gameObject.activeInHierarchy)
-
-            if (collision.CompareTag("Player"))
-            {
-                print("Player lost by enemy");
-                // If the target left range
-                if (target != null && collision.gameObject == target.gameObject)
-                {
-                    // Remove the target
-                    GetComponentInParent<Enemy_Ranged_Seek>().target = null;
-                    target = null;
-                }
-                // If the pre-target left range
-                else if (preTarget != null && collision.gameObject == preTarget.gameObject)
-                {
-                    // Remove the pre-target
-                    preTarget = null;
-                }
-        }
-    }
-*/
     // Update is called once per frame
     void Update()
     {
@@ -67,10 +49,11 @@ public class Enemy_Ranged_Detect : MonoBehaviour
             if (preTarget != null)
             {
                 // Check if the new target is closer than the current target
-                if (Vector2.Distance(transform.position, preTarget.transform.position) > Vector2.Distance(transform.position, target.transform.position))
+                if (Vector2.Distance(transform.position, preTarget.transform.position) >
+                    Vector2.Distance(transform.position, target.transform.position))
                 {
                     // Set them as the current target
-                    GetComponentInParent<Enemy_Ranged_Seek>().GoToTarget(preTarget);
+                    ers.GoToTarget(preTarget);
                     target = preTarget;
                     preTarget = null;
                     print("New target set");
@@ -83,7 +66,7 @@ public class Enemy_Ranged_Detect : MonoBehaviour
             if (preTarget != null)
             {
                 // Set them as the current target
-                GetComponentInParent<Enemy_Ranged_Seek>().GoToTarget(preTarget);
+                ers.GoToTarget(preTarget);
                 target = preTarget;
                 preTarget = null;
                 print("New target set");
@@ -94,24 +77,21 @@ public class Enemy_Ranged_Detect : MonoBehaviour
 
     public void ResetDetection(GameObject obj)
     {
-        if(obj.CompareTag("Player"))
+        if (obj.CompareTag("Player"))
         {
-
-        
-            if(obj == target.gameObject)
+            if (obj == target.gameObject)
             {
-             GetComponentInParent<Enemy_Ranged_Seek>().target = null;
-            target = null;
+                ers.target = null;
+                target = null;
             }
-       
-            if(obj == preTarget.gameObject)          
-            {
-            preTarget = null;      
-            }  
-              
 
+            if (obj == preTarget.gameObject)
+            {
+                preTarget = null;
+            }
+            
         }
-              
+
     }
 }
 
