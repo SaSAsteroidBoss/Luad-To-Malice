@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Reece_Tests/Reece_Intro.unity
+    guid: 3b5ae89f925a5b04d873a4a034858ffc
+  - enabled: 1
     path: Assets/Reece_Tests/Reece_MainMenu.unity
     guid: 8daee5a901e4e5e499c68c091861d328
   - enabled: 1
     path: Assets/Level/Scenes/Level 1.unity
     guid: 1f0c653fc32b9b94393ceefac730d365
+  - enabled: 1
+    path: Assets/Reece_Tests/Reece_Scene.unity
+    guid: a5c038050f47dd045b636912e988752f
+  - enabled: 1
+    path: Assets/Reece_Tests/Credits.unity
+    guid: 26b24533d5d4fd84eac85a712b1994d9
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
