@@ -46,8 +46,7 @@ public class Enemy_Ranged_Attack : MonoBehaviour
                {
                    bullet.Setup(_stats);
                }
-
-
+               
                fireRateTimer = fireRate;
             }
         }

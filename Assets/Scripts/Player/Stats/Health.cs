@@ -22,9 +22,13 @@ public class Health : MonoBehaviour
     private Transform _playerSpawnPos;
     
     
-    public void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
+    }
+    public void Start()
+    {
+       
         
         if(gameObject.CompareTag("Enemy"))
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_Melee_Attack : MonoBehaviour
 {
-
+    public GameObject hitboxPrefab;
     public List<GameObject> toHit {get{return hitbox.players;} set{ toHit = value;}}
 
     EnemyMeleeHitbox hitbox;
@@ -20,7 +20,8 @@ public class Enemy_Melee_Attack : MonoBehaviour
     private void Update()
     {
         fireRateTimer -= Time.deltaTime;
-        if (fireRateTimer <= 0 && hitbox.players.Count > 0)
+       // if (fireRateTimer <= 0 && hitbox.players.Count > 0)
+       if(fireRateTimer <= 0)
         {
             EnemySwing();
         }
@@ -28,9 +29,16 @@ public class Enemy_Melee_Attack : MonoBehaviour
 
     private void EnemySwing()
     {
+        var instance = Instantiate(hitboxPrefab, transform.position, transform.rotation);
+        var hitbox = instance.GetComponent<meleeHitBoxPrefab>();
+        if(hitbox != null)
+        {
+            hitbox.Setup(_stats);
+        }
+
+        //print("Enemy Swinging");
         
-        print("Enemy Swinging");
-        
+        /*
         foreach (GameObject obj in toHit)
         {
             if(obj != null)
@@ -40,7 +48,7 @@ public class Enemy_Melee_Attack : MonoBehaviour
             }
            
         }
-
+         */
     fireRateTimer = fireRate;
     }
 }
