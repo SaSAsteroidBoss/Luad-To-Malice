@@ -29,7 +29,7 @@ public class meleeHitBoxPrefab : MonoBehaviour
             print(other.name);
             print("trigger enter Melee");
             var playerDam = other.gameObject.GetComponent<PlayerDamage>();
-            playerDam.Damage(50);
+            playerDam.Damage(20);
            // other.gameObject.GetComponent<PlayerDamage>().Damage(_stats.damage);
             Destroy(gameObject);
         }

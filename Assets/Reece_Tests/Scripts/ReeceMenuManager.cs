@@ -13,12 +13,12 @@ public class ReeceMenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void Menu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
@@ -28,16 +28,16 @@ public class ReeceMenuManager : MonoBehaviour
 
     public void Settings()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void Intro()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void creddits()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(5);
     }
 }
