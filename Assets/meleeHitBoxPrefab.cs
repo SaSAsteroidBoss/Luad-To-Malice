@@ -12,7 +12,7 @@ public class meleeHitBoxPrefab : MonoBehaviour
     private void Start()
     {
        // transform.parent = null;
-        //Destroy(gameObject, 0.4f);
+        Destroy(gameObject, 0.4f);
     }
 
 
@@ -29,13 +29,13 @@ public class meleeHitBoxPrefab : MonoBehaviour
             print(other.name);
             print("trigger enter Melee");
             var playerDam = other.gameObject.GetComponent<PlayerDamage>();
-            playerDam.Damage(50);
+            playerDam.Damage(_stats.damage);
            // other.gameObject.GetComponent<PlayerDamage>().Damage(_stats.damage);
             Destroy(gameObject);
         }
         else if(other.gameObject.CompareTag("Wall"))
         {
-           Destroy(gameObject);
+           //Destroy(gameObject);
         }
 
     }

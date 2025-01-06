@@ -1636,10 +1636,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 977751229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82125869da7261f45aafc35bca0e918f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cf14e1bf0638ee4186998efb539c0bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: {fileID: 102900000, guid: 8daee5a901e4e5e499c68c091861d328, type: 3}
+  SceneName: Reece_MainMenu
 --- !u!1 &1018108672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,8 +1964,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 977751235}
-        m_TargetAssemblyTypeName: ReeceSceneLoader, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_TargetAssemblyTypeName: loadScene, Assembly-CSharp
+        m_MethodName: load
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

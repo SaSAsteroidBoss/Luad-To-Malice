@@ -15,6 +15,7 @@ public class Enemy_Melee_Attack : MonoBehaviour
 
     private void Start()
     {
+        _stats = GetComponent<Stats>();
         hitbox = GetComponentInChildren<EnemyMeleeHitbox>();
     }
     private void Update()
@@ -31,6 +32,7 @@ public class Enemy_Melee_Attack : MonoBehaviour
     {
         var instance = Instantiate(hitboxPrefab, transform.position, transform.rotation);
         var hitbox = instance.GetComponent<meleeHitBoxPrefab>();
+        hitbox.Setup(_stats);
         if(hitbox != null)
         {
             hitbox.Setup(_stats);

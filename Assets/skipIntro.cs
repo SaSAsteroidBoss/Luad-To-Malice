@@ -3,9 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class skipIntro : MonoBehaviour
 {
-
+public string sceneName;
     void OnSkip()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneName);
     }
+
+    
 }
