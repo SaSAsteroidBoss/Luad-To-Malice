@@ -34,7 +34,7 @@ public class SecondPlayerManager : MonoBehaviour
     
     foreach (var device in InputSystem.devices)
     {
-      if (device is Gamepad || device is Keyboard) // Comment out the keyboard part, its only there for bug testing the multiplayer 
+      if (device is Gamepad ) // Comment out the keyboard part, its only there for bug testing the multiplayer 
       {
         AddPlayer(device);
       }
