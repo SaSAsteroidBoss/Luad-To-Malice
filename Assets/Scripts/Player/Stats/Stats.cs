@@ -57,7 +57,7 @@ public class Stats : MonoBehaviour
         set => _inventory = value;
     }
 
-    public UnityAction<float, float> OnIncreaseStats;
+    public UnityAction<float, float, float> OnIncreaseStats;
   
     public UnityAction<float> OnIncreaseHealth;
 
@@ -119,11 +119,12 @@ public class Stats : MonoBehaviour
         }
     }
     
-    private void HandleIncreaseStats(float newArmour, float newHp )
+    private void HandleIncreaseStats(float newArmour, float newHp, float newDamage)
     {
         _armour += newArmour;
         _maxHp += newHp;
         _hp += newHp;
+        _damage += newDamage;
     }
 
     private void HandleIncreaseArmour(float newArmour)

@@ -123,6 +123,19 @@ public class EnemyHealth : MonoBehaviour, IHealth
             EnemyObjectPool.Instance.AddMeleeEnemiesPooledObject(gameObject);
             
         }
+        
+        if (gameObject.name == "Boss")
+        {   
+            gameObject.SetActive(false);
+            
+            if (dropitem == true)
+            {
+                HandleDropItem();
+                dropitem = false;
+            }
+            
+            Destroy(gameObject, 5f);
+        }
     }
 
     private void HandleDropItem()

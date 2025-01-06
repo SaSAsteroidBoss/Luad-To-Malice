@@ -51,6 +51,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
         _onDie += HandleDeath;
     }
     
+    
     private void Update()
     {
         if (Hp < MaxHp)
@@ -64,8 +65,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
                 lastHitInterval = timeNow;
             }
         }
+        
+        if (Hp <= 0)
+        {
+            _onDie?.Invoke();
+        }
     }
-
+    
+  
     private void HandleHealth()
     {
         for (var i = 0; i < inventory.itemSlots.Length; i++)

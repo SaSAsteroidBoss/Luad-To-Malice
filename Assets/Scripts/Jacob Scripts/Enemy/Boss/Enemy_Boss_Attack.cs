@@ -11,11 +11,11 @@ public class Enemy_Boss_Attack : MonoBehaviour
     [Header("AOE Attack")]
     [SerializeField] private float areaDamage;
 
-    private BossDamage _bossDamage;
+    private Stats _stats;
 
     private void Start()
     {
-       _bossDamage = new BossDamage(basicDamage, areaDamage);
+        _stats = GetComponent<Stats>();
     }
 
     public void Basic(GameObject target)
@@ -25,7 +25,7 @@ public class Enemy_Boss_Attack : MonoBehaviour
         // Wait till animation is finished
         // Damage player
         
-        _bossDamage.CalculateDamage(target);
+       target.GetComponent<PlayerDamage>().Damage(_stats.damage);
     }
 
     public void Lunge(GameObject target)
@@ -33,6 +33,8 @@ public class Enemy_Boss_Attack : MonoBehaviour
         print("Boss Lunge activated, speed doubled");
         // Animate
         GetComponent<Enemy_Boss_Seek>().speed = GetComponent<Enemy_Boss_Seek>().speed * 10;
+        
+        target.GetComponent<PlayerDamage>().Damage(_stats.damage);
     }
 
     public void AOE()
@@ -42,7 +44,7 @@ public class Enemy_Boss_Attack : MonoBehaviour
         //Damage Players
         foreach (GameObject g in GetComponentInChildren<Enemy_Boss_AOE_Detect>().playersVulnurable) 
         {
-            _bossDamage.CalculateAeoDamage(g);
+            g.GetComponent<PlayerDamage>().Damage(_stats.damage);
         }
     }
 }

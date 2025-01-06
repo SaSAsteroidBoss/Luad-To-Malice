@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 881889575167814941}
   - component: {fileID: 7673930514614323471}
   - component: {fileID: 3181094005759152120}
-  - component: {fileID: 8104362842228270133}
-  - component: {fileID: 3771246709860712771}
   - component: {fileID: 8530953242679906740}
   m_Layer: 0
   m_Name: Boss
@@ -156,37 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicDamage: 25
   areaDamage: 25
---- !u!114 &8104362842228270133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536647e0fb3612f48b33883cc43d58e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 6000
-  healAmount: 5
-  _healthSource: []
-  _healingSource: []
---- !u!114 &3771246709860712771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263649970320585121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e6dc64717f9e74409cee19ddbb158e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  armour: 500
-  _armourSource: []
 --- !u!61 &8530953242679906740
 BoxCollider2D:
   m_ObjectHideFlags: 0

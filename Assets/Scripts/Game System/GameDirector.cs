@@ -42,7 +42,7 @@ public class GameDirector : MonoBehaviour
             
             for (int i = 0; i < enemies.Count; ++i)
             {
-                enemies[i].OnIncreaseStats?.Invoke(1, 5);
+                enemies[i].OnIncreaseStats?.Invoke(1, 5, 10);
             }
         }
     }
@@ -55,8 +55,8 @@ public class GameDirector : MonoBehaviour
         
         armour.Start();
         health.Start();
-        stats.Start();
-
+        stats.Start(); 
+        
         enemies.Add(stats);
     }
 }
